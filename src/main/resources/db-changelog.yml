@@ -1,0 +1,5 @@
+databaseChangeLog:
+- includeAll:
+    context: dev
+    path: /db/tables
+    errorIfMissingOrEmpty: true
