@@ -8,7 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/document")
 public class DocumentController {
     @GetMapping("/create")
-    public String companyInformation() {
+    public String createDocumentTemplate() {
         return "document/documentTemplate";
+    }
+
+    @GetMapping("/typeList")
+    public String documentTypeList() {
+        return "document/typeList";
     }
 }

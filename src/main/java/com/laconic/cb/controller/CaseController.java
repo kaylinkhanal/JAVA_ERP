@@ -20,7 +20,7 @@ public class CaseController {
 
     @GetMapping("/detail")
     public String caseDetail() {
-        return "case/caseDetail";
+        return "templates/caseSidebar";
     }
 
     @GetMapping("/security")

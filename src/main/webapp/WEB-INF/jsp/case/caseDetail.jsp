@@ -12,6 +12,9 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
       <div class="container mt-5">
         <div class="row">
           <div class="col-md-12">
+            <%@include file="/WEB-INF/jsp/templates/caseSidebar.jsp" %>
+          </div>
+          <div class="col-md-12">
             <h5 class="float-right">
               <span>Customer ID: </span>
               <button type="button" class="btn btn-secondary">00001</button>

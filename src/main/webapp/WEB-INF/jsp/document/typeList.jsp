@@ -5,82 +5,73 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
   <head>
     <meta charset="ISO-8859-1" />
-    <title>Document Template</title>
+    <title>Document Type List</title>
   </head>
   <body>
     <div class="container-wrapper">
       <div class="container">
         <br/>
         <div class="page-header">
-          <h1>Generate Document Template</h1>
+          <h1>Document Type List</h1>
           <hr />
         </div>
-        <form method="post" action="addDocument">
-          
-          <div class="col-xs-12 row">
-          
-            <div class="col-md-10 row">
-             <div class="form-row col-md-12">
-              <div class="form-group col-md-6"></div>
-              <div class="form-group col-md-6">
-                <label for="revision"> Revision: 1</label>
-              </div>
-              <div class="form-group col-md-6">
-                <label for="documentNo">Document No: </label>
-                <input type="text" disabled class="form-control" name="documentNo" />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="branch">Branch: </label>
-                <select id="branch" name="branch" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
-                </select>
-              </div>
-             </div>
-             <div class="form-row col-md-12">
-              <div class="form-group col-md-6">
-                <label for="documentName">Document Name:</label>
-                <input type="text" class="form-control" id="documentName" />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="format">Doc Printing Format: </label>
-                <select id="format" name="format" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
-                </select>
-              </div>
-             </div>
-             <div class="form-row col-md-12">
-              <div class="form-group col-md-6">
-                <label for="documentType">Document Type:</label>
-                <select id="documentType" name="documentType" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
-                </select>
-              </div>
-              <div class="form-group col-md-6">
-                <label for="language">Language:</label>
-                <select id="language" name="language" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
-                </select>
-              </div>
-             </div>
-            </div>
-            <div class="col-md-2">
-              <br><br> <br><br>
-                <button type="button" class="btn btn-primary float-right" id="save"><span class="far fa-save"></span>  Save</button>
-                <br/><br/>
-                <button type="button" class="btn btn-primary float-right" id="cancel"> Cancel</button>
-            </div>
-          </div>
+        <div class="col-md-12">
+            <form method="get" action="searchDocumentType" >
+                <div class="form-row justify-content-end">
+                    <input type="text" class="form-control col-md-6" name="search" id="search" placeholder="Put your document name"/>
+                    <div class="col-me-2"></div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+        <br/>
+       <div class="col-md-12">
+            <form method="post" action="addDocumentType">
+                <div class="form-row justify-content-end">
+                    <div class="form-group col-md-3">
+                    <input type="text" class="form-control" id="passportNo" />
+                    </div>
+                    <div class="form-group col-md-3">
+                    <input type="text" class="form-control" id="email" />
+                    </div>
+                    <div class="form-group col-md-3">
+                    <input type="text" class="form-control" id="contactNo" />
+                    </div>
+                    <div class="form-group">
+                    <button type="button" id="save" class="btn btn-primary float-right"> Save </button>
+                    </div>
+                </div>
+            </form>
+       </div><br/>
+       <h5 for="typeList" class="col-form-label">Document Type List</h5>
+       <div align="center" class="container">
+        <table border="1" width="60%" class="table table-striped">
+          <thead align="center" class="bg-primary">
+            <tr>
+              <td>Document Type</td>
+              <td>Document Type Name</td>
+              <td>Description</td>
+              <td>Action</td>
+              <td>View</td>
+            </tr>
+          </thead>
 
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <textArea type="text" row="3" class="form-control document" id="document" name="document" ></textArea>
-            </div>
-          </div>
-        </form>
+          <tbody align="center">
+            <tr>
+              <td>Final Lease</td>
+              <td>Final Lease</td>
+              <td></td>
+              <td>
+                <i class="far fa-edit"></i>
+                <i class="far fa-trash-alt"></i>
+              </td>
+              <td>
+                <i class="far fa-file-alt"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       </div>
     </div>
   </body>
