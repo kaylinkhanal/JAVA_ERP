@@ -10,21 +10,21 @@ public class CaseController {
 
     @GetMapping("/list")
     public String caseList() {
-        return "caseList";
+        return "case/caseList";
     }
 
     @GetMapping("/create")
     public String createCase() {
-        return "createCase";
+        return "case/createCase";
     }
 
     @GetMapping("/detail")
     public String caseDetail() {
-        return "caseDetail";
+        return "case/caseDetail";
     }
 
     @GetMapping("/security")
     public String caseSecurity() {
-        return "caseSecurity";
+        return "case/caseSecurity";
     }
 }

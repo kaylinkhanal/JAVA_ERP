@@ -8,14 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HomeController {
 
-    @GetMapping("/companyInformation")
-    public String companyInformation() {
-        return "companyInformation";
-    }
-
     @GetMapping("/personalRegister")
     public String personalRegister() {
-        return "personalRegister";
+        return "personal/personalRegister";
     }
 
     @GetMapping("/register")
@@ -25,12 +20,12 @@ public class HomeController {
 
     @GetMapping("/personalContact")
     public String personalContact() {
-        return "personalContact";
+        return "personal/personalContact";
     }
 
     @GetMapping("/personalAddress")
     public String personalAddress() {
-        return "personalAddress";
+        return "personal/personalAddress";
     }
 
 

@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DocumentController {
     @GetMapping("/create")
     public String companyInformation() {
-        return "documentTemplate";
+        return "document/documentTemplate";
     }
 }
