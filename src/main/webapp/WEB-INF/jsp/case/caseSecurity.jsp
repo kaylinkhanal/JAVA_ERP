@@ -20,28 +20,29 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
           </div>
         </div>
         <form class="col-xs-12 border p-3">
-          <div class="col-md-12 row">
-            <div class="col-md-6 row">
-              <h3 class="float-left">
-                <span>Case ID: </span>
-                <button type="button" class="btn btn-secondary">0001</button>
-              </h3>
+          <div class="col-xs-12 row">
+            <div class="col-md-2">
+              <jsp:include page="/WEB-INF/jsp/templates/caseSidebar.jsp" />
             </div>
-            <div class="col-md-6 row">
-              <label class="col-form-label col-md-4" for="location"
-                >Location</label
-              >
-              <select id="status" class="form-control col-md-8">
-                <option selected>Choose...</option>
-                <option>...</option>
-              </select>
-            </div>
-            <div class="col-md-12 row">
-              <input
-                type="button"
-                class="btn btn-primary float-right"
-                value="Save"
-              />
+            <div class="col-md-10 row">
+              <div class="col-md-6 row">
+                <h3 class="float-left">
+                  <span>Case ID: </span>
+                  <button type="button" class="btn btn-secondary">0001</button>
+                </h3>
+              </div>
+              <div class="col-md-6 row">
+                <label class="col-form-label col-md-4" for="location"
+                  >Location</label
+                >
+                <select id="status" class="form-control col-md-8">
+                  <option selected>Choose...</option>
+                  <option>...</option>
+                </select>
+              <div class="col-md-12">
+                <input type="button" class="btn btn-primary float-right" value="Save" />
+              </div>
+              </div>
             </div>
             <br />
           </div>

@@ -27,8 +27,12 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
             </button>
           </h3>
         </div>
-        <form class="col-xs-12">
-          <div class="form-row">
+        <form class="col-xs-12 border p-3">
+        <div class="col-xs-12 row">
+            <div class="col-md-2">
+            <jsp:include page="/WEB-INF/jsp/templates/caseSidebar.jsp" />
+          </div>
+          <div class="form-row col-md-10">
             <div class="form-group col-md-3">
               <label for="search">Search: </label>
               <input type="text" class="form-control" id="search" />
@@ -51,47 +55,51 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
                 <option>...</option>
               </select>
             </div>
+            <div align="center" class="col-md-12">
+              <table border="1" width="100%" class="table table-striped">
+                <thead align="center" class="bg-primary">
+                  <tr>
+                    <td>Adress ID</td>
+                    <td>Address Type</td>
+                    <td>Phone</td>
+                    <td>Country</td>
+                    <td>Status</td>
+                    <td></td>
+                  </tr>
+                </thead>
+                <tbody align="center">
+                  <tr>
+                    <td>001</td>
+                    <td>Home</td>
+                    <td>+662 488-3322</td>
+                    <td>123 ABC Road</td>
+                    <td>Enable</td>
+                    <td>
+                      <i class="far fa-edit"></i>
+                      <i class="far fa-trash-alt"></i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>002</td>
+                    <td>Office</td>
+                    <td>+662 488-3322</td>
+                    <td>123 ABC Road</td>
+                    <td>Enable</td>
+                    <td>
+                      <i class="far fa-edit"></i>
+                      <i class="far fa-trash-alt"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
+          
+        </div>
         </form>
+       
       </div>
-      <div align="center" class="container">
-        <table border="1" width="60%" class="table table-striped">
-          <thead align="center" class="bg-primary">
-            <tr>
-              <td>Adress ID</td>
-              <td>Address Type</td>
-              <td>Phone</td>
-              <td>Country</td>
-              <td>Status</td>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody align="center">
-            <tr>
-              <td>001</td>
-              <td>Home</td>
-              <td>+662 488-3322</td>
-              <td>123 ABC Road</td>
-              <td>Enable</td>
-              <td>
-                <i class="far fa-edit"></i>
-                <i class="far fa-trash-alt"></i>
-              </td>
-            </tr>
-            <tr>
-              <td>002</td>
-              <td>Office</td>
-              <td>+662 488-3322</td>
-              <td>123 ABC Road</td>
-              <td>Enable</td>
-              <td>
-                <i class="far fa-edit"></i>
-                <i class="far fa-trash-alt"></i>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+     
     </div>
   </body>
 </html>
