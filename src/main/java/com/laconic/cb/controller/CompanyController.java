@@ -21,17 +21,22 @@ public class CompanyController {
     @GetMapping("/site")
     public String companySite(Model model) {
         model.addAttribute("companySites", siteService.getAllSites());
-        return "companySite";
+        return "company/companySite";
     }
 
     @GetMapping("/contactPerson")
     public String companyContactPerson() {
-        return "companyContactPerson";
+        return "company/companyContactPerson";
     }
 
     @GetMapping("/finance")
     public String companyFinance() {
-        return "companyFinance";
+        return "company/companyFinance";
+    }
+
+    @GetMapping("/information")
+    public String companyInformation() {
+        return "company/companyInformation";
     }
 
     @PostMapping("addSite")
