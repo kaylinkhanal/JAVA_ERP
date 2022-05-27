@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!-- <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%> -->
-<!-- <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%> -->
+<!-- <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>  -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -109,7 +109,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
               <td></td>
             </tr>
           </thead>
-          <c:forEach var="site" items="${pagedListHolder}">
+          <c:forEach var="site" items="${page.getObjects()}">
             <tbody align="center">
               <tr>
                 <td>${site.getSiteId()}</td>
@@ -126,15 +126,16 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
             </tbody>
           </c:forEach>
         </table>
-        <c:if test="${!isFirst}">
-          <a href="/company/site?page=${currentPage -1}">Previous</a>  
+        <c:if test="${!page.isFirstPage()}">
+          <a href="${page.getPageUrl()}?page=${page.getCurrentPage() -1}">Previous</a>  
         </c:if>
-        <c:forEach var="i" begin="0" end="${lastPageNo-1 }" >
-          <a href="/company/site?page=${i }">${i+1 }</a>    	<!-- Displaying Page No -->
+        <c:forEach var="i" begin="0" end="${page.getLastPageNo()-1 }" >
+          <a href="${page.getPageUrl()}?page=${i }">${i+1 }</a>    	
         </c:forEach>
-        <c:if test="${!isLast}">
-          <a href="/company/site?page=${currentPage +1}">Next</a>  
+        <c:if test="${!page.isLastPage()}">
+          <a href="${page.getPageUrl()}?page=${page.getCurrentPage() +1}">Next</a>  
         </c:if>
+        <!-- <tg:paging page="${page}" /> -->
       </div>
     </div>
   </body>
