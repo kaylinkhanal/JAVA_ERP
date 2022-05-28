@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,9 +9,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
     <title>Register Page</title>
   </head>
   <style>
-    .modal-dialog {
-      padding-top: 15%;
-    }
+
   </style>
   <body>
     <div class="container-wrapper">
@@ -18,69 +18,64 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
           <h1>Personal Information Entry</h1>
           <hr />
         </div>
-        <form>
+         <form method="post" action="addCustomer">
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="customerId">Customer Id</label>
-              <input type="text" class="form-control" id="customerId" />
+              <input type="text" disabled class="form-control" id="customerId" name="customerId" value="${customer.customerId}"/>
             </div>
             <div class="form-group col-md-6">
               <label for="registerDate">Register Date</label>
-              <input type="text" class="form-control" id="registerDate" />
+              <input type="date" class="form-control" id="registerDate" name="registerDate"required/>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="firstName">First Name</label>
-              <input type="text" class="form-control" id="firstName" />
+              <input type="text" class="form-control" id="firstName" name="firstName" required/>
             </div>
             <div class="form-group col-md-6">
               <label for="lastName">Last Name</label>
-              <input type="text" class="form-control" id="lastName" />
+              <input type="text" class="form-control" id="lastName" name="lastName" required/>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="gender">Gender</label>
-              <input type="text" class="form-control" id="gender" />
+              <select id="gender" class="form-control" name="gender" required>
+                <option selected>Choose...</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
             </div>
             <div class="form-group col-md-6">
               <label for="dob">DOB</label>
-              <input type="text" class="form-control" id="dob" />
+              <input type="date" class="form-control" id="dob" name="dateOfBirth" required/>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="passportNo">ID/Passport No:</label>
-              <input type="text" class="form-control" id="passportNo" />
+              <input type="text" class="form-control" id="passportNo" name="idPassportNo" required/>
             </div>
             <div class="form-group col-md-4">
               <label for="email">Email:</label>
-              <input type="text" class="form-control" id="email" />
+              <input type="text" class="form-control" id="email" name="email" required/>
             </div>
 
             <div class="form-group col-md-4">
               <label for="contactNo">Contact No</label>
-              <input type="text" class="form-control" id="contactNo" />
+              <input type="text" class="form-control" id="contactNo" name="contactNo" required />
             </div>
           </div>
-          <button type="button" id="save" class="btn btn-primary">Save</button
+          <button type="submit" id="save" class="btn btn-primary">Save</button
           ><br /><br />
-          <input
-            type="button"
-            class="btn btn-primary"
-            value="Add Address"
-            name="personalAddress"
-            onclick="openPage('personalAddress')"
-          />
-          <input
-            type="button"
-            class="btn btn-primary"
-            value="Add Contact Person"
-            name="personalContact"
-            onclick="openPage('personalContact')"
-          />
-        </form>
+         <c:if test="${customer != null}">
+           <input type="button" class="btn btn-primary" value="Add Address" name="personalAddress" onclick="openPage('personalAddress?customerId=${customer.customerId}')" />
+           <input type="button" class="btn btn-primary" value="Add Contact Person" name="personalContact" onclick="openPage('personalContact')"/>
+         </c:if>
+         </form>
       </div>
     </div>
     <div id="saveModal" class="modal" tabindex="-1" role="dialog">
@@ -92,7 +87,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
             process next step
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary">Next</button>
+            <button type="button" class="btn btn-secondary" onclick="openPage('/personalAddress?customerId=${customer.customerId}')">Next</button>
             <button
               type="button"
               class="btn btn-secondary"
@@ -108,10 +103,8 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
 </html>
 
 <script type="text/javascript">
-
-
-  $("#save").click(function () {
+  <c:if test="${customer != null}">
     $("#saveModal").modal("show");
-  });
+  </c:if>
 </script>
 <script><%@include file="/WEB-INF/script/common.js" %></script>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -14,32 +16,51 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
           <hr />
         </div>
 
-        <form>
+        <form method="post" action="/addAddress">
+          <input type="hidden" value="${customer.customerId}" name="customer" id="customer" />
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="addressId">Address Id: </label>
-              <input type="text" disabled class="form-control" id="addressId" />
+              <input type="text" disabled class="form-control" id="addressId" name="addressId" value="${address.addressId}" />
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="addressType">Address Type: </label>
-              <select id="addressType" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
+              <select id="addressType" name="addressType" class="form-control" value="${address.addressType}" required>
+                <c:choose>
+                  <c:when test="${address == null}">
+                    <option selected value="">Choose...</option>
+                  </c:when>
+                  <c:otherwise>
+                    <option selected value="${address.addressType}">${address.addressType}</option>
+                  </c:otherwise>
+                </c:choose>
+                <option value="Home">Home</option>
+                <option value="Office">Office</option>
               </select>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-8">
               <label for="addressNo">Address No: </label>
-              <input type="text" class="form-control" id="addressNo" />
+              <input type="text" class="form-control" id="addressNo" name="addressNo" value="${address.addressNo}" required />
             </div>
             <div class="form-group col-md-4">
               <label for="country">Country</label>
-              <select id="country" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
+              <select id="country"  name="country" class="form-control" required/>
+                <c:choose>
+                  <c:when test="${address == null}">
+                    <option selected value="">Choose...</option>
+                  </c:when>
+                  <c:otherwise>
+                    <option selected value="${address.country.countryId}">${address.country.countryName}</option>
+                  </c:otherwise>
+                </c:choose>
+
+                <c:forEach var="country" items="${countries }" >
+                  <option value="${country.countryId }">${country.countryName}</option>
+                </c:forEach>
               </select>
             </div>
           </div>
@@ -47,20 +68,27 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="phone1">Phone1: </label>
-              <input type="text" class="form-control" id="phone1" />
+              <input type="text" class="form-control" id="phone1" name="phone1" value="${address.phone1}" required />
             </div>
             <div class="form-group col-md-4">
               <label for="phone2">Phone2: </label>
-              <input type="text" class="form-control" id="phone2" />
+              <input type="text" class="form-control" id="phone2" name="phone2" value="${address.phone2}" required />
             </div>
 
             <div class="form-group col-md-4">
               <label for="fax">Fax: </label>
-              <input type="text" class="form-control" id="fax" />
+              <input type="text" class="form-control" id="fax" name="fax" value="${address.fax}" required/>
             </div>
           </div>
-          <button type="button" class="btn btn-primary">Save</button
-          ><br /><br />
+          <c:choose>
+            <c:when test="${address == null}">
+              <input type="submit" class="btn btn-primary" value="Save">
+            </c:when>
+            <c:otherwise>
+              <input type="submit" class="btn btn-primary" value="Update">
+            </c:otherwise>
+          </c:choose>
+          <br /><br />
         </form>
       </div>
       <div align="center" class="container">
@@ -75,33 +103,50 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
               <td></td>
             </tr>
           </thead>
-
-          <tbody align="center">
-            <tr>
-              <td>001</td>
-              <td>Home</td>
-              <td>+662 488-3322</td>
-              <td>123 ABC Road</td>
-              <td>Enable</td>
-              <td>
-                <i class="far fa-edit"></i>
-                <i class="far fa-trash-alt"></i>
-              </td>
-            </tr>
-            <tr>
-              <td>002</td>
-              <td>Office</td>
-              <td>+662 488-3322</td>
-              <td>123 ABC Road</td>
-              <td>Enable</td>
-              <td>
-                <i class="far fa-edit"></i>
-                <i class="far fa-trash-alt"></i>
-              </td>
-            </tr>
-          </tbody>
+           <c:forEach var="address" items="${addresses}">
+            <tbody align="center">
+              <tr>
+                <td>${address.addressId}</td>
+                <td>${address.addressType}</td>
+                <td>${address.phone1}</td>
+                <td>${address.country.countryName}</td>
+                <td>Enable</td>
+                <td>
+                  <i class="far fa-edit icon-button" onclick="openPage('/editAddress/${address.addressId}')"></i>
+                  <i class="far fa-trash-alt icon-button" onclick="openPage('/deleteAddress/${address.addressId}')"></i>
+                </td>
+              </tr>
+            </tbody>
+          </c:forEach>
         </table>
+      </div>
+    </div>
+    <div id="saveModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <h2>Successfully</h2>
+          <div class="modal-body">
+            Thank you for your registration. Your Personal ID is XXXX Please
+            process next step
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="openPage('/personalContact?customerId=${customer.customerId}')">Next</button>
+            <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </body>
 </html>
+<script type="text/javascript">
+  <c:if test="${address != null}">
+  $("#saveModal").modal("show");
+  </c:if>
+</script>
+<script><%@include file="/WEB-INF/script/common.js" %></script>

@@ -52,7 +52,5 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
     $("#registerModal").modal("show");
   });
 
-  function openPage(pageURL) {
-    window.location.href = pageURL;
-  }
 </script>
+<script><%@include file="/WEB-INF/script/common.js" %></script>

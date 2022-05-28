@@ -60,4 +60,6 @@ public class Site extends BaseEntity {
     private String subDistrict;
     @Column(name = "ZIP_CODE")
     private String zipCode;
+    @Column(name = "IS_DELETED")
+    private Boolean isDeleted = false;
 }

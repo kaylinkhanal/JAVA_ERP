@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
-<!DOCTYPE html>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%><!DOCTYPE html>
 <html>
   <head>
     <meta charset="ISO-8859-1" />
@@ -18,23 +19,24 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
           <h1>Personal Contact Person Information</h1>
           <hr />
         </div>
-        <form>
+        <form method="post" action="addContactPerson">
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="contactId">Contact Id: </label>
-              <input type="text" disabled class="form-control" id="contactId" />
+              <input type="text" disabled class="form-control" id="contactId" name="contactId" />
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-8">
               <label for="contactName">Contact Name: </label>
-              <input type="text" class="form-control" id="contactName" />
+              <input type="text" class="form-control" id="contactName" name="contactName" />
             </div>
             <div class="form-group col-md-4">
               <label for="addressType">Address Type: </label>
-              <select id="addressType" class="form-control">
+              <select id="addressType" name="addressType" class="form-control">
                 <option selected>Choose...</option>
-                <option>...</option>
+                <option value="Home">Home</option>
+                <option value="Office">Office</option>
               </select>
             </div>
           </div>
@@ -42,30 +44,25 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="phone">Phone: </label>
-              <input type="text" class="form-control" id="phone" />
+              <input type="text" class="form-control" id="phone" name="phone" />
             </div>
             <div class="form-group col-md-4">
               <label for="email">Email: </label>
-              <input type="text" class="form-control" id="email" />
+              <input type="text" class="form-control" id="email" name="email" />
             </div>
 
             <div class="form-group col-md-4">
               <label for="relationship">Relationship: </label>
-              <input type="text" class="form-control" id="relationship" />
+              <input type="text" class="form-control" id="relationship" name="relationship" />
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-12">
               <label for="description">Description: </label>
-              <textArea
-                type="text"
-                row="3"
-                class="form-control"
-                id="description"
-              ></textArea>
+              <textArea type="text" row="3"  class="form-control" id="description" name="description" ></textArea>
             </div>
           </div>
-          <button type="button" id="save" class="btn btn-primary">Save</button
+          <button type="submit" id="save" class="btn btn-primary">Save</button
           ><br /><br />
         </form>
       </div>
@@ -84,32 +81,22 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
             </tr>
           </thead>
 
-          <tbody align="center">
+          <c:forEach var="contact" items="${contacts}">
+            <tbody align="center">
             <tr>
-              <td>001</td>
-              <td>Home</td>
-              <td>+662 488-3322</td>
-              <td>Sister</td>
-              <td>abc@gmail.com</td>
+              <td>${contact.contactId}</td>
+              <td>${contact.addressType}</td>
+              <td>${contact.phone}</td>
+              <td>${contact.relationship}</td>
+              <td>${contact.email}</td>
               <td>Enable</td>
               <td>
                 <i class="far fa-edit"></i>
                 <i class="far fa-trash-alt"></i>
               </td>
             </tr>
-            <tr>
-              <td>002</td>
-              <td>Office</td>
-              <td>+662 488-3322</td>
-              <td>Sister</td>
-              <td>abc@gmail.com</td>
-              <td>Enable</td>
-              <td>
-                <i class="far fa-edit"></i>
-                <i class="far fa-trash-alt"></i>
-              </td>
-            </tr>
-          </tbody>
+            </tbody>
+          </c:forEach>
         </table>
       </div>
     </div>
@@ -138,7 +125,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
 </html>
 
 <script type="text/javascript">
-  $("#save").click(function () {
-    $("#saveModal").modal("show");
-  });
+  // $("#save").click(function () {
+  //   $("#saveModal").modal("show");
+  // });
 </script>

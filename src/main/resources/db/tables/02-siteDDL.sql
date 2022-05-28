@@ -28,5 +28,6 @@ create table LACONIC.SITE (
         STREET_ADDRESS	VARCHAR2(500),
         SUB_DISTRICT	VARCHAR2(500),
         ZIP_CODE	VARCHAR2(100),
+        IS_DELETED VARCHAR2(1) not null,
         primary key (SITE_ID)
 )

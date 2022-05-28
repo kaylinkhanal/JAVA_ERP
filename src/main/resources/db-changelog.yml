@@ -3,3 +3,8 @@ databaseChangeLog:
     context: dev
     path: /db/tables
     errorIfMissingOrEmpty: true
+- include:
+    context: dev
+    file: /db/data/seedData.yml
+    errorIfMissingOrEmpty: true
+
