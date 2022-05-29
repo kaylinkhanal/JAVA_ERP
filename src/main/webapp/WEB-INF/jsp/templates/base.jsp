@@ -28,8 +28,14 @@
          .modal-dialog {
              padding-top: 15%;
          }
+         .header {
+             margin: 1px;
+         }
       </style>
    </head>
+    <body>
+    <%@include file="/WEB-INF/jsp/templates/header.jsp" %>
+    </body>
 </html>
 <script><%@include file="/WEB-INF/richText/jquery.richtext.min.js" %></script>
 <script><%@include file="/WEB-INF/script/jquery-slim.min.js" %></script>

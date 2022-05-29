@@ -1,19 +1,22 @@
 package com.laconic.cb.model;
 
 import com.laconic.cb.enums.Gender;
-import com.laconic.cb.enums.Relationship;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "CUSTOMER")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer {
+public class Customer extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "CUSTOMER_ID")
@@ -28,6 +31,9 @@ public class Customer {
     @Column(name = "EMAIL")
     private String email;
     @Column(name = "CODE")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "customer_code_sequence", sequenceName= "customer_code_sequence",
+            initialValue = 00000, allocationSize = 10)
     private String code;
     @Column(name = "CONTACT_NO")
     private String contactNo;

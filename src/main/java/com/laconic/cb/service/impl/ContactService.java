@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ContactService implements IContactService {
 
@@ -19,13 +21,26 @@ public class ContactService implements IContactService {
     }
 
     @Override
-    public void saveContactPerson(Contact contact) {
-        contactRepository.save(contact);
+    public Contact saveContactPerson(Contact contact) {
+        return contactRepository.save(contact);
     }
 
     @Override
     public Page<Contact> getAllContactPerson(int pageNo) {
         Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
-        return contactRepository.findAll(pageable);
+        return contactRepository.findAllByIsDeletedFalse(pageable);
+    }
+
+    public void softDeleteContact(Long contactId) {
+        contactRepository.softDeleteContact(contactId);
+    }
+
+    public Contact updateContactPerson(Contact contact) {
+        return contactRepository.saveAndFlush(contact);
+    }
+
+    @Override
+    public Optional<Contact> findById(Long contactId) {
+        return contactRepository.findByContactIdAndIsDeletedFalse(contactId);
     }
 }

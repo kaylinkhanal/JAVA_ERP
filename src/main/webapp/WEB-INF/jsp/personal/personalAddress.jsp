@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
+pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
@@ -121,27 +121,11 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/base.jsp" %>
         </table>
       </div>
     </div>
-    <div id="saveModal" class="modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <h2>Successfully</h2>
-          <div class="modal-body">
-            Thank you for your registration. Your Personal ID is XXXX Please
-            process next step
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" onclick="openPage('/personalContact?customerId=${customer.customerId}')">Next</button>
-            <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-dismiss="modal"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <jsp:include page="/WEB-INF/jsp/templates/basicModal.jsp">
+      <jsp:param name="message" value="Thank you for your registration. Your Personal ID is ${customer.customerId} Please
+            process next step" />
+      <jsp:param name="url" value="/personalContact?customerId=${customer.customerId}"/>
+    </jsp:include>
   </body>
 </html>
 <script type="text/javascript">

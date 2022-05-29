@@ -1,20 +1,18 @@
 package com.laconic.cb.model;
 
 import com.laconic.cb.enums.AddressType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @Table(name = "ADDRESS")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Address {
+public class Address extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ADDRESS_ID")

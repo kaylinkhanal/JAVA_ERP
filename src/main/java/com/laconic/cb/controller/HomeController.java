@@ -43,26 +43,31 @@ public class HomeController {
 
     @GetMapping("/register")
     public String register() {
-        return "register";
+        return "/templates/register";
     }
 
     @GetMapping("/personalContact")
-    public String personalContact(Model model,
+    public String personalContact(Model model, @RequestParam(value = "customerId", required = false) Long customerId,
                                   @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo) {
         List<Contact> contactList = contactService.getAllContactPerson(pageNo).stream().collect(Collectors.toList());
         model.addAttribute("contacts", contactList);
+        getCustomer(model, customerId);
         return "personal/personalContact";
     }
 
     @GetMapping("/personalAddress")
     public String personalAddress(Model model, @RequestParam(value = "customerId", required = false) Long customerId,
                                   @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo) {
+        getCustomer(model, customerId);
+        addressPageInformation(pageNo, model);
+        return "personal/personalAddress";
+    }
+
+    private void getCustomer(Model model, Long customerId) {
         if (customerId != null) {
             Optional<Customer> customer = customerService.findById(customerId);
             model.addAttribute("customer", customer.get());
         }
-        addressPageInformation(pageNo, model);
-        return "personal/personalAddress";
     }
 
     @PostMapping("/addCustomer")
@@ -109,9 +114,28 @@ public class HomeController {
     }
 
     @PostMapping("/addContactPerson")
-    public String addContactPerson(Model model, @ModelAttribute Contact contact) {
-        contactService.saveContactPerson(contact);
+    public String addContactPerson(RedirectAttributes model, Contact contact) {
+        Contact savedContact;
+        if (contact.getContactId() != null) {
+            savedContact = contactService.updateContactPerson(contact);
+        } else savedContact = contactService.saveContactPerson(contact);
+        model.addFlashAttribute("customer", savedContact.getCustomer());
+        model.addFlashAttribute("contact", savedContact);
         return "redirect:personalContact";
     }
+    @GetMapping("/editContactPerson/{id}")
+    public String editContactPerson(@PathVariable("id") Long contactId, RedirectAttributes model) {
+        Optional<Contact> contact = contactService.findById(contactId);
+        if (contact.isPresent()) {
+            model.addFlashAttribute("contact", contact.get());
+            model.addFlashAttribute("customer", contact.get().getCustomer());
+        }
+        return "redirect:/personalContact";
+    }
 
+    @GetMapping("/deleteContactPerson/{id}")
+    public String deleteContactPerson(@PathVariable("id") Long contactId) {
+        contactService.softDeleteContact(contactId);
+        return "redirect:/personalContact";
+    }
 }
