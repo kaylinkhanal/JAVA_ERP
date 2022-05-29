@@ -1,5 +1,7 @@
 package com.laconic.cb.model;
 
+import com.laconic.cb.enums.AddressType;
+import com.laconic.cb.enums.Relationship;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -65,4 +67,12 @@ public class Contact extends BaseEntity {
     private Site site;
     @Column(name = "TITLE")
     private String title;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ADDRESS_TYPE")
+    private AddressType addressType;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "RELATIONSHIP")
+    private Relationship relationship;
+    @Column(name = "IS_DELETED")
+    private Boolean isDeleted = false;
 }
