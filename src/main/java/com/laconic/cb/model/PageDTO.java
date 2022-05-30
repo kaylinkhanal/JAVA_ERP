@@ -1,13 +1,13 @@
 package com.laconic.cb.model;
 
-import lombok.*;
+
+import lombok.Builder;
+import lombok.Data;
 
 import java.util.List;
 
 @Data
 @Builder
-@Getter
-@Setter
 public class PageDTO {
     private int pageCount;
     private boolean isFirstPage;
@@ -17,4 +17,36 @@ public class PageDTO {
     private int page;
     private String pageUrl;
     private List<?> objects;
+
+    public int getPageCount() {
+        return pageCount;
+    }
+
+    public boolean isFirstPage() {
+        return isFirstPage;
+    }
+
+    public boolean isLastPage() {
+        return isLastPage;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public int getLastPageNo() {
+        return lastPageNo;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public String getPageUrl() {
+        return pageUrl;
+    }
+
+    public List<?> getObjects() {
+        return objects;
+    }
 }

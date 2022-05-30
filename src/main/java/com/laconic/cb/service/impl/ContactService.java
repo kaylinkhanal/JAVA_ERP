@@ -43,4 +43,9 @@ public class ContactService implements IContactService {
     public Optional<Contact> findById(Long contactId) {
         return contactRepository.findByContactIdAndIsDeletedFalse(contactId);
     }
+
+    @Override
+    public long getTotalContact() {
+        return contactRepository.countByIsDeletedFalse();
+    }
 }

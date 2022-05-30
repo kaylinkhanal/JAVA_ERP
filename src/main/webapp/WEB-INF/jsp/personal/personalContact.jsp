@@ -114,6 +114,9 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
             </tbody>
           </c:forEach>
         </table>
+        <jsp:include page="/WEB-INF/jsp/templates/page.jsp">
+          <jsp:param name="page" value="${page}" />
+        </jsp:include>
       </div>
     </div>
     <div id="saveModal" class="modal" tabindex="-1" role="dialog">

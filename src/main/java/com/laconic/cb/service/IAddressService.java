@@ -14,4 +14,6 @@ public interface IAddressService {
     void softDeleteAddress(Long addressId);
 
     Optional<Address> findById(Long id);
+
+    long getTotalAddress();
 }

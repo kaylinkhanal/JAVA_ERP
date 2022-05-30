@@ -20,4 +20,6 @@ public interface IContactRepository extends JpaRepository<Contact, Long> {
 
     Page<Contact> findAllByIsDeletedFalse(Pageable pageable);
     Optional<Contact> findByContactIdAndIsDeletedFalse(Long addressId);
+
+    long countByIsDeletedFalse();
 }

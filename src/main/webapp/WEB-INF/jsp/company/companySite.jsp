@@ -49,12 +49,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           <div class="form-row">
             <div class="form-group col-md-8">
               <label for="address">Address: </label>
-              <input
-                type="text"
-                class="form-control"
-                id="addressNo"
-                name="addressNo"
-              />
+              <input type="text" class="form-control" id="address" name="address" />
             </div>
             <div class="form-group col-md-4">
               <label for="country">Country</label>
@@ -107,7 +102,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
               <td></td>
             </tr>
           </thead>
-          <c:forEach var="site" items="${page.getObjects()}">
+          <c:forEach var="site" items="${page.objects}">
             <tbody align="center">
               <tr>
                 <td>${site.getSiteId()}</td>
@@ -124,16 +119,9 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
             </tbody>
           </c:forEach>
         </table>
-        <c:if test="${!page.isFirstPage()}">
-          <a href="${page.getPageUrl()}?page=${page.getCurrentPage() -1}">Previous</a>  
-        </c:if>
-        <c:forEach var="i" begin="0" end="${page.getLastPageNo()-1 }" >
-          <a href="${page.getPageUrl()}?page=${i }">${i+1 }</a>    	
-        </c:forEach>
-        <c:if test="${!page.isLastPage()}">
-          <a href="${page.getPageUrl()}?page=${page.getCurrentPage() +1}">Next</a>  
-        </c:if>
-        <!-- <tg:paging page="${page}" /> -->
+        <jsp:include page="/WEB-INF/jsp/templates/page.jsp">
+          <jsp:param name="page" value="${page}" />
+        </jsp:include>
       </div>
     </div>
   </body>

@@ -29,7 +29,6 @@ public class Pagination {
                 .objects(objects)
                 .pageUrl(pageUrl)
                 .build();
-
         model.put("page", pageDTO);
     }
 }

@@ -4,12 +4,16 @@ import com.laconic.cb.constants.AppConstants;
 import com.laconic.cb.model.Address;
 import com.laconic.cb.model.Contact;
 import com.laconic.cb.model.Customer;
+import com.laconic.cb.model.Site;
 import com.laconic.cb.service.IAddressService;
 import com.laconic.cb.service.IContactService;
 import com.laconic.cb.service.ICountryService;
 import com.laconic.cb.service.ICustomerService;
+import com.laconic.cb.utils.Pagination;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -48,18 +52,23 @@ public class HomeController {
 
     @GetMapping("/personalContact")
     public String personalContact(Model model, @RequestParam(value = "customerId", required = false) Long customerId,
-                                  @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo) {
-        List<Contact> contactList = contactService.getAllContactPerson(pageNo).stream().collect(Collectors.toList());
+                                  @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+                                  ModelMap modelMap) {
+        Page<Contact> contactList = contactService.getAllContactPerson(pageNo);
         model.addAttribute("contacts", contactList);
+        long totalContact = contactService.getTotalContact();
+        Pagination.getPagination(modelMap, contactList, totalContact,
+                contactList.getContent().stream().collect(Collectors.toList()), "/personalContact");
         getCustomer(model, customerId);
         return "personal/personalContact";
     }
 
     @GetMapping("/personalAddress")
-    public String personalAddress(Model model, @RequestParam(value = "customerId", required = false) Long customerId,
+    public String personalAddress(Model model, ModelMap modelMap,
+                                  @RequestParam(value = "customerId", required = false) Long customerId,
                                   @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo) {
         getCustomer(model, customerId);
-        addressPageInformation(pageNo, model);
+        addressPageInformation(pageNo, model, modelMap);
         return "personal/personalAddress";
     }
 
@@ -98,17 +107,20 @@ public class HomeController {
     }
 
     @GetMapping("/editAddress/{id}")
-    public String editAddress(Model model, @PathVariable("id") Long id) {
+    public String editAddress(Model model, @PathVariable("id") Long id, ModelMap modelMap) {
         Optional<Address> address = addressService.findById(id);
         if (address.isPresent()) {
             model.addAttribute("address", address.get());
         }
-        addressPageInformation(AppConstants.DEFAULT_PAGE, model);
+        addressPageInformation(AppConstants.DEFAULT_PAGE, model, modelMap);
         return "personal/personalAddress";
     }
 
-    private void addressPageInformation(int defaultPage, Model model) {
-        List<Address> addressList = addressService.getAllAddress(defaultPage).getContent().stream().collect(Collectors.toList());
+    private void addressPageInformation(int defaultPage, Model model, ModelMap modelMap) {
+        Page<Address> addresses = addressService.getAllAddress(defaultPage);
+        List<Address> addressList = addresses.getContent().stream().collect(Collectors.toList());
+        long totalContact = addressService.getTotalAddress();
+        Pagination.getPagination(modelMap, addresses, totalContact, addressList, "/personalAddress");
         model.addAttribute("countries", countryService.getAllCountries());
         model.addAttribute("addresses", addressList);
     }
