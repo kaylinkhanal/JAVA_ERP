@@ -42,10 +42,10 @@
 <%@include file="/WEB-INF/jsp/templates/header.jsp" %>
 </body>
 </html>
-<script><%@include file="/WEB-INF/richText/jquery.richtext.min.js" %></script>
 <script><%@include file="/WEB-INF/script/jquery-slim.min.js" %></script>
 <script><%@include file="/WEB-INF/script/popper.min.js" %></script>
 <script><%@include file="/WEB-INF/script/jquery.min.js" %></script>
 <script><%@include file="/WEB-INF/script/bootstrap-4-min.js" %></script>
 <script><%@include file="/WEB-INF/script/bootstrap.min.js" %></script>
 <script><%@include file="/WEB-INF/script/common.js" %></script>
+<script><%@include file="/WEB-INF/richText/jquery.richtext.min.js" %></script>
