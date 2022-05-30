@@ -71,11 +71,16 @@ public class DocumentController {
     @PostMapping("/addDocument")
     public String addDocument(RedirectAttributes model, Document document) {
         Document savedDocument;
+
+        //////// needs to be refactored
+        document.setDocumentNo(15L);
+        DocumentType documentType = documentTypeService.findById(3L).get();
+        document.setDocumentType(documentType);
         if (document.getDocumentId() != null) {
             savedDocument = documentService.updateDocument(document);
         } else savedDocument = documentService.saveDocument(document);
         model.addFlashAttribute("document", savedDocument);
-        return "redirect:/document/List";
+        return "redirect:/document/typeList";
     }
     @GetMapping("/editDocument/{id}")
     public String editDocument(@PathVariable("id") Long documentId, RedirectAttributes model) {
@@ -83,12 +88,29 @@ public class DocumentController {
         if (document.isPresent()) {
             model.addFlashAttribute("document", document.get());
         }
-        return "redirect:/document/List";
+        return "redirect:/document/typeList";
     }
 
     @GetMapping("/deleteDocument/{id}")
     public String deleteDocument(@PathVariable("id") Long documentId) {
         documentService.softDeleteDocument(documentId);
-        return "redirect:/document/List";
+        return "redirect:/document/typeList";
+    }
+
+    ///// need to be refactored
+    @GetMapping("/findDocumentTemplate/{id}")
+    public String findDocumentTemplate(@PathVariable("id") Long documentId, RedirectAttributes model) {
+        Optional<Document> document = documentService.findById(documentId);
+        if (document.isPresent()) {
+            model.addFlashAttribute("document", document.get());
+            if (document.get().getContent() != null) {
+                if (document.get().getContent().contains("@Customer")) {
+                    document.get().setContent(document.get().getContent().replace("@Customer", "Mandeep Dhakal"));
+
+                }
+            }
+        }
+        System.out.println(document.get().getContent());
+        return "redirect:/document/typeList";
     }
 }

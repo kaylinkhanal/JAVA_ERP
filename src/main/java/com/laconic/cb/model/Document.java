@@ -30,6 +30,10 @@ public class Document extends BaseEntity {
     private Long documentNo;
     @Column(name = "BRANCH")
     private String branch;
+    @Column(name = "CONTENT", columnDefinition = "TEXT")
+    private String content;
+    @Column(name = "PRINTING_FORMAT")
+    private String printingFormat;
     @Column(name = "LANGUAGE")
     private String language;
     @Column(name = "IS_DELETED")
