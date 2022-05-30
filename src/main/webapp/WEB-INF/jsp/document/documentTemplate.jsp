@@ -102,6 +102,5 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         popupWin.document.close();
      });
 </script>
-<script><%@include file="/WEB-INF/script/common.js" %></script>
 
 

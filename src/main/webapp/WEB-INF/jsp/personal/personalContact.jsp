@@ -97,7 +97,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
             </tr>
           </thead>
 
-          <c:forEach var="contact" items="${contacts}">
+          <c:forEach var="contact" items="${page.objects}">
             <tbody align="center">
             <tr>
               <td>${contact.contactId}</td>
@@ -138,4 +138,8 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
 
   </body>
 </html>
-<script><%@include file="/WEB-INF/script/common.js" %></script>
+<%--<script type="text/javascript">--%>
+<%--  $(document).ready(function() {--%>
+<%--    let customer = getStorage("customer");--%>
+<%--  });--%>
+<%--</script>--%>

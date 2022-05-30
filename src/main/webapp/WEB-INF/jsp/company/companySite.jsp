@@ -126,6 +126,5 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
     </div>
   </body>
 </html>
-<script><%@include file="/WEB-INF/script/common.js" %></script>
 
 

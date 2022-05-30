@@ -72,27 +72,12 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           <button type="submit" id="save" class="btn btn-primary">Save</button
           ><br /><br />
          <c:if test="${customer != null}">
-           <input type="button" class="btn btn-primary" value="Add Address" name="personalAddress" onclick="openPage('personalAddress?customerId=${customer.customerId}')" />
+           <input type="button" class="btn btn-primary" value="Add Address" name="personalAddress" onclick="nextPage()" />
            <input type="button" class="btn btn-primary" value="Add Contact Person" name="personalContact" onclick="openPage('personalContact')"/>
          </c:if>
          </form>
       </div>
     </div>
-<%--    <div id="saveModal" class="modal" tabindex="-1" role="dialog">--%>
-<%--      <div class="modal-dialog" role="document">--%>
-<%--        <div class="modal-content">--%>
-<%--          <h2>Successfully</h2>--%>
-<%--          <div class="modal-body">--%>
-<%--            Thank you for your registration. Your Personal ID is XXXX Please--%>
-<%--            process next step--%>
-<%--          </div>--%>
-<%--          <div class="modal-footer">--%>
-<%--            <button type="button" class="btn btn-secondary" onclick="openPage('/personalAddress?customerId=${customer.customerId}')">Next</button>--%>
-<%--            <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cancel</button>--%>
-<%--          </div>--%>
-<%--        </div>--%>
-<%--      </div>--%>
-<%--    </div>--%>
     <jsp:include page="/WEB-INF/jsp/templates/basicModal.jsp">
       <jsp:param name="message" value="Thank you for your registration. Your Personal ID is ${customer.customerId} Please
             process next step" />
@@ -106,5 +91,9 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
     setStorage('customer', JSON.stringify('${customer}'));
   </c:if>
 
+  function nextPage() {
+      setStorage('customer', JSON.stringify('${customer}'));
+      openPage('personalAddress?customerId=${customer.customerId}')
+  }
 </script>
-<script><%@include file="/WEB-INF/script/common.js" %></script>
+

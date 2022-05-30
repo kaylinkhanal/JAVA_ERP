@@ -1,7 +1,7 @@
 <div>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark header">
         <!-- Brand -->
-        <a class="navbar-brand" href="/">Laconic ERP</a>
+        <a class="navbar-brand" href="/register">Laconic ERP</a>
 
         <!-- Links -->
         <ul class="navbar-nav">

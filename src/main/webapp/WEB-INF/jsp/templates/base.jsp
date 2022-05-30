@@ -43,3 +43,4 @@
 <script><%@include file="/WEB-INF/script/jquery.min.js" %></script>
 <script><%@include file="/WEB-INF/script/bootstrap-4-min.js" %></script>
 <script><%@include file="/WEB-INF/script/bootstrap.min.js" %></script>
+<script><%@include file="/WEB-INF/script/common.js" %></script>

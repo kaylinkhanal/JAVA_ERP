@@ -20,27 +20,9 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
             Choose the type of customer you want to create?
           </div>
           <div class="modal-footer">
-            <input
-              type="button"
-              class="btn btn-primary"
-              value="Personal"
-              name="Personal"
-              onclick="openPage('personalRegister')"
-            />
-            <input
-              type="button"
-              class="btn btn-primary"
-              value="Company"
-              name="Company"
-              onclick="openPage('companyInformation')"
-            />
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              Cancel
-            </button>
+            <input type="button" class="btn btn-primary" value="Personal" name="Personal" onclick="openPage('personalRegister')"/>
+            <input type="button" class="btn btn-primary" value="Company"  name="Company"  onclick="openPage('/company/information')" />
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel</button>
           </div>
         </div>
       </div>
@@ -53,4 +35,3 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
   });
 
 </script>
-<script><%@include file="/WEB-INF/script/common.js" %></script>
