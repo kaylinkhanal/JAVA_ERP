@@ -1,7 +1,6 @@
 package com.laconic.cb.utils;
 
-import com.laconic.cb.model.PageDTO;
-import com.laconic.cb.model.Site;
+import com.laconic.cb.model.dto.PageDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.ui.ModelMap;
 

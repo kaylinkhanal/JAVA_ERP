@@ -31,6 +31,11 @@
          .header {
              margin: 1px;
          }
+
+         .basic-modal {
+             display: flex;
+             color: blue;
+         }
       </style>
    </head>
     <body>

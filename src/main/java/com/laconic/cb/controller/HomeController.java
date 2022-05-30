@@ -45,7 +45,7 @@ public class HomeController {
         return "personal/personalRegister";
     }
 
-    @GetMapping("/register")
+    @GetMapping("/")
     public String register() {
         return "/templates/register";
     }
@@ -133,7 +133,7 @@ public class HomeController {
         } else savedContact = contactService.saveContactPerson(contact);
         model.addFlashAttribute("customer", savedContact.getCustomer());
         model.addFlashAttribute("contact", savedContact);
-        return "redirect:personalContact";
+        return "redirect:personalContact?customerId="+savedContact.getCustomer().getCustomerId();
     }
     @GetMapping("/editContactPerson/{id}")
     public String editContactPerson(@PathVariable("id") Long contactId, RedirectAttributes model) {

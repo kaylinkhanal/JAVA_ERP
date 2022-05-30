@@ -30,7 +30,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
               <select id="addressType" name="addressType" class="form-control" value="${address.addressType}" required>
                 <c:choose>
                   <c:when test="${address == null}">
-                    <option selected value="">Choose...</option>
+                    <option value="">Choose...</option>
                   </c:when>
                   <c:otherwise>
                     <option selected value="${address.addressType}">${address.addressType}</option>
