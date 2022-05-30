@@ -97,7 +97,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
             </tr>
           </thead>
 
-          <c:forEach var="contact" items="${page.objects}">
+          <c:forEach var="contact" items="${page.getObjects()}">
             <tbody align="center">
             <tr>
               <td>${contact.contactId}</td>
@@ -114,6 +114,9 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
             </tbody>
           </c:forEach>
         </table>
+<%--        <jsp:include page="/WEB-INF/jsp/templates/page.jsp">--%>
+<%--          <jsp:param name="page" value="${page}" />--%>
+<%--        </jsp:include>--%>
         <jsp:include page="/WEB-INF/jsp/templates/page.jsp">
           <jsp:param name="page" value="${page}" />
         </jsp:include>

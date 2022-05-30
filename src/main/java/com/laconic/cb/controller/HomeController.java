@@ -55,10 +55,10 @@ public class HomeController {
                                   @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
                                   ModelMap modelMap) {
         Page<Contact> contactList = contactService.getAllContactPerson(pageNo);
-        model.addAttribute("contacts", contactList);
+        model.addAttribute("contacts", contactList.getContent().stream().collect(Collectors.toList()));
+        List<Contact> contacts = contactList.getContent().stream().collect(Collectors.toList());
         long totalContact = contactService.getTotalContact();
-        Pagination.getPagination(modelMap, contactList, totalContact,
-                contactList.getContent().stream().collect(Collectors.toList()), "/personalContact");
+        Pagination.getPagination(modelMap, contactList, totalContact, contacts, "/personalContact");
         getCustomer(model, customerId);
         return "personal/personalContact";
     }
@@ -119,8 +119,8 @@ public class HomeController {
     private void addressPageInformation(int defaultPage, Model model, ModelMap modelMap) {
         Page<Address> addresses = addressService.getAllAddress(defaultPage);
         List<Address> addressList = addresses.getContent().stream().collect(Collectors.toList());
-        long totalContact = addressService.getTotalAddress();
-        Pagination.getPagination(modelMap, addresses, totalContact, addressList, "/personalAddress");
+        long totalAddress = addressService.getTotalAddress();
+        Pagination.getPagination(modelMap, addresses, totalAddress, addressList, "/personalAddress");
         model.addAttribute("countries", countryService.getAllCountries());
         model.addAttribute("addresses", addressList);
     }

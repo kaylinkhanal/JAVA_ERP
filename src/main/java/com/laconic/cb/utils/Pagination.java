@@ -10,16 +10,12 @@ import java.util.List;
 public class Pagination {
     public static final int PAGE_SIZE = 2;
 
-    public static void getPagination(ModelMap model, Page<?> page, long totalSites, List<?> objects, String pageUrl) {
+    public static void getPagination(ModelMap model, Page<?> page, long totalCount, List<?> objects, String pageUrl) {
         int lastPageNo;
-        if (totalSites % PAGE_SIZE != 0)
-            lastPageNo = (int)(totalSites / PAGE_SIZE) + 1; // get last page No (zero based)
+        if (totalCount % PAGE_SIZE != 0)
+            lastPageNo = (int)(totalCount / PAGE_SIZE) + 1; // get last page No (zero based)
         else
-            lastPageNo = (int)(totalSites / PAGE_SIZE);
-//        model.addAttribute("currentPage", page.getNumber());
-//        model.addAttribute("isFirst", page.isFirst());
-//        model.addAttribute("isLast", page.isLast());
-//        model.addAttribute("lastPageNo", lastPageNo);
+            lastPageNo = (int)(totalCount / PAGE_SIZE);
 
         PageDTO pageDTO = PageDTO.builder()
                 .currentPage(page.getNumber())

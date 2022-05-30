@@ -103,7 +103,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
               <td></td>
             </tr>
           </thead>
-           <c:forEach var="address" items="${addresses}">
+           <c:forEach var="address" items="${page.getObjects()}">
             <tbody align="center">
               <tr>
                 <td>${address.addressId}</td>

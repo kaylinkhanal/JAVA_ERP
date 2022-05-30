@@ -7,7 +7,7 @@
         <c:if test="${!param.isFirstPage}">
             <a href="${param.pageUrl}?page=${param.currentPage -1}">Previous</a>
         </c:if>
-        <c:forEach var="i" begin="0" end="${param.lastPageNo -2}" >
+        <c:forEach var="i" begin="0" end="${param.lastPageNo -1}" >
             <a href="${param.pageUrl}?page=${i }">${i+1 }</a>
         </c:forEach>
         <c:if test="${!param.isLastPage}">

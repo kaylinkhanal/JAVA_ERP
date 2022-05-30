@@ -33,7 +33,7 @@ public class Customer extends BaseEntity {
     @Column(name = "CODE")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "customer_code_sequence", sequenceName= "customer_code_sequence",
-            initialValue = 00000, allocationSize = 10)
+            initialValue = 0001, allocationSize = 10)
     private String code;
     @Column(name = "CONTACT_NO")
     private String contactNo;
