@@ -1,13 +1,12 @@
 package com.laconic.cb.service.impl;
 
+import com.laconic.cb.constants.AppConstants;
 import com.laconic.cb.model.Site;
-import com.laconic.cb.repository.SiteRepository;
+import com.laconic.cb.repository.ISiteRepository;
 import com.laconic.cb.service.ISiteService;
-import liquibase.pro.packaged.P;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +14,9 @@ import java.util.List;
 @Service
 public class SiteService implements ISiteService {
 
-    private final SiteRepository siteRepository;
+    private final ISiteRepository siteRepository;
 
-    public SiteService(SiteRepository siteRepository) {
+    public SiteService(ISiteRepository siteRepository) {
         this.siteRepository = siteRepository;
     }
 
@@ -27,7 +26,7 @@ public class SiteService implements ISiteService {
 
     @Override
     public Page<Site> getAllSites(int pageNo) {
-        Pageable pageable = PageRequest.of(pageNo, 2);
+        Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
         return siteRepository.findAll(pageable);
     }
 

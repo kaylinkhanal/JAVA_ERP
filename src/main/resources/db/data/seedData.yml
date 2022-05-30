@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      author: mandip.dhakal
+      context: dev
+      runOnChange: true
+      id: inserting_countries
+      changes:
+        - loadUpdateData:
+            catalogName: LACONIC
+            file: /db/data/01-country.csv
+            tableName: COUNTRY
+            quotchar: "\""
+            separator: ","
+            primaryKey: COUNTRY_ID
+            columns:
+              - column:
+                  name: COUNTRY_ID
+                  type: NUMBER
+              - column:
+                  name: COUNTRY_CODE
+                  type: NUMBER
+              - column:
+                  name: COUNTRY_NAME
+                  type: STRING

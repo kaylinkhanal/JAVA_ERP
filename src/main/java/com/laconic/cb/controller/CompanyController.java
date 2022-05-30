@@ -65,7 +65,7 @@ public class CompanyController {
     }
 
     @PostMapping("addSite")
-    public String addCompanySite(Model model,Site site) {
+    public String addCompanySite(Model model, Site site) {
         siteService.addCompanySite(site);
         model.addAttribute("companySites", siteService.getAllSites(0));
         return "redirect:site";
