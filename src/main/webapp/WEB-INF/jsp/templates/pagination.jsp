@@ -4,6 +4,7 @@
 <html>
     <head></head>
     <body>
+    <c:if test="${param.lastPageNo >= 1}">
         <c:if test="${!param.isFirstPage}">
             <a href="${param.pageUrl}?page=${param.currentPage -1}">Previous</a>
         </c:if>
@@ -13,5 +14,6 @@
         <c:if test="${!param.isLastPage}">
             <a href="${param.pageUrl}?page=${param.currentPage +1}">Next</a>
         </c:if>
+    </c:if>
     </body>
 </html>

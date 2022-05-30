@@ -4,14 +4,18 @@ import com.laconic.cb.model.Document;
 import com.laconic.cb.model.DocumentType;
 import com.laconic.cb.service.IDocumentService;
 import com.laconic.cb.service.IDocumentTypeService;
+import com.laconic.cb.utils.Pagination;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static com.laconic.cb.constants.AppConstants.DEFAULT_PAGE_NUMBER;
 
 @Controller
 @RequestMapping("/document")
@@ -31,7 +35,12 @@ public class DocumentController {
     }
 
     @GetMapping("/typeList")
-    public String documentTypeList() {
+    public String documentTypeList(ModelMap modelMap,
+                                   @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo) {
+        Page<DocumentType> documentTypes = documentTypeService.getAllDocumentTypes(pageNo);
+        List<DocumentType> documentTypeList = documentTypes.getContent().stream().collect(Collectors.toList());
+        long totalCount = documentTypeService.getTotalDocumentTypes();
+        Pagination.getPagination(modelMap, documentTypes, totalCount, documentTypeList, "/document/typeList");
         return "document/typeList";
     }
 
@@ -41,7 +50,7 @@ public class DocumentController {
         if (documentType.getDocumentTypeId() != null) {
             savedDocumentType = documentTypeService.updateDocumentType(documentType);
         } else savedDocumentType = documentTypeService.saveDocumentType(documentType);
-        model.addFlashAttribute("documentType", savedDocumentType);
+//        model.addFlashAttribute("documentType", savedDocumentType);
         return "redirect:/document/typeList";
     }
     @GetMapping("/editDocumentType/{id}")

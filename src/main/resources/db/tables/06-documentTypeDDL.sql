@@ -1,6 +1,7 @@
 create table DOCUMENT_TYPE  (
       DOCUMENT_TYPE_ID	NUMBER(22) not null,
       DOCUMENT_TYPE_NAME	VARCHAR2(100) not null,
+      TYPE	VARCHAR2(100) not null,
       DESCRIPTION	VARCHAR2(500) not null,
       IS_DELETED VARCHAR2(1) not null,
       CREATED_BY	VARCHAR2(20),

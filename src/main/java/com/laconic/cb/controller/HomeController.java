@@ -97,7 +97,7 @@ public class HomeController {
         } else savedAddress = addressService.saveAddress(address);
         model.addFlashAttribute("address", savedAddress);
         model.addFlashAttribute("customer", savedAddress.getCustomer());
-        return "redirect:personalAddress?customerId="+savedAddress.getCustomer().getCustomerId();
+        return "redirect:/personalAddress?customerId="+savedAddress.getCustomer().getCustomerId();
     }
 
     @GetMapping("/deleteAddress/{id}")
@@ -111,6 +111,7 @@ public class HomeController {
         Optional<Address> address = addressService.findById(id);
         if (address.isPresent()) {
             model.addAttribute("address", address.get());
+            getCustomer(model, address.get().getCustomer().getCustomerId());
         }
         addressPageInformation(AppConstants.DEFAULT_PAGE, model, modelMap);
         return "personal/personalAddress";
