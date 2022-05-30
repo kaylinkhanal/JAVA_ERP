@@ -13,4 +13,6 @@ public interface IContactService {
     Contact updateContactPerson(Contact contact);
 
     Optional<Contact> findById(Long contactId);
+
+    long getTotalContact();
 }

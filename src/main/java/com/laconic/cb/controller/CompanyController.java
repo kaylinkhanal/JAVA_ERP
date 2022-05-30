@@ -2,6 +2,7 @@ package com.laconic.cb.controller;
 
 import com.laconic.cb.model.Site;
 import com.laconic.cb.service.impl.SiteService;
+import com.laconic.cb.utils.Pagination;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,21 +32,10 @@ public class CompanyController {
     @GetMapping("/site")
     public String companySite(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int page,
             ModelMap model, HttpServletRequest request) {
-//        int page = ServletRequestUtils.getIntParameter(request, "p", 0);
         Page<Site> sites = siteService.getAllSites(page);
         long totalSites = siteService.getTotalSites();
-        int lastPageNo;
-        List<Site> siteList = sites.getContent().stream().collect(Collectors.toList());
-//        int totalSites = 10; //total no of users
-        if (totalSites % PAGE_SIZE != 0)
-            lastPageNo = (int)(totalSites / PAGE_SIZE) + 1; // get last page No (zero based)
-        else
-            lastPageNo = (int)(totalSites / PAGE_SIZE);
-        model.addAttribute("currentPage", sites.getNumber());
-        model.addAttribute("isFirst", sites.isFirst());
-        model.addAttribute("isLast", sites.isLast());
-        model.addAttribute("lastPageNo", lastPageNo);
-        model.addAttribute("pagedListHolder", siteList);
+        Pagination.getPagination(model, sites, totalSites,
+                sites.getContent().stream().collect(Collectors.toList()), "/company/site");
         return "company/companySite";
     }
 

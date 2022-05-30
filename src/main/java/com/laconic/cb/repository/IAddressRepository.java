@@ -22,4 +22,6 @@ public interface IAddressRepository extends JpaRepository<Address, Long> {
     Page<Address> findAllByIsDeletedFalse(Pageable pageable);
 
     Optional<Address> findByAddressIdAndIsDeletedFalse(Long addressId);
+
+    long countByIsDeletedFalse();
 }

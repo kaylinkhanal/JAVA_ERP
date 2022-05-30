@@ -50,4 +50,9 @@ public class AddressService implements IAddressService {
     public Optional<Address> findById(Long id) {
         return addressRepository.findByAddressIdAndIsDeletedFalse(id);
     }
+
+    @Override
+    public long getTotalAddress() {
+        return addressRepository.countByIsDeletedFalse();
+    }
 }

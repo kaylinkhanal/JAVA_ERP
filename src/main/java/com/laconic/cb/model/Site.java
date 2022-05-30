@@ -10,6 +10,8 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Site extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
