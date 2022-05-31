@@ -103,17 +103,17 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
               <td></td>
             </tr>
           </thead>
-           <c:forEach var="address" items="${page.getObjects()}">
+           <c:forEach var="document" items="${page.getObjects()}">
             <tbody align="center">
               <tr>
-                <td>${address.addressId}</td>
-                <td>${address.addressType}</td>
-                <td>${address.phone1}</td>
-                <td>${address.country.countryName}</td>
+                <td>${document.addressId}</td>
+                <td>${document.addressType}</td>
+                <td>${document.phone1}</td>
+                <td>${document.country.countryName}</td>
                 <td>Enable</td>
                 <td>
-                  <i class="far fa-edit icon-button" onclick="openPage('/editAddress/${address.addressId}')"></i>
-                  <i class="far fa-trash-alt icon-button" onclick="openPage('/deleteAddress/${address.addressId}')"></i>
+                  <i class="far fa-edit icon-button" onclick="openPage('/editAddress/${document.addressId}')"></i>
+                  <i class="far fa-trash-alt icon-button" onclick="openPage('/deleteAddress/${document.addressId}')"></i>
                 </td>
               </tr>
             </tbody>

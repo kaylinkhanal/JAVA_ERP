@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -30,11 +32,11 @@ public class Customer extends BaseEntity {
     private Date dateOfBirth;
     @Column(name = "EMAIL")
     private String email;
-    @Column(name = "CODE")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "customer_code_sequence", sequenceName= "customer_code_sequence",
-            initialValue = 0001, allocationSize = 10)
-    private String code;
+    @Generated(GenerationTime.INSERT)
+    @SequenceGenerator(name = "code_seq_gen", sequenceName = "code_seq", initialValue = 001, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "code_seq_gen")
+    @Column(name = "CODE", nullable = false, columnDefinition = "number auto increment")
+    private Long code;
     @Column(name = "CONTACT_NO")
     private String contactNo;
     @Column(name = "GENDER")

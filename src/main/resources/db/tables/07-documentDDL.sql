@@ -1,7 +1,7 @@
 create table DOCUMENT  (
         DOCUMENT_ID	NUMBER(22) not null,
         DOCUMENT_NAME	VARCHAR2(100) not null,
-        DOCUMENT_NO	NUMBER(22) not null,
+        DOCUMENT_NO	NUMBER(22),
         DOCUMENT_TYPE_ID	NUMBER(22) not null,
         BRANCH VARCHAR2(50) not null,
         CONTENT VARCHAR2(5000) not null,

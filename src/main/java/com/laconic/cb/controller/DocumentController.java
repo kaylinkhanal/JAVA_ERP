@@ -7,6 +7,7 @@ import com.laconic.cb.service.IDocumentTypeService;
 import com.laconic.cb.utils.Pagination;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,8 +31,20 @@ public class DocumentController {
     }
 
     @GetMapping("/create")
-    public String createDocumentTemplate() {
+    public String createDocumentTemplate(Model model) {
+        List<DocumentType> documentTypes = documentTypeService.getAllDocumentTypes();
+        model.addAttribute("documentTypes", documentTypes);
         return "document/documentTemplate";
+    }
+
+    @GetMapping("/list")
+    public String documentTemplateList(ModelMap modelMap,
+                                       @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo) {
+        Page<Document> documentPage = documentService.getAllDocuments(pageNo);
+        List<Document> documentList = documentPage.getContent().stream().collect(Collectors.toList());
+        long totalCount = documentService.getTotalDocuments();
+        Pagination.getPagination(modelMap, documentPage, totalCount, documentList, "/document/list");
+        return "document/documentList";
     }
 
     @GetMapping("/typeList")
@@ -46,11 +59,9 @@ public class DocumentController {
 
     @PostMapping("/addDocumentType")
     public String addDocumentType(RedirectAttributes model, DocumentType documentType) {
-        DocumentType savedDocumentType;
         if (documentType.getDocumentTypeId() != null) {
-            savedDocumentType = documentTypeService.updateDocumentType(documentType);
-        } else savedDocumentType = documentTypeService.saveDocumentType(documentType);
-//        model.addFlashAttribute("documentType", savedDocumentType);
+             documentTypeService.updateDocumentType(documentType);
+        } else documentTypeService.saveDocumentType(documentType);
         return "redirect:/document/typeList";
     }
     @GetMapping("/editDocumentType/{id}")
@@ -70,17 +81,13 @@ public class DocumentController {
 
     @PostMapping("/addDocument")
     public String addDocument(RedirectAttributes model, Document document) {
-        Document savedDocument;
 
         //////// needs to be refactored
         document.setDocumentNo(15L);
-        DocumentType documentType = documentTypeService.findById(3L).get();
-        document.setDocumentType(documentType);
         if (document.getDocumentId() != null) {
-            savedDocument = documentService.updateDocument(document);
-        } else savedDocument = documentService.saveDocument(document);
-        model.addFlashAttribute("document", savedDocument);
-        return "redirect:/document/typeList";
+            documentService.updateDocument(document);
+        } else documentService.saveDocument(document);
+        return "redirect:/document/list";
     }
     @GetMapping("/editDocument/{id}")
     public String editDocument(@PathVariable("id") Long documentId, RedirectAttributes model) {
@@ -88,13 +95,13 @@ public class DocumentController {
         if (document.isPresent()) {
             model.addFlashAttribute("document", document.get());
         }
-        return "redirect:/document/typeList";
+        return "redirect:/document/create";
     }
 
     @GetMapping("/deleteDocument/{id}")
     public String deleteDocument(@PathVariable("id") Long documentId) {
         documentService.softDeleteDocument(documentId);
-        return "redirect:/document/typeList";
+        return "redirect:/document/list";
     }
 
     ///// need to be refactored

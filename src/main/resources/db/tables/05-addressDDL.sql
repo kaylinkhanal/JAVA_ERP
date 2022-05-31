@@ -3,7 +3,7 @@ create table ADDRESS  (
     ADDRESS_TYPE	VARCHAR2(250) not null,
     ADDRESS_NO	VARCHAR2(250) not null,
     COUNTRY_ID NUMBER(22) not null,
-    CUSTOMER_ID NUMBER(22) ,
+    CUSTOMER_ID NUMBER(22) not null,
     PHONE1	VARCHAR2(250) not null,
     PHONE2	VARCHAR2(250) not null,
     FAX	VARCHAR2(250),

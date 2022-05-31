@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 
@@ -24,9 +26,11 @@ public class Document extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "DOCUMENT_TYPE_ID")
     private DocumentType documentType;
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "document_no_sequence", sequenceName= "document_no_sequence",
-            initialValue = 0001, allocationSize = 10)
+    @Generated(GenerationTime.INSERT)
+    @SequenceGenerator(name = "document_no_seq_gen", sequenceName = "document_no_seq",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "document_no_seq_gen")
+    @Column(name = "DOCUMENT_NO", insertable = false, columnDefinition = "serial")
     private Long documentNo;
     @Column(name = "BRANCH")
     private String branch;

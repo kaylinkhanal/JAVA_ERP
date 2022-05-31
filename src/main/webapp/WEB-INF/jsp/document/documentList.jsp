@@ -5,82 +5,56 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
   <head>
     <meta charset="ISO-8859-1" />
-    <title>Document Template</title>
+    <title>Document Template List</title>
   </head>
   <body>
     <div class="container-wrapper">
       <div class="container">
         <br/>
         <div class="page-header">
-          <h1>Generate Document Template</h1>
+          <h1>Document Template List</h1>
           <hr />
         </div>
-        <form method="post" action="addDocument">
-          
-          <div class="col-xs-12 row">
-          
-            <div class="col-md-10 row">
-             <div class="form-row col-md-12">
-              <div class="form-group col-md-6"></div>
-              <div class="form-group col-md-6">
-                <label for="revision"> Revision: 1</label>
-              </div>
-              <div class="form-group col-md-6">
-                <label for="documentNo">Document No: </label>
-                <input type="text" disabled class="form-control" name="documentNo" />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="branch">Branch: </label>
-                <select id="branch" name="branch" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
-                </select>
-              </div>
-             </div>
-             <div class="form-row col-md-12">
-              <div class="form-group col-md-6">
-                <label for="documentName">Document Name:</label>
-                <input type="text" class="form-control" id="documentName" />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="format">Doc Printing Format: </label>
-                <select id="format" name="format" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
-                </select>
-              </div>
-             </div>
-             <div class="form-row col-md-12">
-              <div class="form-group col-md-6">
-                <label for="documentType">Document Type:</label>
-                <select id="documentType" name="documentType" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
-                </select>
-              </div>
-              <div class="form-group col-md-6">
-                <label for="language">Language:</label>
-                <select id="language" name="language" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
-                </select>
-              </div>
-             </div>
-            </div>
-            <div class="col-md-2">
-              <br><br> <br><br>
-                <button type="button" class="btn btn-primary float-right" id="save"><span class="far fa-save"></span>  Save</button>
-                <br/><br/>
-                <button type="button" class="btn btn-primary float-right" id="cancel"> Cancel</button>
-            </div>
+          <div class="container">
+              <button type="button" class="btn btn-primary float-right" onclick="openPage('/document/create')">Create</button>
+          </div><br/>
+          <div align="center" class="container">
+              <table border="1" width="60%" class="table table-striped">
+                  <thead align="center" class="bg-primary">
+                  <tr>
+                      <td>Document No</td>
+                      <td>Document Name</td>
+                      <td>Document Type</td>
+                      <td>Branch</td>
+                      <td>Language</td>
+                      <td>Status</td>
+                      <td>Action</td>
+                  </tr>
+                  </thead>
+                  <c:forEach var="document" items="${page.getObjects()}">
+                      <tbody align="center">
+                      <tr>
+                          <td>${document.documentId}</td>
+                          <td>${document.documentName}</td>
+                          <td>${document.documentType.documentTypeName}</td>
+                          <td>${document.branch}</td>
+                          <td>${document.language}</td>
+                          <td>Enable</td>
+                          <td>
+                              <i class="fa fa-print icon-button"></i>
+                              <i class="far fa-edit icon-button" onclick="openPage('/document/editDocument/${document.documentId}')"></i>
+                              <i class="far fa-trash-alt icon-button" onclick="openPage('/document/deleteDocument/${document.documentId}')"></i>
+                          </td>
+                      </tr>
+                      </tbody>
+                  </c:forEach>
+              </table>
+              <jsp:include page="/WEB-INF/jsp/templates/page.jsp">
+                  <jsp:param name="page" value="${page}" />
+              </jsp:include>
           </div>
+      </div>
 
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <textArea type="text" row="3" class="form-control document" id="document" name="document" ></textArea>
-            </div>
-          </div>
-        </form>
       </div>
     </div>
   </body>

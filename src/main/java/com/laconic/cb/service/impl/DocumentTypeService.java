@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,6 +30,11 @@ public class DocumentTypeService implements IDocumentTypeService {
     public Page<DocumentType> getAllDocumentTypes(int pageNo) {
         Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
         return documentTypeRepository.findAllByIsDeletedFalse(pageable);
+    }
+
+    @Override
+    public List<DocumentType> getAllDocumentTypes() {
+        return documentTypeRepository.findAllByIsDeletedFalse();
     }
 
     @Override

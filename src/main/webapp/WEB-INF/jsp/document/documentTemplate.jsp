@@ -17,7 +17,7 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
           <hr />
         </div>
         <form method="post" action="addDocument">
-          
+            <input type="hidden" class="form-control" name="documentId" value="${document.documentId}" />
           <div class="col-xs-12 row">
           
             <div class="col-md-10 row">
@@ -28,46 +28,74 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
               </div>
               <div class="form-group col-md-6">
                 <label for="documentNo">Document No: </label>
-                <input type="text" disabled class="form-control" name="documentNo" />
+                <input type="text" disabled class="form-control" name="documentNo" value="${document.documentNo}" />
               </div>
               <div class="form-group col-md-6">
                 <label for="branch">Branch: </label>
-                <select id="branch" name="branch" class="form-control">
-                  <option value="">Choose...</option>
+                <select id="branch" name="branch" class="form-control" value="${document.branch}" required>
+                    <c:choose>
+                        <c:when test="${document == null}">
+                            <option value="">Choose...</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option selected value="${document.branch}">${document.branch}</option>
+                        </c:otherwise>
+                    </c:choose>
                   <option value="one">Branch 1</option>
                   <option value="two">Branch 2.</option>
-                  <option>...</option>
                 </select>
               </div>
              </div>
              <div class="form-row col-md-12">
               <div class="form-group col-md-6">
                 <label for="documentName">Document Name:</label>
-                <input type="text" class="form-control" id="documentName" name="documentName" />
+                <input type="text" class="form-control" id="documentName" name="documentName" value="${document.documentName}" />
               </div>
               <div class="form-group col-md-6">
                 <label for="format">Doc Printing Format: </label>
-                <select id="printingFormat" name="printingFormat" class="form-control">
-                    <option value="">Choose...</option>
-                    <option value="one">A4</option>
-                    <option value="two">A5</option>
+                <select id="printingFormat" name="printingFormat" class="form-control" required value="${document.printingFormat}">
+                    <c:choose>
+                        <c:when test="${document == null}">
+                            <option value="">Choose...</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option selected value="${document.printingFormat}">${document.printingFormat}</option>
+                        </c:otherwise>
+                    </c:choose>
+                    <option value="A4">A4</option>
+                    <option value="A5">A5</option>
                 </select>
               </div>
              </div>
              <div class="form-row col-md-12">
               <div class="form-group col-md-6">
                 <label for="documentType">Document Type:</label>
-                <select id="documentType" name="documentType" class="form-control">
-                    <option value="">Choose...</option>
-                    <option value="1">Lease Document</option>
-                    <option value="10">Lease Type</option>
-                </select>
+                  <select id="documentType" name="documentType" class="form-control" required value="${document.documentType}">
+                      <c:choose>
+                          <c:when test="${document == null}">
+                              <option value="">Choose...</option>
+                          </c:when>
+                          <c:otherwise>
+                              <option selected value="${document.documentType.documentTypeId}">${document.documentType.documentTypeName}</option>
+                          </c:otherwise>
+                      </c:choose>
+                      <c:forEach var="documentType" items="${documentTypes }" >
+                          <option value="${documentType.documentTypeId }">${documentType.documentTypeName}</option>
+                      </c:forEach>
+                  </select>
               </div>
               <div class="form-group col-md-6">
                 <label for="language">Language:</label>
-                <select id="language" name="language" class="form-control">
-                    <option value="">Choose...</option>
-                    <option value="english">English</option>
+                <select id="language" name="language" class="form-control" value="${document.language}" required>
+                    <c:choose>
+                        <c:when test="${document == null}">
+                            <option value="">Choose...</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option selected value="${document.language}">${document.language}</option>
+                        </c:otherwise>
+                    </c:choose><
+                    option value="english">English</option>
                     <option value="thai">Thai</option>
                 </select>
               </div>
@@ -83,7 +111,9 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
           <div class="form-row">
             <div class="form-group col-md-12">
-              <textArea type="text" row="3" class="form-control document" id="content" name="content" ></textArea>
+              <textArea type="text" row="3" class="form-control document" id="content" name="content">
+                  ${document.content}
+              </textArea>
             </div>
           </div>
         </form>
