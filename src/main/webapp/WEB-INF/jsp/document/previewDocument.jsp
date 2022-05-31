@@ -13,7 +13,7 @@
     <div class="container">
         <br/>
         <div class="page-header">
-            <h1>Generate Document Template</h1>
+            <h1>Preview Document Template</h1>
             <hr />
         </div>
         <form method="post" action="addDocument">
@@ -56,19 +56,31 @@
                             </select>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="passportNumber">Passport Number:</label>
-                            <input type="text" class="form-control" id="passportNumber" name="passportNumber" required />
+                            <label for="documentTemplate">Document Template:</label>
+                            <select id="documentTemplate" name="documentTemplate" class="form-control" required>
+                                <option value="">Choose...</option>
+                            </select>
                         </div>
+
                     </div>
                     <div class="form-row col-md-12">
                         <div class="form-group col-md-6">
-                            <label for="effectiveDate">Effective Date:</label>
-                            <input type="text" class="form-control" id="effectiveDateFrom" name="effectiveDateFrom" required />:
-                            <input type="text" class="form-control" id="effectiveDateTo" name="effectiveDateTo" required />
+                            <label for="passportNumber">Passport Number:</label>
+                            <input type="text" class="form-control" id="passportNumber" name="passportNumber" required />
                         </div>
                         <div class="form-group col-md-6">
                             <label for="address">Address:</label>
                             <input type="text" class="form-control" id="address" name="address" required />
+                        </div>
+                    </div>
+                    <div class="form-row col-md-12">
+                            <div class="form-group col-md-6">
+                                <label for="effectiveDate">Effective Date:</label>
+                                <input type="text" class="form-control" id="effectiveDateFrom" name="effectiveDateFrom" required />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="effectiveDate">:</label>
+                            <input type="text" class="form-control" id="effectiveDateTo" name="effectiveDateTo" required />
                         </div>
                     </div>
                 </div>
@@ -90,22 +102,4 @@
 </body>
 </html>
 
-<script>
-    $("#documentType").change(function () {
-        let documentType = $("#documentType").val();
-        $.ajax({
-            url: "${pageContext.request.contextPath}/document/findDocumentTemplate/"+documentType,
-            type: "GET",
-            success: function (response) {
-                const documentDiv = document.querySelector('#documentPreview');
-                documentDiv.innerHTML = response
-                $("#documentPreview").css('visibility', 'visible')
-                $("#documentPreview").css('border', '1px solid black')
-            },
-            error:  function(XMLHttpRequest) {
-                console.error("Something went wrong");
-            }
-        });
-    });
-
-</script>
+<script><%@include file="/WEB-INF/script/documentPreview.js" %></script>

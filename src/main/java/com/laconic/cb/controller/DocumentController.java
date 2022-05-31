@@ -110,10 +110,11 @@ public class DocumentController {
     }
 
     ///// need to be refactored
-    @GetMapping("/findDocumentTemplate/{id}")
+    @GetMapping("/getTemplate/{documentId}/{documentTypeId}")
     @ResponseBody
-    public String findDocumentTemplate(@PathVariable("id") Long documentTypeId, RedirectAttributes model) {
-        Optional<Document> document = documentService.findByDocumentTypeId(documentTypeId);
+    public String findDocumentTemplate(@PathVariable("documentTypeId") Long documentTypeId,
+                                       @PathVariable("documentId") Long documentId) {
+        Optional<Document> document = documentService.findByDocumentIdAndDocumentTypeId(documentId, documentTypeId);
         if (document.isPresent()) {
             if (document.get().getContent() != null) {
                 String content = ParseDocument.getBlankDocument(document.get().getContent());
@@ -121,6 +122,13 @@ public class DocumentController {
             }
         }
         return document.get().getContent();
+    }
+
+    @GetMapping("/findDocumentTemplates/{id}")
+    @ResponseBody
+    public List<Document> findDocumentTemplates(@PathVariable("id") Long documentTypeId) {
+        List<Document> document = documentService.findAllByDocumentTypeId(documentTypeId);
+        return document;
     }
 
 

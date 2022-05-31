@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -54,5 +55,15 @@ public class DocumentService implements IDocumentService {
     @Override
     public Optional<Document> findByDocumentTypeId(Long documentTypeId) {
         return documentRepository.findByDocumentType_DocumentTypeIdAndIsDeletedFalse(documentTypeId);
+    }
+
+    @Override
+    public Optional<Document> findByDocumentIdAndDocumentTypeId(Long documentId, Long documentTypeId) {
+        return documentRepository.findByDocumentIdAndDocumentType_DocumentTypeIdAndIsDeletedFalse(documentId, documentTypeId);
+    }
+
+    @Override
+    public List<Document> findAllByDocumentTypeId(Long documentTypeId) {
+        return documentRepository.findAllByDocumentType_DocumentTypeIdAndIsDeletedFalse(documentTypeId);
     }
 }

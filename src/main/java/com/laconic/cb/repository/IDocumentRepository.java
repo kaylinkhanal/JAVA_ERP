@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -25,4 +26,8 @@ public interface IDocumentRepository extends JpaRepository<Document, Long> {
     long countByIsDeletedFalse();
 
     Optional<Document> findByDocumentType_DocumentTypeIdAndIsDeletedFalse(Long documentTypeId);
+
+    Optional<Document> findByDocumentIdAndDocumentType_DocumentTypeIdAndIsDeletedFalse(Long documentId, Long documentTypeId);
+
+    List<Document> findAllByDocumentType_DocumentTypeIdAndIsDeletedFalse(Long documentTypeId);
 }

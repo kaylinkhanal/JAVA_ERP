@@ -55,7 +55,6 @@ public class ParseDocument {
                 content = content.replace("@Address", ".............................");
             }
         }
-        System.out.println(content);
         return content;
     }
 }

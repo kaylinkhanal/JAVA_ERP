@@ -3,6 +3,7 @@ package com.laconic.cb.service;
 import com.laconic.cb.model.Document;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IDocumentService {
@@ -19,4 +20,6 @@ public interface IDocumentService {
     long getTotalDocuments();
 
     Optional<Document> findByDocumentTypeId(Long documentTypeId);
+    Optional<Document> findByDocumentIdAndDocumentTypeId(Long documentId, Long documentTypeId);
+    List<Document> findAllByDocumentTypeId(Long documentTypeId);
 }
