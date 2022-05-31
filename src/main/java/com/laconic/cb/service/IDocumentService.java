@@ -17,4 +17,6 @@ public interface IDocumentService {
     Optional<Document> findById(Long id);
 
     long getTotalDocuments();
+
+    Optional<Document> findByDocumentTypeId(Long documentTypeId);
 }

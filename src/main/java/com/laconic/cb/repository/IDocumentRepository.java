@@ -23,4 +23,6 @@ public interface IDocumentRepository extends JpaRepository<Document, Long> {
     Optional<Document> findByDocumentIdAndIsDeletedFalse(Long documentId);
 
     long countByIsDeletedFalse();
+
+    Optional<Document> findByDocumentType_DocumentTypeIdAndIsDeletedFalse(Long documentTypeId);
 }

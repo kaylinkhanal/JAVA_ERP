@@ -50,4 +50,9 @@ public class DocumentService implements IDocumentService {
     public long getTotalDocuments() {
         return documentRepository.countByIsDeletedFalse();
     }
+
+    @Override
+    public Optional<Document> findByDocumentTypeId(Long documentTypeId) {
+        return documentRepository.findByDocumentType_DocumentTypeIdAndIsDeletedFalse(documentTypeId);
+    }
 }

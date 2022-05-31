@@ -1,10 +1,13 @@
 package com.laconic.cb.controller;
 
+import com.laconic.cb.model.Country;
 import com.laconic.cb.model.Document;
 import com.laconic.cb.model.DocumentType;
+import com.laconic.cb.service.ICountryService;
 import com.laconic.cb.service.IDocumentService;
 import com.laconic.cb.service.IDocumentTypeService;
 import com.laconic.cb.utils.Pagination;
+import com.laconic.cb.utils.ParseDocument;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +27,12 @@ public class DocumentController {
 
     private final IDocumentTypeService documentTypeService;
     private final IDocumentService documentService;
+    private final ICountryService countryService;
 
-    public DocumentController(IDocumentTypeService documentTypeService, IDocumentService documentService) {
+    public DocumentController(IDocumentTypeService documentTypeService, IDocumentService documentService, ICountryService countryService) {
         this.documentTypeService = documentTypeService;
         this.documentService = documentService;
+        this.countryService = countryService;
     }
 
     @GetMapping("/create")
@@ -106,18 +111,25 @@ public class DocumentController {
 
     ///// need to be refactored
     @GetMapping("/findDocumentTemplate/{id}")
-    public String findDocumentTemplate(@PathVariable("id") Long documentId, RedirectAttributes model) {
-        Optional<Document> document = documentService.findById(documentId);
+    @ResponseBody
+    public String findDocumentTemplate(@PathVariable("id") Long documentTypeId, RedirectAttributes model) {
+        Optional<Document> document = documentService.findByDocumentTypeId(documentTypeId);
         if (document.isPresent()) {
-            model.addFlashAttribute("document", document.get());
             if (document.get().getContent() != null) {
-                if (document.get().getContent().contains("@Customer")) {
-                    document.get().setContent(document.get().getContent().replace("@Customer", "Mandeep Dhakal"));
-
-                }
+                String content = ParseDocument.getBlankDocument(document.get().getContent());
+                document.get().setContent(content);
             }
         }
-        System.out.println(document.get().getContent());
-        return "redirect:/document/typeList";
+        return document.get().getContent();
+    }
+
+
+    @GetMapping("/preview")
+    public String previewDocument(Model model) {
+        List<DocumentType> documentTypes = documentTypeService.getAllDocumentTypes();
+        List<Country> countries = countryService.getAllCountries();
+        model.addAttribute("documentTypes", documentTypes);
+        model.addAttribute("countries", countries);
+        return "document/previewDocument";
     }
 }

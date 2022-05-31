@@ -128,14 +128,7 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 </script>
 <script>
   <%--$('#save').click(function() {--%>
-  <%--   var pathname = window.location.href;--%>
-  <%--   var divContents = $('#document').val();--%>
-  <%--   var popupWin = window.open('', '_blank', 'width=992,height=600,location=1,status=1,scrollbars=1,left=100px');--%>
-  <%--      // popupWin.document.open();--%>
-  <%--      popupWin.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title></title><link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css"  media="print"></head><body onload="window.print()">');--%>
-  <%--      popupWin.document.write(divContents);--%>
-  <%--      popupWin.document.write('</body></html>');--%>
-  <%--      popupWin.document.close();--%>
+
   <%--   });--%>
 </script>
 <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>--%>
