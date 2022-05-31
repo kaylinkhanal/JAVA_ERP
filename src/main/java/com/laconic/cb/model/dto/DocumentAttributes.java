@@ -8,7 +8,7 @@ public class DocumentAttributes {
     private String nationality;
     private String contactNumber;
     private String dateOfBirth;
-    private String documentType;
+    private Long documentId;
     private String passportNumber;
     private String effectiveDateFrom;
     private String effectiveDateTo;

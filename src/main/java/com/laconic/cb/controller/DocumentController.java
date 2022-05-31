@@ -3,6 +3,7 @@ package com.laconic.cb.controller;
 import com.laconic.cb.model.Country;
 import com.laconic.cb.model.Document;
 import com.laconic.cb.model.DocumentType;
+import com.laconic.cb.model.dto.DocumentAttributes;
 import com.laconic.cb.service.ICountryService;
 import com.laconic.cb.service.IDocumentService;
 import com.laconic.cb.service.IDocumentTypeService;
@@ -118,6 +119,19 @@ public class DocumentController {
         if (document.isPresent()) {
             if (document.get().getContent() != null) {
                 String content = ParseDocument.getBlankDocument(document.get().getContent());
+                document.get().setContent(content);
+            }
+        }
+        return document.get().getContent();
+    }
+
+    @PostMapping("/printTemplate")
+    @ResponseBody
+    public String printTemplate(DocumentAttributes documentAttributes) {
+        Optional<Document> document = documentService.findById(documentAttributes.getDocumentId());
+        if (document.isPresent()) {
+            if (document.get().getContent() != null) {
+                String content = ParseDocument.getParsedDocument(document.get().getContent(), documentAttributes);
                 document.get().setContent(content);
             }
         }

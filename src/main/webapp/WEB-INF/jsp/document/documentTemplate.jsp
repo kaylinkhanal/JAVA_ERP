@@ -42,7 +42,7 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                         </c:otherwise>
                     </c:choose>
                   <option value="one">Branch 1</option>
-                  <option value="two">Branch 2.</option>
+                  <option value="two">Branch 2</option>
                 </select>
               </div>
              </div>
@@ -95,7 +95,7 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                             <option selected value="${document.language}">${document.language}</option>
                         </c:otherwise>
                     </c:choose><
-                    option value="english">English</option>
+                    <option value="english">English</option>
                     <option value="thai">Thai</option>
                 </select>
               </div>

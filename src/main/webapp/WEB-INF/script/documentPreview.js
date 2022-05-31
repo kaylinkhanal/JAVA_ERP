@@ -43,5 +43,40 @@ $("#documentTemplate").change(function () {
 });
 
 function previewDocument() {
-    
+    let executorName = $("#executorName").val();
+    let nationality = $("#nationality").val();
+    let contactNumber = $("#contactNumber").val();
+    let dateOfBirth = $("#dateOfBirth").val();
+    let documentType = $("#documentType").val();
+    let documentTemplate = $("#documentTemplate").val();
+    let passportNumber = $("#passportNumber").val();
+    let effectiveDateFrom = $("#effectiveDateFrom").val();
+    let effectiveDateTo = $("#effectiveDateTo").val();
+    let address = $("#address").val();
+    if (documentType && documentTemplate && address && effectiveDateTo && effectiveDateFrom &&
+        passportNumber && dateOfBirth && contactNumber && nationality && executorName) {
+        $.ajax({
+            url: "${pageContext.request.contextPath}/document/printTemplate",
+            type: "POST",
+            data: {
+                executorName: executorName,
+                nationality: nationality,
+                contactNumber: contactNumber,
+                dateOfBirth: dateOfBirth,
+                passportNumber: passportNumber,
+                effectiveDateFrom: effectiveDateFrom,
+                effectiveDateTo: effectiveDateTo,
+                address: address,
+                documentId: documentTemplate
+            },
+            success: function (response) {
+                printDocument(response)
+            },
+            error:  function(XMLHttpRequest) {
+                console.error("Something went wrong");
+            }
+        });
+    } else {
+        alert("Fields are empty")
+    }
 }

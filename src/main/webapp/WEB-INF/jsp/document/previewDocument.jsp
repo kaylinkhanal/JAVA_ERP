@@ -30,7 +30,7 @@
                             <label for="nationality">Nationality: </label>
                             <select id="nationality" name="nationality" class="form-control" required>
                                 <c:forEach var="country" items="${countries }" >
-                                    <option value="${country.countryId }">${country.countryName}</option>
+                                    <option value="${country.countryName }">${country.countryName}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="col-md-2">
                     <br><br> <br><br>
-                    <button type="submit" class="btn btn-primary float-right" id="save"><span class="far fa-save"></span>  Save</button>
+                    <button type="button" onclick="previewDocument()" class="btn btn-primary float-right" id="save"><span class="far fa-save"></span>  Save</button>
                     <br/><br/>
                 </div>
             </div>

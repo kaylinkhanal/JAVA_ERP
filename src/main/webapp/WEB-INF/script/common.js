@@ -40,10 +40,10 @@ function removeStorage(key) {
     localStorage.removeItem(key);
 }
 
-function previewDocument(selector, size) {
+function printDocument(response) {
+    debugger
     const pathname = window.location.href;
-    const divContents = $(selector).val();
-    if (size) {
+    const divContents = response;
         const popupWin = window.open('', '_blank', 'width=992,height=600,location=1,status=1,scrollbars=1,left=100px');
         // popupWin.document.open();
         popupWin.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title></title>' +
@@ -51,13 +51,6 @@ function previewDocument(selector, size) {
             '</head><body onload="window.print()">');
         popupWin.document.write(divContents);
         popupWin.document.write('</body></html>');
-    } else {
-        const popupWin = window.open('', '', 'width=100,height=100,location=1,status=1,scrollbars=1,left=100px');
-        // popupWin.document.open();
-        popupWin.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title></title>' );
-        popupWin.document.write(divContents);
-        popupWin.document.write('</body></html>');
-    }
     popupWin.document.close();
 }
 
