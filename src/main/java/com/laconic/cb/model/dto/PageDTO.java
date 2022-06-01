@@ -1,4 +1,4 @@
-package com.laconic.cb.model;
+package com.laconic.cb.model.dto;
 
 
 import lombok.Builder;

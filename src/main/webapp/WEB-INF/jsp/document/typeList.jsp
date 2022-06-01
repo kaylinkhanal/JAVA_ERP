@@ -27,18 +27,19 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <br/>
        <div class="col-md-12">
             <form method="post" action="addDocumentType">
+                <input type="hidden" name="documentTypeId" value="${documentType.documentTypeId}">
                 <div class="form-row justify-content-end">
                     <div class="form-group col-md-3">
-                    <input type="text" class="form-control" id="passportNo" />
+                    <input type="text" class="form-control" id="type" name="type" placeholder="Document Type "  value="${documentType.type}" required/>
                     </div>
                     <div class="form-group col-md-3">
-                    <input type="text" class="form-control" id="email" />
+                    <input type="text" class="form-control" id="documentTypeName" name="documentTypeName" placeholder="Document Type Name" value="${documentType.documentTypeName}" required />
                     </div>
                     <div class="form-group col-md-3">
-                    <input type="text" class="form-control" id="contactNo" />
+                    <input type="text" class="form-control" id="description" name="description" placeholder="Description" value="${documentType.description}" required />
                     </div>
                     <div class="form-group">
-                    <button type="button" id="save" class="btn btn-primary float-right"> Save </button>
+                    <button type="submit" id="save" class="btn btn-primary float-right"> Save </button>
                     </div>
                 </div>
             </form>
@@ -55,22 +56,24 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
               <td>View</td>
             </tr>
           </thead>
-
-          <tbody align="center">
-            <tr>
-              <td>Final Lease</td>
-              <td>Final Lease</td>
-              <td></td>
-              <td>
-                <i class="far fa-edit"></i>
-                <i class="far fa-trash-alt"></i>
-              </td>
-              <td>
-                <i class="far fa-file-alt"></i>
-              </td>
-            </tr>
-          </tbody>
+            <c:forEach var="docType" items="${page.getObjects()}">
+                <tbody align="center">
+                <tr>
+                    <td>${docType.type}</td>
+                    <td>${docType.documentTypeName}</td>
+                    <td>${docType.description}</td>
+                    <td>
+                        <i class="far fa-edit icon-button" onclick="openPage('/document/editDocumentType/${docType.documentTypeId}')"></i>
+                        <i class="far fa-trash-alt icon-button" onclick="openPage('/document/deleteDocumentType/${docType.documentTypeId}')"></i>
+                    </td>
+                    <td><i class="far fa-file-alt icon-button" onclick=""></i></td>
+                </tr>
+                </tbody>
+            </c:forEach>
         </table>
+           <jsp:include page="/WEB-INF/jsp/templates/page.jsp">
+               <jsp:param name="page" value="${page}" />
+           </jsp:include>
       </div>
       </div>
     </div>

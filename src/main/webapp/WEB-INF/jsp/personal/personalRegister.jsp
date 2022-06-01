@@ -43,7 +43,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
             <div class="form-group col-md-6">
               <label for="gender">Gender</label>
               <select id="gender" class="form-control" name="gender" required>
-                <option selected>Choose...</option>
+                <option value="">Choose...</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>

@@ -45,7 +45,7 @@ public class HomeController {
         return "personal/personalRegister";
     }
 
-    @GetMapping("/register")
+    @GetMapping("/")
     public String register() {
         return "/templates/register";
     }
@@ -97,7 +97,7 @@ public class HomeController {
         } else savedAddress = addressService.saveAddress(address);
         model.addFlashAttribute("address", savedAddress);
         model.addFlashAttribute("customer", savedAddress.getCustomer());
-        return "redirect:personalAddress?customerId="+savedAddress.getCustomer().getCustomerId();
+        return "redirect:/personalAddress?customerId="+savedAddress.getCustomer().getCustomerId();
     }
 
     @GetMapping("/deleteAddress/{id}")
@@ -111,6 +111,7 @@ public class HomeController {
         Optional<Address> address = addressService.findById(id);
         if (address.isPresent()) {
             model.addAttribute("address", address.get());
+            getCustomer(model, address.get().getCustomer().getCustomerId());
         }
         addressPageInformation(AppConstants.DEFAULT_PAGE, model, modelMap);
         return "personal/personalAddress";
@@ -133,7 +134,7 @@ public class HomeController {
         } else savedContact = contactService.saveContactPerson(contact);
         model.addFlashAttribute("customer", savedContact.getCustomer());
         model.addFlashAttribute("contact", savedContact);
-        return "redirect:personalContact";
+        return "redirect:personalContact?customerId="+savedContact.getCustomer().getCustomerId();
     }
     @GetMapping("/editContactPerson/{id}")
     public String editContactPerson(@PathVariable("id") Long contactId, RedirectAttributes model) {

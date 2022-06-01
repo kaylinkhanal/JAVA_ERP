@@ -7,7 +7,7 @@ create table CUSTOMER  (
     ID_PASSPORT_NO VARCHAR2(50) not null,
     EMAIL VARCHAR2(50),
     CONTACT_NO VARCHAR2(50) not null,
-    code VARCHAR2(50),
+    code NUMBER(22),
     REGISTER_DATE DATE not null,
     CREATED_BY	VARCHAR2(20),
     CREATION_DATE	DATE,
