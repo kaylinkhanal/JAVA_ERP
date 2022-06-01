@@ -1,11 +1,12 @@
 $("#documentType").change(function () {
+    $('#documentTemplate').empty().append('<option selected="selected" value="">Choose...</option>');
+    $("#documentPreview").css('visibility', 'hidden')
     let documentType = $("#documentType").val();
     if (documentType) {
         $.ajax({
             url: "${pageContext.request.contextPath}/document/findDocumentTemplates/"+documentType,
             type: "GET",
             success: function (response) {
-                $('#documentTemplate').empty().append('<option selected="selected" value="">Choose...</option>');
                 let select = document.getElementById("documentTemplate");
                 response.forEach(function (element) {
                     let opt = element.documentName
@@ -23,6 +24,7 @@ $("#documentType").change(function () {
 });
 
 $("#documentTemplate").change(function () {
+    $("#documentPreview").css('visibility', 'hidden')
     let documentType = $("#documentType").val();
     let documentTemplate = $("#documentTemplate").val();
     if (documentType && documentTemplate) {
