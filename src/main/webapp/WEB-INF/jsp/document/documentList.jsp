@@ -41,7 +41,7 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                           <td>${document.language}</td>
                           <td>Enable</td>
                           <td>
-                              <i class="fa fa-print icon-button"></i>
+                              <i class="fa fa-print icon-button" onclick="printBlankDocument(${document.documentId})"></i>
                               <i class="far fa-edit icon-button" onclick="openPage('/document/editDocument/${document.documentId}')"></i>
                               <i class="far fa-trash-alt icon-button" onclick="openPage('/document/deleteDocument/${document.documentId}')"></i>
                           </td>
@@ -59,3 +59,4 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     </div>
   </body>
 </html>
+<script><%@include file="/WEB-INF/script/documentPreview.js" %></script>

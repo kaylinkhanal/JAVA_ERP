@@ -16,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.print.Doc;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -131,12 +132,28 @@ public class DocumentController {
         Optional<Document> document = documentService.findById(documentAttributes.getDocumentId());
         if (document.isPresent()) {
             if (document.get().getContent() != null) {
-                String content = ParseDocument.getParsedDocument(document.get().getContent(), documentAttributes);
+                String content;
+                if (documentAttributes.getNationality() != null && documentAttributes.getAddress() != null &&
+                        documentAttributes.getContactNumber() != null && documentAttributes.getDateOfBirth() != null &&
+                        documentAttributes.getExecutorName() != null && documentAttributes.getPassportNumber() != null &&
+                        documentAttributes.getEffectiveDateTo() != null && documentAttributes.getEffectiveDateFrom() != null) {
+                    content = ParseDocument.getParsedDocument(document.get().getContent(), documentAttributes);
+                } else content = ParseDocument.getBlankDocument(document.get().getContent());
                 document.get().setContent(content);
             }
         }
         return document.get().getContent();
     }
+
+//    @GetMapping("/printBlankDocument/{id}")
+//    @ResponseBody
+//    public String printBlankDocument(@PathVariable("id") Long documentId) {
+//        Optional<Document> document = documentService.findById(documentId);
+//        if (document.isPresent()) {
+//            return document.get().getContent();
+//        }
+//        return null;
+//    }
 
     @GetMapping("/findDocumentTemplates/{id}")
     @ResponseBody
