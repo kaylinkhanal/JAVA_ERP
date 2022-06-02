@@ -32,7 +32,7 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
               </div>
               <div class="form-group col-md-6">
                 <label for="branch">Branch: </label>
-                <select id="branch" name="branch" class="form-control" value="${document.branch}" required>
+                <select id="branch" name="branch" class="form-control" required>
                     <c:choose>
                         <c:when test="${document == null}">
                             <option value="">Choose...</option>
@@ -41,8 +41,8 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                             <option selected value="${document.branch}">${document.branch}</option>
                         </c:otherwise>
                     </c:choose>
-                  <option value="one">Branch 1</option>
-                  <option value="two">Branch 2</option>
+                  <option value="Branch 1">Branch 1</option>
+                  <option value="Branch 2">Branch 2</option>
                 </select>
               </div>
              </div>
@@ -53,7 +53,7 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
               </div>
               <div class="form-group col-md-6">
                 <label for="format">Doc Printing Format: </label>
-                <select id="printingFormat" name="printingFormat" class="form-control" required value="${document.printingFormat}">
+                <select id="printingFormat" name="printingFormat" class="form-control" required >
                     <c:choose>
                         <c:when test="${document == null}">
                             <option value="">Choose...</option>
@@ -70,7 +70,7 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
              <div class="form-row col-md-12">
               <div class="form-group col-md-6">
                 <label for="documentType">Document Type:</label>
-                  <select id="documentType" name="documentType" class="form-control" required value="${document.documentType}">
+                  <select id="documentType" name="documentType" class="form-control" required>
                       <c:choose>
                           <c:when test="${document == null}">
                               <option value="">Choose...</option>
@@ -86,7 +86,7 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
               </div>
               <div class="form-group col-md-6">
                 <label for="language">Language:</label>
-                <select id="language" name="language" class="form-control" value="${document.language}" required>
+                <select id="language" name="language" class="form-control" required>
                     <c:choose>
                         <c:when test="${document == null}">
                             <option value="">Choose...</option>
@@ -95,8 +95,8 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                             <option selected value="${document.language}">${document.language}</option>
                         </c:otherwise>
                     </c:choose><
-                    <option value="english">English</option>
-                    <option value="thai">Thai</option>
+                    <option value="English">English</option>
+                    <option value="English">Thai</option>
                 </select>
               </div>
              </div>
