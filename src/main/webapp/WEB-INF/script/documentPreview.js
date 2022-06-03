@@ -82,3 +82,21 @@ function previewDocument() {
         alert("Fields are empty")
     }
 }
+
+function printBlankDocument(documentId) {
+    $.ajax({
+        url: "${pageContext.request.contextPath}/document/printTemplate/",
+        type: "POST",
+        data: {
+            documentId: documentId
+        },
+        success: function (response) {
+            if (response) {
+                printDocument(response)
+            } else alert("Something went wrong")
+        },
+        error:  function(XMLHttpRequest) {
+            console.error("Something went wrong");
+        }
+    });
+}
