@@ -7,6 +7,7 @@ create table DOCUMENT  (
         CONTENT VARCHAR2(5000) not null,
         PRINTING_FORMAT VARCHAR2(100) not null,
         "LANGUAGE" VARCHAR2(50) not null,
+        IS_DELETED VARCHAR2(1) not null,
         CREATED_BY	VARCHAR2(20),
         CREATION_DATE	DATE,
         DISABLE_BY	VARCHAR2(20),

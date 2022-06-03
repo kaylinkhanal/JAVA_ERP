@@ -1,0 +1,15 @@
+create table EMAIL_TEMPLATE  (
+       TEMPLATE_ID	NUMBER(22) not null,
+       TEMPLATE_NAME	VARCHAR2(100) not null,
+       SUBJECT VARCHAR2(100) not null,
+       CONTENT VARCHAR2(1000) not null,
+       MANAGE VARCHAR2(100),
+       IS_DELETED VARCHAR2(1) not null,
+       CREATED_BY	VARCHAR2(20),
+       CREATION_DATE	DATE,
+       DISABLE_BY	VARCHAR2(20),
+       DISABLE_DATE	DATE,
+       LAST_UPDATED_BY	VARCHAR2(20),
+       LAST_UPDATE_DATE	DATE,
+       primary key (TEMPLATE_ID)
+)
