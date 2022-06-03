@@ -5,7 +5,7 @@ create table ADDRESS  (
     COUNTRY_ID NUMBER(22) not null,
     CUSTOMER_ID NUMBER(22) not null,
     PHONE1	VARCHAR2(250) not null,
-    PHONE2	VARCHAR2(250) not null,
+    PHONE2	VARCHAR2(250),
     FAX	VARCHAR2(250),
     IS_DELETED VARCHAR2(1) not null,
     primary key (ADDRESS_ID),
