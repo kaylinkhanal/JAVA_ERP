@@ -49,6 +49,7 @@
                     <td>${template.lastUpdatedBy}</td>
                     <td>${template.manage}</td>
                     <td>
+                        <i class="far fa-file-alt icon-button" onclick="openPage('/email/viewTemplate/${template.templateId}')"></i>
                         <i class="far fa-edit icon-button" onclick="openPage('/email/editTemplate/${template.templateId}')"></i>
                         <i class="far fa-trash-alt icon-button" onclick="openPage('/email/deleteTemplate/${template.templateId}')"></i>
                     </td>

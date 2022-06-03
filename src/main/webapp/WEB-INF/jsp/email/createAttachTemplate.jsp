@@ -16,11 +16,13 @@
             <hr />
         </div>
 
-        <div class="form-row">
+        <div class="form-row col-md-8">
             <div class="form-group col-md-6">
-                <button type="button"  class="form-control btn btn-primary" id="create" onclick="">
+                <button type="button"  class="form-control btn btn-primary" id="create" onclick="openPage('/email/create')">
                     Create Email Template
                 </button>
+            </div>
+            <div class="form-group col-md-6">
                 <button type="button"  class="form-control btn btn-primary" id="attach" onclick="">
                     Attach Email Template
                 </button>
@@ -28,39 +30,38 @@
         </div>
 
     </div>
-    <%--    <div align="center" class="container">--%>
-    <%--        <table border="1" width="60%" class="table table-striped">--%>
-    <%--            <thead align="center" class="bg-primary">--%>
-    <%--            <tr>--%>
-    <%--                <td>Template ID</td>--%>
-    <%--                <td>Email Template Name</td>--%>
-    <%--                <td>Created By</td>--%>
-    <%--                <td>Last Update</td>--%>
-    <%--                <td>Manage</td>--%>
-    <%--                <td></td>--%>
-    <%--            </tr>--%>
-    <%--            </thead>--%>
-    <%--            <c:forEach var="document" items="${page.getObjects()}">--%>
-    <%--                <tbody align="center">--%>
-    <%--                <tr>--%>
-    <%--                    <td>${template.templateId}</td>--%>
-    <%--                    <td>${template.templateName}</td>--%>
-    <%--                    <td>${template.createdBy}</td>--%>
-    <%--                    <td>${template.lastUpdatedBy}</td>--%>
-    <%--                    <td>${template.manage}</td>--%>
-    <%--                    <td>Enable</td>--%>
-    <%--                    <td>--%>
-    <%--                        <i class="far fa-edit icon-button" onclick="openPage('/editTemplate/${template.templateId}')"></i>--%>
-    <%--                        <i class="far fa-trash-alt icon-button" onclick="openPage('/deleteTemplate/${template.templateId}')"></i>--%>
-    <%--                    </td>--%>
-    <%--                </tr>--%>
-    <%--                </tbody>--%>
-    <%--            </c:forEach>--%>
-    <%--        </table>--%>
-    <%--        <jsp:include page="/WEB-INF/jsp/templates/page.jsp">--%>
-    <%--            <jsp:param name="page" value="${page}" />--%>
-    <%--        </jsp:include>--%>
-    <%--    </div>--%>
+        <div align="center" class="container">
+            <table border="1" width="60%" class="table table-striped">
+                <thead align="center" class="bg-primary">
+                <tr>
+                    <td>Template ID</td>
+                    <td>Email Template Name</td>
+                    <td>Created By</td>
+                    <td>Last Update</td>
+                    <td>Manage</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <c:forEach var="template" items="${page.getObjects()}">
+                    <tbody align="center">
+                    <tr>
+                        <td>${template.templateId}</td>
+                        <td>${template.templateName}</td>
+                        <td>${template.createdBy}</td>
+                        <td>${template.lastUpdatedBy}</td>
+                        <td>${template.manage}</td>
+                        <td>
+                            <i class="far fa-edit icon-button" onclick="openPage('/editTemplate/${template.templateId}')"></i>
+                            <i class="far fa-trash-alt icon-button" onclick="openPage('/deleteTemplate/${template.templateId}')"></i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </c:forEach>
+            </table>
+            <jsp:include page="/WEB-INF/jsp/templates/page.jsp">
+                <jsp:param name="page" value="${page}" />
+            </jsp:include>
+        </div>
 </div>
 </body>
 </html>
