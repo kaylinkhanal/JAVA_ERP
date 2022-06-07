@@ -32,10 +32,7 @@ public class Customer extends BaseEntity {
     private Date dateOfBirth;
     @Column(name = "EMAIL")
     private String email;
-    @Generated(GenerationTime.INSERT)
-    @SequenceGenerator(name = "code_seq_gen", sequenceName = "code_seq", initialValue = 001, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "code_seq_gen")
-    @Column(name = "CODE", nullable = false, columnDefinition = "number auto increment")
+    @Column(name = "CODE")
     private Long code;
     @Column(name = "CONTACT_NO")
     private String contactNo;

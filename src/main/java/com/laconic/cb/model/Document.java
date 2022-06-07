@@ -26,11 +26,7 @@ public class Document extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "DOCUMENT_TYPE_ID")
     private DocumentType documentType;
-    @Generated(GenerationTime.INSERT)
-    @SequenceGenerator(name = "document_no_seq_gen", sequenceName = "document_no_seq",
-            allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "document_no_seq_gen")
-    @Column(name = "DOCUMENT_NO", insertable = false, columnDefinition = "serial")
+    @Column(name = "DOCUMENT_NO")
     private Long documentNo;
     @Column(name = "BRANCH")
     private String branch;
