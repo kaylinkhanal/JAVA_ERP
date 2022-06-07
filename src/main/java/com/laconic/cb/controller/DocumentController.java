@@ -88,9 +88,6 @@ public class DocumentController {
 
     @PostMapping("/addDocument")
     public String addDocument(RedirectAttributes model, Document document) {
-
-        //////// needs to be refactored
-        document.setDocumentNo(15L);
         if (document.getDocumentId() != null) {
             documentService.updateDocument(document);
         } else documentService.saveDocument(document);

@@ -3,6 +3,7 @@ package com.laconic.cb.service.impl;
 import com.laconic.cb.constants.AppConstants;
 import com.laconic.cb.model.Document;
 import com.laconic.cb.repository.IDocumentRepository;
+import com.laconic.cb.repository.IDocumentSequenceRepository;
 import com.laconic.cb.service.IDocumentService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,13 +17,16 @@ import java.util.Optional;
 public class DocumentService implements IDocumentService {
 
     private final IDocumentRepository documentRepository;
+    private final IDocumentSequenceRepository documentSequenceRepository;
 
-    public DocumentService(IDocumentRepository documentRepository) {
+    public DocumentService(IDocumentRepository documentRepository, IDocumentSequenceRepository documentSequenceRepository) {
         this.documentRepository = documentRepository;
+        this.documentSequenceRepository = documentSequenceRepository;
     }
 
     @Override
     public Document saveDocument(Document document) {
+        document.setDocumentNo(documentSequenceRepository.getNextDocumentNoSequence());
         return documentRepository.save(document);
     }
 
