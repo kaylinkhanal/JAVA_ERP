@@ -1,9 +1,9 @@
 package com.laconic.cb.service.impl;
 
 import com.laconic.cb.constants.AppConstants;
-import com.laconic.cb.model.Contact;
-import com.laconic.cb.repository.IContactRepository;
-import com.laconic.cb.service.IContactService;
+import com.laconic.cb.model.ContactPerson;
+import com.laconic.cb.repository.IContactPersonRepository;
+import com.laconic.cb.service.IContactPersonService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,21 +12,21 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class ContactService implements IContactService {
+public class ContactPersonService implements IContactPersonService {
 
-    private final IContactRepository contactRepository;
+    private final IContactPersonRepository contactRepository;
 
-    public ContactService(IContactRepository contactRepository) {
+    public ContactPersonService(IContactPersonRepository contactRepository) {
         this.contactRepository = contactRepository;
     }
 
     @Override
-    public Contact saveContactPerson(Contact contact) {
+    public ContactPerson saveContactPerson(ContactPerson contact) {
         return contactRepository.save(contact);
     }
 
     @Override
-    public Page<Contact> getAllContactPerson(int pageNo) {
+    public Page<ContactPerson> getAllContactPerson(int pageNo) {
         Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
         return contactRepository.findAllByIsDeletedFalse(pageable);
     }
@@ -35,13 +35,13 @@ public class ContactService implements IContactService {
         contactRepository.softDeleteContact(contactId);
     }
 
-    public Contact updateContactPerson(Contact contact) {
+    public ContactPerson updateContactPerson(ContactPerson contact) {
         return contactRepository.saveAndFlush(contact);
     }
 
     @Override
-    public Optional<Contact> findById(Long contactId) {
-        return contactRepository.findByContactIdAndIsDeletedFalse(contactId);
+    public Optional<ContactPerson> findById(Long contactId) {
+        return contactRepository.findByContactPersonIdAndIsDeletedFalse(contactId);
     }
 
     @Override

@@ -23,8 +23,8 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           <input type="hidden" value="${customer.customerId}" name="customer" id="customer" />
           <div class="form-row">
             <div class="form-group col-md-4">
-              <label for="contactId">Contact Id: </label>
-              <input type="hidden" class="form-control" id="contactId" name="contactId" value="${contact.contactId}" />
+              <label for="contactPersonId">Contact Id: </label>
+              <input type="hidden" class="form-control" id="contactPersonId" name="contactPersonId" value="${contact.contactId}" />
               <input type="text" disabled class="form-control" value="${contact.contactId}" />
             </div>
           </div>

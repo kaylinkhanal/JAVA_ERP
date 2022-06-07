@@ -1,0 +1,21 @@
+create table CASE  (
+      CASE_ID	NUMBER(22) not null,
+      CONTACT	VARCHAR2(100) not null,
+      TITLE	VARCHAR2(100) not null,
+      STATUS	VARCHAR2(100) not null,
+      DESCRIPTION	VARCHAR2(500) not null,
+      CONTACT_PERSON_ID NUMBER(22) not null,
+      CUSTOMER_ID NUMBER(22) not null,
+      OPERATING_DATE DATE not null,
+      PROPOSAL_DATE DATE not null,
+      ACCEPTANCE_DATE DATE not null,
+      VALIDATION_DATE DATE not null,
+      DISCARD_DATE DATE not null,
+      CLOSING_DATE DATE not null,
+      SUSPENSE_DATE DATE not null,
+      IS_DELETED VARCHAR2(1) not null,
+      primary key (CASE_ID),
+      CONSTRAINT case_status_enum CHECK (STATUS IN ('Opened', 'Closed', 'Suspended')),
+      CONSTRAINT ContactPerson_Case_FK FOREIGN KEY (CONTACT_PERSON_ID) REFERENCES CONTACT_PERSON(CONTACT_PERSON_ID),
+      CONSTRAINT Customer_Case_FK FOREIGN KEY (CUSTOMER_ID) REFERENCES CUSTOMER(CUSTOMER_ID)
+)

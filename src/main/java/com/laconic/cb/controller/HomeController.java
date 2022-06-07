@@ -2,11 +2,10 @@ package com.laconic.cb.controller;
 
 import com.laconic.cb.constants.AppConstants;
 import com.laconic.cb.model.Address;
-import com.laconic.cb.model.Contact;
+import com.laconic.cb.model.ContactPerson;
 import com.laconic.cb.model.Customer;
-import com.laconic.cb.model.Site;
 import com.laconic.cb.service.IAddressService;
-import com.laconic.cb.service.IContactService;
+import com.laconic.cb.service.IContactPersonService;
 import com.laconic.cb.service.ICountryService;
 import com.laconic.cb.service.ICustomerService;
 import com.laconic.cb.utils.Pagination;
@@ -16,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,9 +29,9 @@ public class HomeController {
     private final ICustomerService customerService;
     private final ICountryService countryService;
     private final IAddressService addressService;
-    private final IContactService contactService;
+    private final IContactPersonService contactService;
 
-    public HomeController(ICustomerService customerService, ICountryService countryService, IAddressService addressService, IContactService contactService) {
+    public HomeController(ICustomerService customerService, ICountryService countryService, IAddressService addressService, IContactPersonService contactService) {
         this.customerService = customerService;
         this.countryService = countryService;
         this.addressService = addressService;
@@ -54,9 +52,9 @@ public class HomeController {
     public String personalContact(Model model, @RequestParam(value = "customerId", required = false) Long customerId,
                                   @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
                                   ModelMap modelMap) {
-        Page<Contact> contactList = contactService.getAllContactPerson(pageNo);
+        Page<ContactPerson> contactList = contactService.getAllContactPerson(pageNo);
         model.addAttribute("contacts", contactList.getContent().stream().collect(Collectors.toList()));
-        List<Contact> contacts = contactList.getContent().stream().collect(Collectors.toList());
+        List<ContactPerson> contacts = contactList.getContent().stream().collect(Collectors.toList());
         long totalContact = contactService.getTotalContact();
         Pagination.getPagination(modelMap, contactList, totalContact, contacts, "/personalContact");
         getCustomer(model, customerId);
@@ -127,9 +125,9 @@ public class HomeController {
     }
 
     @PostMapping("/addContactPerson")
-    public String addContactPerson(RedirectAttributes model, Contact contact) {
-        Contact savedContact;
-        if (contact.getContactId() != null) {
+    public String addContactPerson(RedirectAttributes model, ContactPerson contact) {
+        ContactPerson savedContact;
+        if (contact.getContactPersonId() != null) {
             savedContact = contactService.updateContactPerson(contact);
         } else savedContact = contactService.saveContactPerson(contact);
         model.addFlashAttribute("customer", savedContact.getCustomer());
@@ -138,7 +136,7 @@ public class HomeController {
     }
     @GetMapping("/editContactPerson/{id}")
     public String editContactPerson(@PathVariable("id") Long contactId, RedirectAttributes model) {
-        Optional<Contact> contact = contactService.findById(contactId);
+        Optional<ContactPerson> contact = contactService.findById(contactId);
         if (contact.isPresent()) {
             model.addFlashAttribute("contact", contact.get());
             model.addFlashAttribute("customer", contact.get().getCustomer());

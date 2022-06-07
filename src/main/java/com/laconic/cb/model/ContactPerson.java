@@ -12,15 +12,15 @@ import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "CONTACT")
+@Table(name = "CONTACT_PERSON")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Contact extends BaseEntity {
+public class ContactPerson extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "CONTACT_ID")
-    private Long contactId;
+    @Column(name = "CONTACT_PERSON_ID")
+    private Long contactPersonId;
     @Column(name = "COMPANY_ID")
     private Long companyId;
     @Column(name = "CONTACT_CODE")
