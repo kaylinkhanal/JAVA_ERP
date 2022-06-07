@@ -171,4 +171,13 @@ public class DocumentController {
         model.addAttribute("countries", countries);
         return "document/previewDocument";
     }
+
+    @GetMapping("/detail/{id}")
+    public String documentDetail(@PathVariable("id") Long id, Model model) {
+        Optional<DocumentType> documentType = documentTypeService.findById(id);
+        if (documentType.isPresent()) {
+            model.addAttribute("documentType", documentType.get());
+        }
+        return "document/detail";
+    }
 }

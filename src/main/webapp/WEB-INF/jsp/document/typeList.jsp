@@ -66,7 +66,7 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                         <i class="far fa-edit icon-button" onclick="openPage('/document/editDocumentType/${docType.documentTypeId}')"></i>
                         <i class="far fa-trash-alt icon-button" onclick="openPage('/document/deleteDocumentType/${docType.documentTypeId}')"></i>
                     </td>
-                    <td><i class="far fa-file-alt icon-button" onclick=""></i></td>
+                    <td><i class="far fa-file-alt icon-button" onclick="openPage('/document/detail/${docType.documentTypeId}')"></i></td>
                 </tr>
                 </tbody>
             </c:forEach>
