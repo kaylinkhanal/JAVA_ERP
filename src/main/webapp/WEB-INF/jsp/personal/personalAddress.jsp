@@ -127,12 +127,12 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
     <jsp:include page="/WEB-INF/jsp/templates/basicModal.jsp">
       <jsp:param name="message" value="Thank you for your registration. Your Personal ID is ${customer.customerId} Please
             process next step" />
-      <jsp:param name="url" value="/personalContact?customerId=${customer.customerId}"/>
+      <jsp:param name="url" value="/personalContact"/>
     </jsp:include>
   </body>
 </html>
 <script type="text/javascript">
-  <c:if test="${address != null}">
+  <c:if test="${success == true}">
   $("#saveModal").modal("show");
   </c:if>
 </script>
