@@ -17,8 +17,12 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/personalRegister">Personal Register</a>
                     <a class="dropdown-item" href="/personalAddress">Personal Address</a>
-<%--                    <div class="dropdown-divider"></div>--%>
                     <a class="dropdown-item" href="/personalContact">Personal Contact</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/company/information">Company Register</a>
+                    <a class="dropdown-item" href="/company/site">Company Site</a>
+                    <a class="dropdown-item" href="/company/contactPerson">Company Contact</a>
+                    <a class="dropdown-item" href="/company/finance">Company Finance</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

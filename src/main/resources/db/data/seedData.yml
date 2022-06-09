@@ -22,3 +22,26 @@ databaseChangeLog:
               - column:
                   name: COUNTRY_NAME
                   type: STRING
+  - changeSet:
+        author: mandip.dhakal
+        context: dev
+        runOnChange: true
+        id: inserting_currencies
+        changes:
+          - loadUpdateData:
+              catalogName: LACONIC
+              file: /db/data/02-currency.csv
+              tableName: CURRENCY
+              quotchar: "\""
+              separator: ","
+              primaryKey: CURRENCY_ID
+              columns:
+                - column:
+                    name: CURRENCY_ID
+                    type: NUMBER
+                - column:
+                    name: CURRENCY_CODE
+                    type: NUMBER
+                - column:
+                    name: CURRENCY_NAME
+                    type: STRING

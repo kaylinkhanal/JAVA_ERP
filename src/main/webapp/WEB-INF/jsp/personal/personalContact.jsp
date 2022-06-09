@@ -114,38 +114,20 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
             </tbody>
           </c:forEach>
         </table>
-<%--        <jsp:include page="/WEB-INF/jsp/templates/page.jsp">--%>
-<%--          <jsp:param name="page" value="${page}" />--%>
-<%--        </jsp:include>--%>
         <jsp:include page="/WEB-INF/jsp/templates/page.jsp">
           <jsp:param name="page" value="${page}" />
         </jsp:include>
       </div>
     </div>
-<%--    <div id="saveModal" class="modal" tabindex="-1" role="dialog">--%>
-<%--      <div class="modal-dialog" role="document">--%>
-<%--        <div class="modal-content">--%>
-<%--          <h2>Successfully</h2>--%>
-<%--          <div class="modal-body">--%>
-<%--            Thank you for your registration. Your Company ID is ${contact.contactId} Please--%>
-<%--            process next step--%>
-<%--          </div>--%>
-<%--          <div class="modal-footer">--%>
-<%--            <button type="button" class="btn btn-secondary">Next</button>--%>
-<%--            <button--%>
-<%--              type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>--%>
-<%--          </div>--%>
-<%--        </div>--%>
-<%--      </div>--%>
-<%--    </div>--%>
+
     <jsp:include page="/WEB-INF/jsp/templates/basicModal.jsp">
       <jsp:param name="message" value="Thank you for your registration. Your Personal ID is ${customer.customerId}." />
-      <jsp:param name="url" value="/"/>
+      <jsp:param name="url" value="/company/information"/>
     </jsp:include>
   </body>
 </html>
 <script type="text/javascript">
-  <c:if test="${contact != null}">
+  <c:if test="${success == true}">
   $("#saveModal").modal("show");
   </c:if>
 </script>

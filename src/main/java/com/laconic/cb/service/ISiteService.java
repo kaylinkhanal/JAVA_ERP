@@ -13,4 +13,6 @@ public interface ISiteService {
     List<Site> getSites();
 
     long getTotalSites();
+
+    List<Site> getAllSites();
 }

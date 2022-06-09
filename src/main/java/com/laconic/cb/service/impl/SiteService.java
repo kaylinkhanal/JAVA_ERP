@@ -39,4 +39,9 @@ public class SiteService implements ISiteService {
     public long getTotalSites() {
         return siteRepository.count();
     }
+
+    @Override
+    public List<Site> getAllSites() {
+        return siteRepository.findAll();
+    }
 }

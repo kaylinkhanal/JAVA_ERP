@@ -10,6 +10,7 @@ import com.laconic.cb.service.IContactService;
 import com.laconic.cb.service.ICountryService;
 import com.laconic.cb.service.ICustomerService;
 import com.laconic.cb.utils.Pagination;
+import com.laconic.cb.utils.SessionStorage;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.mail.Session;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -46,12 +50,13 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String register() {
+    public String register(HttpSession session) {
+        SessionStorage.destroy(session);
         return "/templates/register";
     }
 
     @GetMapping("/personalContact")
-    public String personalContact(Model model, @RequestParam(value = "customerId", required = false) Long customerId,
+    public String personalContact(Model model, HttpSession session,
                                   @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
                                   ModelMap modelMap) {
         Page<Contact> contactList = contactService.getAllContactPerson(pageNo);
@@ -59,30 +64,32 @@ public class HomeController {
         List<Contact> contacts = contactList.getContent().stream().collect(Collectors.toList());
         long totalContact = contactService.getTotalContact();
         Pagination.getPagination(modelMap, contactList, totalContact, contacts, "/personalContact");
-        getCustomer(model, customerId);
+        getCustomer(model, session);
         return "personal/personalContact";
     }
 
     @GetMapping("/personalAddress")
     public String personalAddress(Model model, ModelMap modelMap,
-                                  @RequestParam(value = "customerId", required = false) Long customerId,
+                                  HttpSession session,
                                   @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo) {
-        getCustomer(model, customerId);
+        getCustomer(model, session);
         addressPageInformation(pageNo, model, modelMap);
         return "personal/personalAddress";
     }
 
-    private void getCustomer(Model model, Long customerId) {
-        if (customerId != null) {
-            Optional<Customer> customer = customerService.findById(customerId);
-            model.addAttribute("customer", customer.get());
+    private void getCustomer(Model model, HttpSession session) {
+        Customer customer = (Customer) SessionStorage.getStorage(session, "customer");
+        if (customer != null) {
+            model.addAttribute("customer", customer);
         }
     }
 
     @PostMapping("/addCustomer")
-    public String addCustomer(@ModelAttribute Customer customer, RedirectAttributes model) {
+    public String addCustomer(@ModelAttribute Customer customer, RedirectAttributes model, HttpSession session) {
         Customer savedCustomer = customerService.save(customer);
+        SessionStorage.setStorage(session, "customer", savedCustomer);
         model.addFlashAttribute("customer", savedCustomer);
+        model.addFlashAttribute("success", true);
         return "redirect:personalRegister";
     }
 
@@ -96,8 +103,9 @@ public class HomeController {
             savedAddress = addressService.updateAddress(address);
         } else savedAddress = addressService.saveAddress(address);
         model.addFlashAttribute("address", savedAddress);
+        model.addFlashAttribute("success", true);
         model.addFlashAttribute("customer", savedAddress.getCustomer());
-        return "redirect:/personalAddress?customerId="+savedAddress.getCustomer().getCustomerId();
+        return "redirect:/personalAddress";
     }
 
     @GetMapping("/deleteAddress/{id}")
@@ -107,11 +115,11 @@ public class HomeController {
     }
 
     @GetMapping("/editAddress/{id}")
-    public String editAddress(Model model, @PathVariable("id") Long id, ModelMap modelMap) {
+    public String editAddress(Model model, @PathVariable("id") Long id, ModelMap modelMap, HttpSession session) {
         Optional<Address> address = addressService.findById(id);
         if (address.isPresent()) {
             model.addAttribute("address", address.get());
-            getCustomer(model, address.get().getCustomer().getCustomerId());
+            getCustomer(model, session);
         }
         addressPageInformation(AppConstants.DEFAULT_PAGE, model, modelMap);
         return "personal/personalAddress";
@@ -134,7 +142,8 @@ public class HomeController {
         } else savedContact = contactService.saveContactPerson(contact);
         model.addFlashAttribute("customer", savedContact.getCustomer());
         model.addFlashAttribute("contact", savedContact);
-        return "redirect:personalContact?customerId="+savedContact.getCustomer().getCustomerId();
+        model.addFlashAttribute("success", true);
+        return "redirect:personalContact";
     }
     @GetMapping("/editContactPerson/{id}")
     public String editContactPerson(@PathVariable("id") Long contactId, RedirectAttributes model) {
@@ -151,4 +160,5 @@ public class HomeController {
         contactService.softDeleteContact(contactId);
         return "redirect:/personalContact";
     }
+
 }
