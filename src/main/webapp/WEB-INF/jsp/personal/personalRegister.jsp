@@ -81,19 +81,19 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
     <jsp:include page="/WEB-INF/jsp/templates/basicModal.jsp">
       <jsp:param name="message" value="Thank you for your registration. Your Personal ID is ${customer.customerId} Please
             process next step" />
-      <jsp:param name="url" value="/personalAddress?customerId=${customer.customerId}"/>
+      <jsp:param name="url" value="/personalAddress"/>
     </jsp:include>
   </body>
 </html>
 <script type="text/javascript">
-  <c:if test="${customer != null}">
+  <c:if test="${success == true}">
     $("#saveModal").modal("show");
     setStorage('customer', JSON.stringify('${customer}'));
   </c:if>
 
   function nextPage() {
       setStorage('customer', JSON.stringify('${customer}'));
-      openPage('personalAddress?customerId=${customer.customerId}')
+      openPage('personalAddress')
   }
 </script>
 

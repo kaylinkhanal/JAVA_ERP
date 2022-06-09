@@ -19,43 +19,44 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="siteId">Site Id: </label>
-              <input
-                type="text"
-                disabled
-                class="form-control"
-                id="siteId"
-                name="siteId"
-              />
+              <input type="text" disabled class="form-control" id="siteId" name="siteId" value="${site.siteId}"/>
+              <input type="hidden" class="form-control" name="siteId" value="${site.siteId}"/>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-8">
               <label for="siteName">Site Name: </label>
-              <input
-                type="text"
-                class="form-control"
-                id="siteName"
-                name="siteName"
-              />
+              <input type="text" class="form-control" id="siteName" name="siteName" value="${site.siteName}" />
             </div>
             <div class="form-group col-md-4">
               <label for="siteType">Type: </label>
-              <select id="siteType" name="siteType" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
+              <select id="siteType" name="siteType" class="form-control" >
+                <option selected value="">Choose...</option>
+                <option value="Type 1">Type 1</option>
+                <option value="Type 2">Type 2</option>
               </select>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-8">
               <label for="address">Address: </label>
-              <input type="text" class="form-control" id="address" name="address" />
+              <input type="text" class="form-control" id="address" name="address" value="${site.address}"/>
             </div>
             <div class="form-group col-md-4">
-              <label for="country">Country</label>
-              <select id="country" name="country" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
+              <label for="countryId">Country</label>
+              <select id="countryId" name="countryId" class="form-control" value="${site.country.countryName}">
+                <c:choose>
+                  <c:when test="${site == null}">
+                    <option selected value="">Choose...</option>
+                  </c:when>
+                  <c:otherwise>
+                    <option selected value="${site.country.countryId}">${site.country.countryName}</option>
+                  </c:otherwise>
+                </c:choose>
+
+                <c:forEach var="country" items="${countries }" >
+                  <option value="${country.countryId }">${country.countryName}</option>
+                </c:forEach>
               </select>
             </div>
           </div>
@@ -63,26 +64,16 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="phone1">Phone1: </label>
-              <input
-                type="text"
-                class="form-control"
-                id="phone1"
-                name="phone1"
-              />
+              <input type="text" class="form-control" id="phone1" name="phone1" value="${site.phone1}" />
             </div>
             <div class="form-group col-md-4">
               <label for="phone2">Phone2: </label>
-              <input
-                type="text"
-                class="form-control"
-                id="phone2"
-                name="phone2"
-              />
+              <input type="text" class="form-control" id="phone2" name="phone2" value="${site.phone2}"  />
             </div>
 
             <div class="form-group col-md-4">
               <label for="fax">Fax: </label>
-              <input type="text" class="form-control" id="fax" name="fax" />
+              <input type="text" class="form-control" id="fax" name="fax" value="${site.fax}"/>
             </div>
           </div>
           <button type="submit" class="btn btn-primary">Save</button
@@ -112,8 +103,8 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                 <td>${site.getSiteName()}</td>
                 <td>Enable</td>
                 <td>
-                  <i class="far fa-edit"></i>
-                  <i class="far fa-trash-alt"></i>
+                  <i class="far fa-edit icon-button" onclick="openPage('/company/editSite/${site.siteId}')"></i>
+                  <i class="far fa-trash-alt icon-button" onclick="openPage('/company/deleteSite/${site.siteId}')"></i>
                 </td>
               </tr>
             </tbody>
@@ -124,7 +115,17 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
         </jsp:include>
       </div>
     </div>
+    <jsp:include page="/WEB-INF/jsp/templates/basicModal.jsp">
+      <jsp:param name="message" value="Thank you for your registration. Your Company ID is ${company.companyId} Please
+            process next step" />
+      <jsp:param name="url" value="/company/contactPerson"/>
+    </jsp:include>
   </body>
 </html>
+<script type="text/javascript">
+  <c:if test="${success == true}">
+  $("#saveModal").modal("show");
+  </c:if>
+</script>
 
 

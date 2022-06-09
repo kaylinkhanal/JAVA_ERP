@@ -1,0 +1,19 @@
+create table COMPANY  (
+       COMPANY_ID	NUMBER(22) not null,
+       COMPANY_NAME VARCHAR2(250) not null,
+       BUSINESS_TYPE VARCHAR2(50) not null,
+       TAX_ID VARCHAR2(100) not null,
+       WEBSITE VARCHAR2(100) not null,
+       TRADING_RELATION VARCHAR2(50) not null,
+       REGISTER_DATE DATE not null,
+       CREATED_BY	VARCHAR2(20),
+       CREATION_DATE	DATE,
+       DISABLE_BY	VARCHAR2(20),
+       DISABLE_DATE	DATE,
+       LAST_UPDATED_BY	VARCHAR2(20),
+       LAST_UPDATE_DATE	DATE,
+       IS_DELETED VARCHAR2(1) not null,
+       CUSTOMER_ID NUMBER(22),
+       primary key (COMPANY_ID),
+       CONSTRAINT Customer_Company_FK FOREIGN KEY (CUSTOMER_ID) REFERENCES CUSTOMER(CUSTOMER_ID)
+)
