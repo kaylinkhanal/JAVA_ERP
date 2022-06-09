@@ -51,6 +51,7 @@
             <li class="nav-item"><a class="nav-link" href="/case/create">Case (Order)</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Installment/Invoice/Deposit</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Report</a></li>
+            <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
 
         </ul>
 

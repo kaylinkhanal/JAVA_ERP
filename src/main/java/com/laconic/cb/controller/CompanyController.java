@@ -45,11 +45,12 @@ public class CompanyController {
 
     @GetMapping("/site")
     public String companySite(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int page,
-            ModelMap model) {
+            ModelMap modelMap, Model model) {
         Page<Site> sites = siteService.getAllSites(page);
         long totalSites = siteService.getTotalSites();
-        Pagination.getPagination(model, sites, totalSites,
+        Pagination.getPagination(modelMap, sites, totalSites,
                 sites.getContent().stream().collect(Collectors.toList()), "/company/site");
+        model.addAttribute("countries", countryService.getAllCountries());
         return "company/companySite";
     }
 
@@ -84,15 +85,36 @@ public class CompanyController {
 
     @PostMapping("addSite")
     public String addCompanySite(Model model, Site site, HttpSession session, RedirectAttributes redirectAttributes) {
+        Site savedSite;
         Customer customer = (Customer) SessionStorage.getStorage(session, "customer");
         Company company = (Company) SessionStorage.getStorage(session, "company");
         site.setCustomer(customer);
         site.setCompanyId(company.getCompanyId());
-        siteService.addCompanySite(site);
-        model.addAttribute("companySites", siteService.getAllSites());
+        if (site.getSiteId() != null) {
+            savedSite = siteService.updateCompanySite(site);
+        } else {
+            savedSite = siteService.addCompanySite(site);
+        }
+        model.addAttribute("site", savedSite);
         model.addAttribute("company", company);
         redirectAttributes.addFlashAttribute("success", true);
-        return "redirect:site";
+        return "redirect:/company/site";
+    }
+
+    @GetMapping("/editSite/{id}")
+    public String editSite(@PathVariable("id") Long id, RedirectAttributes model) {
+        Optional<Site> site = siteService.findById(id);
+        if (site.isPresent()) {
+            model.addFlashAttribute("site", site.get());
+            model.addFlashAttribute("customer", site.get().getCustomer());
+        }
+        return "redirect:/company/site";
+    }
+
+    @GetMapping("/deleteSite/{id}")
+    public String deleteSite(@PathVariable("id") Long id) {
+        siteService.softDeleteSite(id);
+        return "redirect:/company/site";
     }
 
     @PostMapping("addCompany")

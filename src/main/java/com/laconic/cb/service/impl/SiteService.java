@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SiteService implements ISiteService {
@@ -20,14 +21,19 @@ public class SiteService implements ISiteService {
         this.siteRepository = siteRepository;
     }
 
-    public void addCompanySite(Site site) {
-        siteRepository.save(site);
+    public Site addCompanySite(Site site) {
+        return siteRepository.save(site);
+    }
+
+    @Override
+    public Site updateCompanySite(Site site) {
+        return siteRepository.saveAndFlush(site);
     }
 
     @Override
     public Page<Site> getAllSites(int pageNo) {
         Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
-        return siteRepository.findAll(pageable);
+        return siteRepository.findAllByIsDeletedFalse(pageable);
     }
 
     @Override
@@ -37,11 +43,21 @@ public class SiteService implements ISiteService {
 
     @Override
     public long getTotalSites() {
-        return siteRepository.count();
+        return siteRepository.countByIsDeletedFalse();
     }
 
     @Override
     public List<Site> getAllSites() {
-        return siteRepository.findAll();
+        return siteRepository.findAllByIsDeletedFalse();
+    }
+
+    @Override
+    public void softDeleteSite(Long id) {
+        siteRepository.softDeleteCompanyFinance(id);
+    }
+
+    @Override
+    public Optional<Site> findById(Long id) {
+        return siteRepository.findBySiteIdAndIsDeletedFalse(id);
     }
 }

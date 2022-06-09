@@ -51,6 +51,11 @@ public class HomeController {
 
     @GetMapping("/")
     public String register(HttpSession session) {
+        return "/templates/register";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
         SessionStorage.destroy(session);
         return "/templates/register";
     }
