@@ -17,4 +17,6 @@ public interface IContactPersonService {
     Optional<ContactPerson> findById(Long contactId);
 
     long getTotalContact();
+
+    List<ContactPerson> findContactPersonByCustomerId(Long customerId);
 }

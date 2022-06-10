@@ -4,6 +4,7 @@ import com.laconic.cb.constants.AppConstants;
 import com.laconic.cb.model.Address;
 import com.laconic.cb.model.ContactPerson;
 import com.laconic.cb.model.Customer;
+import com.laconic.cb.model.dto.CustomerResponse;
 import com.laconic.cb.service.IAddressService;
 import com.laconic.cb.service.IContactPersonService;
 import com.laconic.cb.service.ICountryService;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -89,11 +91,58 @@ public class HomeController {
 
     @PostMapping("/addCustomer")
     public String addCustomer(@ModelAttribute Customer customer, RedirectAttributes model, HttpSession session) {
-        Customer savedCustomer = customerService.save(customer);
+        Customer savedCustomer;
+        if (customer.getCustomerId() != null) {
+            savedCustomer = customerService.update(customer);
+        } else {
+            savedCustomer = customerService.save(customer);
+        }
         SessionStorage.setStorage(session, "customer", savedCustomer);
         model.addFlashAttribute("customer", savedCustomer);
         model.addFlashAttribute("success", true);
-        return "redirect:personalRegister";
+        return "redirect:/customerList";
+    }
+
+    @GetMapping("/deleteCustomer/{id}")
+    public String deleteCustomer(@PathVariable("id") Long id) {
+        customerService.softDelete(id);
+        return "redirect:/customerList";
+    }
+
+    @GetMapping("/customerList")
+    public String customerList(Model model, HttpSession session,
+                               @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+                               ModelMap modelMap) {
+        List<CustomerResponse> customers = new ArrayList<>();
+        Page<Customer> customerPage = customerService.getAllCustomer(pageNo);
+        List<Customer> customerList = customerPage.getContent().stream().collect(Collectors.toList());
+        customerList.forEach(c-> {
+            List<Address> addresses = addressService.findAddressByCustomerId(c.getCustomerId());
+            List<ContactPerson> contactPeople = contactService.findContactPersonByCustomerId(c.getCustomerId());
+            CustomerResponse response = CustomerResponse.builder()
+                    .customerId(c.getCustomerId())
+                    .customerName(c.getFirstName() + ' ' + c.getLastName())
+                    .contactPerson(contactPeople.size() > 0 ? contactPeople.get(0).getContactName() : "")
+                    .gender(c.getGender().toString())
+                    .idPassportNo(c.getIdPassportNo())
+                    .address(addresses.size() > 0 ? addresses.get(0).getAddressNo() : "")
+                    .build();
+            customers.add(response);
+        });
+        model.addAttribute("customers", customers);
+        long totalCustomers = customerService.getTotalCustomers();
+        Pagination.getPagination(modelMap, customerPage, totalCustomers, customerList, "/customerList");
+        getCustomer(model, session);
+        return "personal/customerList";
+    }
+
+    @GetMapping("/editCustomer/{id}")
+    public String editCustomer(Model model, @PathVariable("id") Long id, ModelMap modelMap, HttpSession session) {
+        Optional<Customer> customer = customerService.findById(id);
+        if (customer.isPresent()) {
+            model.addAttribute("customer", customer.get());
+        }
+        return "personal/personalRegister";
     }
 
     @PostMapping("/addAddress")

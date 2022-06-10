@@ -3,6 +3,7 @@ package com.laconic.cb.service;
 import com.laconic.cb.model.Address;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IAddressService {
@@ -16,4 +17,6 @@ public interface IAddressService {
     Optional<Address> findById(Long id);
 
     long getTotalAddress();
+
+    List<Address> findAddressByCustomerId(Long customerId);
 }

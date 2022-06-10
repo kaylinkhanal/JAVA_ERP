@@ -31,7 +31,7 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void softDelete(Long id) {
         customerRepository.deleteById(id);
     }
 
@@ -47,11 +47,16 @@ public class CustomerService implements ICustomerService {
     @Override
     public Page<Customer> getAllCustomer(int pageNo) {
         Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
-        return customerRepository.findAll(pageable);
+        return customerRepository.findAllByIsDeletedFalse(pageable);
     }
 
     @Override
     public Optional<Customer> findById(Long customerId) {
-        return customerRepository.findById(customerId);
+        return customerRepository.findByCustomerIdAndIsDeletedFalse(customerId);
+    }
+
+    @Override
+    public long getTotalCustomers() {
+        return customerRepository.countByIsDeletedFalse();
     }
 }

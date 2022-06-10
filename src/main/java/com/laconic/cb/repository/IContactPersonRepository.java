@@ -24,4 +24,5 @@ public interface IContactPersonRepository extends JpaRepository<ContactPerson, L
     Optional<ContactPerson> findByContactPersonIdAndIsDeletedFalse(Long addressId);
 
     long countByIsDeletedFalse();
+    List<ContactPerson> findByCustomer_CustomerIdAndIsDeletedFalse(Long customerId);
 }

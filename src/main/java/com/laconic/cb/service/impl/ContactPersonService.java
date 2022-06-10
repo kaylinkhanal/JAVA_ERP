@@ -54,4 +54,9 @@ public class ContactPersonService implements IContactPersonService {
     public long getTotalContact() {
         return contactRepository.countByIsDeletedFalse();
     }
+
+    @Override
+    public List<ContactPerson> findContactPersonByCustomerId(Long customerId) {
+        return contactRepository.findByCustomer_CustomerIdAndIsDeletedFalse(customerId);
+    }
 }
