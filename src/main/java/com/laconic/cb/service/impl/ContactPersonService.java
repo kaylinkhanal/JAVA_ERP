@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,6 +30,11 @@ public class ContactPersonService implements IContactPersonService {
     public Page<ContactPerson> getAllContactPerson(int pageNo) {
         Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
         return contactRepository.findAllByIsDeletedFalse(pageable);
+    }
+
+    @Override
+    public List<ContactPerson> getAllContactPerson() {
+        return contactRepository.findAllByIsDeletedFalse();
     }
 
     public void softDeleteContact(Long contactId) {

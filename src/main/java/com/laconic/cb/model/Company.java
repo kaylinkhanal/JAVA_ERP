@@ -17,7 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Company extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "COMPANY_ID")
     private Long companyId;
     @DateTimeFormat(pattern = "yyyy-MM-dd")

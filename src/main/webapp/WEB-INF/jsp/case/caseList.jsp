@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -14,8 +15,8 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           <div class="col-md-12">
             <h3 class="float-right">
               <span>Customer ID: </span>
-              <button type="button" class="btn btn-secondary">00001</button>
-              <button type="button" class="btn btn-secondary">John Does</button>
+              <button type="button" class="btn btn-secondary">${customer.code}</button>
+              <button type="button" class="btn btn-secondary">${customer.firstName}</button>
             </h3>
           </div>
         </div>
@@ -59,47 +60,43 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
               <table border="1" width="100%" class="table table-striped">
                 <thead align="center" class="bg-primary">
                   <tr>
-                    <td>Adress ID</td>
-                    <td>Address Type</td>
-                    <td>Phone</td>
-                    <td>Country</td>
+                    <td>Case ID</td>
+                    <td>Customer Code</td>
+                    <td>Title</td>
+                    <td>Customer Name</td>
+                    <td>Contact Name</td>
+                    <td>Pre Billing</td>
                     <td>Status</td>
                     <td></td>
                   </tr>
                 </thead>
-                <tbody align="center">
+                <c:forEach var="caseDto" items="${page.objects}">
+                  <tbody align="center">
                   <tr>
-                    <td>001</td>
-                    <td>Home</td>
-                    <td>+662 488-3322</td>
-                    <td>123 ABC Road</td>
-                    <td>Enable</td>
+                    <td>${caseDto.caseId}</td>
+                    <td>${caseDto.customer.code}</td>
+                    <td>${caseDto.title}</td>
+                    <td>${caseDto.customer.firstName.toString()}</td>
+                    <td>${caseDto.contactPerson.contactName}</td>
+                    <td></td>
+                    <td>${caseDto.status}</td>
                     <td>
-                      <i class="far fa-edit"></i>
-                      <i class="far fa-trash-alt"></i>
+                      <i class="far fa-edit icon-button" onclick="openPage('/case/editCase/${caseDto.caseId}')"></i>
+                      <i class="far fa-file-alt icon-button" onclick="openPage('/case/detail/${caseDto.caseId}')"></i>
+                      <i class="far fa-trash-alt icon-button" onclick="openPage('/case/deleteCase/${caseDto.caseId}')"></i>
                     </td>
                   </tr>
-                  <tr>
-                    <td>002</td>
-                    <td>Office</td>
-                    <td>+662 488-3322</td>
-                    <td>123 ABC Road</td>
-                    <td>Enable</td>
-                    <td>
-                      <i class="far fa-edit"></i>
-                      <i class="far fa-trash-alt"></i>
-                    </td>
-                  </tr>
-                </tbody>
+                  </tbody>
+                </c:forEach>
               </table>
+              <jsp:include page="/WEB-INF/jsp/templates/page.jsp">
+                <jsp:param name="page" value="${page}" />
+              </jsp:include>
             </div>
           </div>
-          
         </div>
         </form>
-       
       </div>
-     
     </div>
   </body>
 </html>

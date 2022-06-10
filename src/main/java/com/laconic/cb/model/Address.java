@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Builder
 public class Address extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ADDRESS_ID")
     private Long addressId;
     @Column(name = "ADDRESS_TYPE")

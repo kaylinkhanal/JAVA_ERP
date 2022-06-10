@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Data
 public class Country {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "COUNTRY_ID")
     private Long countryId;
     @Column(name = "COUNTRY_NAME")

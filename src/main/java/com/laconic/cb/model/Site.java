@@ -14,7 +14,7 @@ import java.util.Date;
 @Setter
 public class Site extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "SITE_ID")
     private Long siteId;
     @Column(name = "ADDRESS")

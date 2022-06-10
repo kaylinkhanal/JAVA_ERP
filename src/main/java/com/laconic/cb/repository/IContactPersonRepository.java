@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -19,6 +20,7 @@ public interface IContactPersonRepository extends JpaRepository<ContactPerson, L
     void softDeleteContact(Long contactId);
 
     Page<ContactPerson> findAllByIsDeletedFalse(Pageable pageable);
+    List<ContactPerson> findAllByIsDeletedFalse();
     Optional<ContactPerson> findByContactPersonIdAndIsDeletedFalse(Long addressId);
 
     long countByIsDeletedFalse();

@@ -20,7 +20,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Customer extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "CUSTOMER_ID")
     private Long customerId;
     @Column(name = "FIRST_NAME")

@@ -18,7 +18,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class ContactPerson extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "CONTACT_PERSON_ID")
     private Long contactPersonId;
     @Column(name = "COMPANY_ID")

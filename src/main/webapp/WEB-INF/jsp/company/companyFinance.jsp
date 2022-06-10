@@ -21,11 +21,11 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="averageLimit">Average Limit: </label>
-              <input type="text"    class="form-control" id="averageLimit" name="averageLimit" value="${companyFinance.averageLimit}" />
+              <input type="text"    class="form-control" id="averageLimit" name="averageLimit" value="${companyFinance.averageLimit}" required />
             </div>
             <div class="form-group col-md-6">
               <label for="paymentTerm">Payment Term</label>
-              <select id="paymentTerm" name="paymentTerm" class="form-control" value="${companyFinance.paymentTerm}">
+              <select id="paymentTerm" name="paymentTerm" class="form-control" value="${companyFinance.paymentTerm}" required>
                 <option selected value="">Choose...</option>
                 <option value="Term 1">Term 1</option>
                 <option value="Term 2">Term 2</option>
@@ -35,17 +35,17 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="bankName">Bank Name: </label>
-              <input type="text" class="form-control" id="bankName" name="bankName" value="${companyFinance.bankName}"/>
+              <input type="text" class="form-control" id="bankName" name="bankName" value="${companyFinance.bankName}" required/>
             </div>
             <div class="form-group col-md-6">
               <label for="accountNumber">Account Number: </label>
-              <input type="text" class="form-control" id="accountNumber" name="accountNumber" value="${companyFinance.accountNumber}"/>
+              <input type="text" class="form-control" id="accountNumber" name="accountNumber" value="${companyFinance.accountNumber}" required/>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="currency">Currency</label>
-              <select id="currency" name="currency" class="form-control" value="${companyFinance.currency}">
+              <select id="currency" name="currency" class="form-control" value="${companyFinance.currency}" required>
                 <c:choose>
                   <c:when test="${companyFinance == null}">
                     <option selected value="">Choose...</option>
@@ -62,7 +62,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
             </div>
             <div class="form-group col-md-6">
               <label for="country">Country</label>
-              <select id="country" name="country" class="form-control" value="${companyFinance.country}">
+              <select id="country" name="country" class="form-control" value="${companyFinance.country}" required>
                 <c:choose>
                   <c:when test="${companyFinance == null}">
                     <option selected value="">Choose...</option>
@@ -123,7 +123,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
     <jsp:include page="/WEB-INF/jsp/templates/basicModal.jsp">
       <jsp:param name="message" value="Thank you for your registration. Your Company ID is ${company.companyId} Please
             process next step" />
-      <jsp:param name="url" value="/company/finance"/>
+      <jsp:param name="url" value="/company/information"/>
     </jsp:include>
   </body>
 </html>
