@@ -83,7 +83,6 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     </div>
                     <div class="col-md-4">
                       <label for="operatingDate" class="col-form-label">Operating Date</label>
-                      <fmt:formatDate pattern="mm/dd/yyyy" value = "${caseDto.operatingDate}" var="operatingDate"/>
                       <input type="date" class="form-control" id="operatingDate" required name="operatingDate" pattern="mm/dd/yyyy" value = "${caseDto.operatingDate}"/>
                     </div>
                     <div class="col-md-4"></div>
@@ -91,7 +90,6 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                   <div class="col-md-12 row">
                     <div class="col-md-4">
                       <label for="proposalDate" class="col-form-label">Proposal Date</label>
-                      <fmt:formatDate pattern="MM/dd/yyyy" value = "${caseDto.suspenseDate}" var="value"/>
                       <input type="date" class="form-control" id="proposalDate" name="proposalDate" value="07-07-2022" required />
                     </div>
                     <div class="col-md-4">
@@ -147,3 +145,14 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
     </div>
   </body>
 </html>
+<script type="text/javascript">
+  $(document).ready(function () {
+    setDate('${caseDto.operatingDate}', 'operatingDate');
+    setDate('${caseDto.proposalDate}', 'proposalDate');
+    setDate('${caseDto.acceptanceDate}', 'acceptanceDate');
+    setDate('${caseDto.validationDate}', 'validationDate');
+    setDate('${caseDto.discardDate}', 'discardDate');
+    setDate('${caseDto.closingDate}', 'closingDate');
+    setDate('${caseDto.suspenseDate}', 'suspenseDate');
+  });
+</script>

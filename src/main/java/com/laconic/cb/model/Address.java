@@ -31,6 +31,8 @@ public class Address extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
+    @Column(name = "CUSTOMER_CODE")
+    private Long customerCode;
     @OneToOne
     @JoinColumn(name = "COUNTRY_ID")
     private Country country;

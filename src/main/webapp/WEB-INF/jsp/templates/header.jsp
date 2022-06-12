@@ -19,6 +19,7 @@
                     <a class="dropdown-item" href="/personalRegister">Personal Register</a>
                     <a class="dropdown-item" href="/personalAddress">Personal Address</a>
                     <a class="dropdown-item" href="/personalContact">Personal Contact</a>
+                    <a class="dropdown-item" href="/customerList">Customer List</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/company/information">Company Register</a>
                     <a class="dropdown-item" href="/company/site">Company Site</a>

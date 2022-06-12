@@ -30,7 +30,7 @@ public class ContactPerson extends BaseEntity {
     @Column(name = "CON_STATUS")
     private String conStatus;
     @Column(name = "CUSTOMER_CODE")
-    private String customerCode;
+    private Long customerCode;
     @OneToOne
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;

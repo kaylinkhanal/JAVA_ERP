@@ -100,7 +100,7 @@ public class HomeController {
         SessionStorage.setStorage(session, "customer", savedCustomer);
         model.addFlashAttribute("customer", savedCustomer);
         model.addFlashAttribute("success", true);
-        return "redirect:/customerList";
+        return "redirect:personalRegister";
     }
 
     @GetMapping("/deleteCustomer/{id}")
@@ -147,9 +147,6 @@ public class HomeController {
 
     @PostMapping("/addAddress")
     public String addPersonalAddress(RedirectAttributes model, Address address) {
-//        if (address.getCustomer() != null) {
-//            Optional<Customer> customer = customerService.findById(address.getCustomer().getCustomerId());
-//        }
         Address savedAddress;
         if (address.getAddressId() != null) {
             savedAddress = addressService.updateAddress(address);

@@ -1,11 +1,11 @@
 databaseChangeLog:
 - includeAll:
     context: dev
-    path: /db/tables
+    path: /db/sequences
     errorIfMissingOrEmpty: true
 - includeAll:
     context: dev
-    path: /db/sequences
+    path: /db/tables
     errorIfMissingOrEmpty: true
 - include:
     context: dev

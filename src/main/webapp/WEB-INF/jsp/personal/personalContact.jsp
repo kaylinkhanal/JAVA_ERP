@@ -21,6 +21,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
         </div>
         <form method="post" action="addContactPerson">
           <input type="hidden" value="${customer.customerId}" name="customer" id="customer" />
+          <input type="hidden" value="${customer.code}" name="customerCode" id="customerCode" />
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="contactPersonId">Contact Id: </label>
@@ -62,7 +63,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
 
             <div class="form-group col-md-4">
               <label for="relationship">Relationship: </label>
-              <input type="text" class="form-control" id="relationship" name="relationship" required value="${contact.relationship}"/>
+              <input type="text" class="form-control" id="relationship" name="relationship" value="${contact.relationship}"/>
             </div>
           </div>
           <div class="form-row">
