@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -20,7 +22,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Customer extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "CUSTOMER_ID")
     private Long customerId;
     @Column(name = "FIRST_NAME")
@@ -46,6 +48,22 @@ public class Customer extends BaseEntity {
     private Date registerDate;
     @Column(name = "IS_DELETED")
     private Boolean isDeleted = false;
+
+//    @OneToOne
+//    @NotFound(action = NotFoundAction.EXCEPTION)
+//    @JoinColumn(name = "CODE",
+//            referencedColumnName = "CUSTOMER_CODE",
+//            insertable = false, updatable = false,
+//            foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+//    private Address address;
+//
+//    @OneToOne
+//    @NotFound(action = NotFoundAction.EXCEPTION)
+//    @JoinColumn(name = "CODE",
+//            referencedColumnName = "CUSTOMER_CODE",
+//            insertable = false, updatable = false,
+//            foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+//    private ContactPerson contactPerson;
 
 //    @Column(name = "ACCOUNTING_DONATION_ID")
 //    private Long accountingDonationId;

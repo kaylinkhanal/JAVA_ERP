@@ -25,7 +25,7 @@ function getEditor(classSelector) {
 }
 
 function setStorage(key, value) {
-    var existing = localStorage.getItem(key);
+    let existing = localStorage.getItem(key);
     if (existing) {
         localStorage.removeItem(key);
     }
@@ -52,5 +52,12 @@ function printDocument(response) {
         popupWin.document.write(divContents);
         popupWin.document.write('</body></html>');
     popupWin.document.close();
+}
+
+function setDate(date, selector) {
+    let d = new Date(date)
+    let dateString = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
+        ("0" + d.getDate()).slice(-2) ;
+    $("#"+selector).val(dateString);
 }
 

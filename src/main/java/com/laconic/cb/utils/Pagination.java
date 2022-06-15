@@ -1,5 +1,6 @@
 package com.laconic.cb.utils;
 
+import com.laconic.cb.constants.AppConstants;
 import com.laconic.cb.model.dto.PageDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.ui.ModelMap;
@@ -7,7 +8,7 @@ import org.springframework.ui.ModelMap;
 import java.util.List;
 
 public class Pagination {
-    public static final int PAGE_SIZE = 2;
+    public static final int PAGE_SIZE = AppConstants.DEFAULT_PAGE_SIZE;
 
     public static void getPagination(ModelMap model, Page<?> page, long totalCount, List<?> objects, String pageUrl) {
         int lastPageNo;

@@ -116,7 +116,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
     <jsp:include page="/WEB-INF/jsp/templates/basicModal.jsp">
       <jsp:param name="message" value="Thank you for your registration. Your Company ID is ${company.companyId} Please
             process next step" />
-      <jsp:param name="url" value="/company/information"/>
+      <jsp:param name="url" value="/company/finance"/>
     </jsp:include>
   </body>
 </html>

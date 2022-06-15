@@ -1,6 +1,6 @@
 package com.laconic.cb.repository;
 
-import com.laconic.cb.model.Contact;
+import com.laconic.cb.model.Case;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,14 +12,15 @@ import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Repository
-public interface IContactRepository extends JpaRepository<Contact, Long> {
-    @Query(value = "update CONTACT set is_deleted = 1 where CONTACT_ID=:contactId", nativeQuery = true)
+public interface ICaseRepository extends JpaRepository<Case, Long> {
+    @Query(value = "update CASE set is_deleted = 1 where CASE_ID=:caseId", nativeQuery = true)
     @Modifying
     @Transactional
-    void softDeleteContact(Long contactId);
+    void softDeleteCase(Long caseId);
 
-    Page<Contact> findAllByIsDeletedFalse(Pageable pageable);
-    Optional<Contact> findByContactIdAndIsDeletedFalse(Long addressId);
+    Page<Case> findAllByIsDeletedFalse(Pageable pageable);
 
     long countByIsDeletedFalse();
+
+    Optional<Case> findByCaseIdAndIsDeletedFalse(Long caseId);
 }

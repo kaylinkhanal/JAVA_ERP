@@ -21,11 +21,12 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
         </div>
         <form method="post" action="addContactPerson">
           <input type="hidden" value="${customer.customerId}" name="customer" id="customer" />
+          <input type="hidden" value="${customer.code}" name="customerCode" id="customerCode" />
           <div class="form-row">
             <div class="form-group col-md-4">
-              <label for="contactId">Contact Id: </label>
-              <input type="hidden" class="form-control" id="contactId" name="contactId" value="${contact.contactId}" />
-              <input type="text" disabled class="form-control" value="${contact.contactId}" />
+              <label for="contactPersonId">Contact Id: </label>
+              <input type="hidden" class="form-control" id="contactPersonId" name="contactPersonId" value="${contact.contactPersonId}" />
+              <input type="text" disabled class="form-control" value="${contact.contactPersonId}" />
             </div>
           </div>
           <div class="form-row">
@@ -62,7 +63,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
 
             <div class="form-group col-md-4">
               <label for="relationship">Relationship: </label>
-              <input type="text" class="form-control" id="relationship" name="relationship" required value="${contact.relationship}"/>
+              <input type="text" class="form-control" id="relationship" name="relationship" value="${contact.relationship}"/>
             </div>
           </div>
           <div class="form-row">
@@ -100,15 +101,15 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           <c:forEach var="contact" items="${page.getObjects()}">
             <tbody align="center">
             <tr>
-              <td>${contact.contactId}</td>
+              <td>${contact.contactPersonId}</td>
               <td>${contact.addressType}</td>
               <td>${contact.phone}</td>
               <td>${contact.relationship}</td>
               <td>${contact.email}</td>
               <td>Enable</td>
               <td>
-                <i class="far fa-edit icon-button" onclick="openPage('/editContactPerson/${contact.contactId}')"></i>
-                <i class="far fa-trash-alt icon-button" onclick="openPage('/deleteContactPerson/${contact.contactId}')"></i>
+                <i class="far fa-edit icon-button" onclick="openPage('/editContactPerson/${contact.contactPersonId}')"></i>
+                <i class="far fa-trash-alt icon-button" onclick="openPage('/deleteContactPerson/${contact.contactPersonId}')"></i>
               </td>
             </tr>
             </tbody>

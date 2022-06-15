@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -50,7 +51,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <label for="caseId" class="col-form-label">Case ID</label>
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-                    <label for="caseId">100001</label>
+                    <label for="caseId">${caseDto.caseId}</label>
                   </div>
                 </div>
               </div>
@@ -70,7 +71,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <label for="customer" class="col-form-label">Customer</label>
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-                    <label for="customer">C205445010 (customer)</label>
+                    <label for="customer">${caseDto.customer.code} (customer)</label>
                   </div>
                 </div>
               </div>
@@ -80,19 +81,17 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <label for="contact" class="col-form-label">Contact</label>
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-                    <label for="contact">John Doe</label>
+                    <label for="contact">${caseDto.customer.firstName}</label>
                   </div>
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="row">
                   <div class="form-group col-md-4">
-                    <label for="description" class="col-form-label"
-                      >Description</label
-                    >
+                    <label for="description" class="col-form-label">Description</label>
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-                    <input type="text" class="form-control" id="description" />
+                    <input type="text" class="form-control" id="description" value="${caseDto.description}"/>
                   </div>
                 </div>
               </div>
@@ -102,31 +101,28 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <label for="status" class="col-form-label">Status</label>
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-                    <input type="text" class="form-control" id="status" />
+                    <input type="text" class="form-control" id="status" value="${caseDto.status}"/>
                   </div>
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="row">
                   <div class="form-group col-md-4">
-                    <label for="preBillingAmount" class="col-form-label"
-                      >Pre Billing Amount</label
-                    >
+                    <label for="preBillingAmount" class="col-form-label">Pre Billing Amount</label>
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-                    <label for="preBillingAmount">100001</label>
+                    <label for="preBillingAmount"></label>
                   </div>
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="row">
                   <div class="form-group col-md-4">
-                    <label for="openingDate" class="col-form-label"
-                      >Opening Date</label
+                    <label for="openingDate" class="col-form-label">Opening Date</label
                     >
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-                    <label for="openingDate">100001</label>
+                    <label for="openingDate"><fmt:formatDate pattern="dd-MM-yyyy" value = "${caseDto.operatingDate}"/></label>
                   </div>
                 </div>
               </div>
@@ -138,7 +134,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     >
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-                    <label for="proposalDate">100001</label>
+                    <label for="proposalDate"><fmt:formatDate pattern="dd-MM-yyyy" value = "${caseDto.proposalDate}"/></label>
                   </div>
                 </div>
               </div>
@@ -150,7 +146,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     >
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-                    <label for="acceptanceDate">100001</label>
+                    <label for="acceptanceDate"><fmt:formatDate pattern="dd-MM-yyyy" value = "${caseDto.acceptanceDate}"/></label>
                   </div>
                 </div>
               </div>
@@ -162,7 +158,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     >
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-                    <label for="discardDate">100001</label>
+                    <label for="discardDate"><fmt:formatDate pattern="dd-MM-yyyy" value = "${caseDto.discardDate}"/></label>
                   </div>
                 </div>
               </div>
@@ -174,7 +170,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     >
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-                    <label for="closingDate">100001</label>
+                    <label for="closingDate"><fmt:formatDate pattern="dd-MM-yyyy" value = "${caseDto.closingDate}"/></label>
                   </div>
                 </div>
               </div>
@@ -186,7 +182,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     >
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-                    <label for="validationDate">100001</label>
+                    <label for="validationDate"><fmt:formatDate pattern="dd-MM-yyyy" value = "${caseDto.validationDate}"/></label>
                   </div>
                 </div>
               </div>
@@ -198,15 +194,14 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     >
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-                    <label for="suspenseDate">100001</label>
+                    <label for="suspenseDate"><fmt:formatDate pattern="dd-MM-yyyy" value = "${caseDto.suspenseDate}"/></label>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <button type="button" id="save" class="btn btn-primary float-right">
-            Edit this case</button
-          ><br /><br />
+          <button type="button" id="save" class="btn btn-primary float-right" onclick="openPage('/case/editCase/${caseDto.caseId}')">Edit this case</button>
+          <br /><br />
         </form>
       </div>
     </div>

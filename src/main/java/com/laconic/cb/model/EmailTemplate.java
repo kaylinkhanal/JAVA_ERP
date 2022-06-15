@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Builder
 public class EmailTemplate extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "TEMPLATE_ID")
     private Long templateId;
     @Column(name = "TEMPLATE_NAME")

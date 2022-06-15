@@ -19,7 +19,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Document extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long documentId;
     @Column(name = "DOCUMENT_NAME")
     private String documentName;

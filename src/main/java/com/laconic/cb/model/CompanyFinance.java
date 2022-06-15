@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class CompanyFinance extends  BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "FINANCE_ID")
     private Long financeId;
     @Column(name = "AVERAGE_LIMIT")

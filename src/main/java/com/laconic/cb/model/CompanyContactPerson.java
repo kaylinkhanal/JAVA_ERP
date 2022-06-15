@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class CompanyContactPerson extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "CONTACT_PERSON_ID")
     private Long contactPersonId;
     @Column(name = "CONTACT_NAME")
