@@ -34,7 +34,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
         </div>
         <br />
         <form class="col-xs-12 border p-3" method="post" action="addCase">
-          <input type="hidden" name="customer" value="${customer != null ? customer.customerId : caseDto.customer.customerId}"/>
+          <input type="hidden" name="customer" value="${caseDto != null ? caseDto.customer.customerId : customer.customerId}"/>
           <input type="hidden" name="caseId" value="${caseDto.caseId}" />
           <div class="form-row row">
             <div class="col-md-12">

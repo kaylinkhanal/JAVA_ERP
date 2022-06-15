@@ -116,20 +116,7 @@ public class HomeController {
         List<CustomerResponse> customers = new ArrayList<>();
         Page<Customer> customerPage = customerService.getAllCustomer(pageNo);
         List<Customer> customerList = customerPage.getContent().stream().collect(Collectors.toList());
-        customerList.forEach(c-> {
-            List<Address> addresses = addressService.findAddressByCustomerId(c.getCustomerId());
-            List<ContactPerson> contactPeople = contactService.findContactPersonByCustomerId(c.getCustomerId());
-            CustomerResponse response = CustomerResponse.builder()
-                    .customerId(c.getCustomerId())
-                    .customerName(c.getFirstName() + ' ' + c.getLastName())
-                    .contactPerson(contactPeople.size() > 0 ? contactPeople.get(0).getContactName() : "")
-                    .gender(c.getGender().toString())
-                    .idPassportNo(c.getIdPassportNo())
-                    .address(addresses.size() > 0 ? addresses.get(0).getAddressNo() : "")
-                    .build();
-            customers.add(response);
-        });
-        model.addAttribute("customers", customers);
+        model.addAttribute("customers", customerList);
         long totalCustomers = customerService.getTotalCustomers();
         Pagination.getPagination(modelMap, customerPage, totalCustomers, customerList, "/customerList");
         getCustomer(model, session);
@@ -153,7 +140,7 @@ public class HomeController {
         } else savedAddress = addressService.saveAddress(address);
         model.addFlashAttribute("address", savedAddress);
         model.addFlashAttribute("success", true);
-        model.addFlashAttribute("customer", savedAddress.getCustomer());
+//        model.addFlashAttribute("customer", savedAddress.getCustomer());
         return "redirect:/personalAddress";
     }
 
@@ -189,7 +176,7 @@ public class HomeController {
         if (contact.getContactPersonId() != null) {
             savedContact = contactService.updateContactPerson(contact);
         } else savedContact = contactService.saveContactPerson(contact);
-        model.addFlashAttribute("customer", savedContact.getCustomer());
+//        model.addFlashAttribute("customer", savedContact.getCustomer());
         model.addFlashAttribute("contact", savedContact);
         model.addFlashAttribute("success", true);
         return "redirect:personalContact";
@@ -199,7 +186,7 @@ public class HomeController {
         Optional<ContactPerson> contact = contactService.findById(contactId);
         if (contact.isPresent()) {
             model.addFlashAttribute("contact", contact.get());
-            model.addFlashAttribute("customer", contact.get().getCustomer());
+//            model.addFlashAttribute("customer", contact.get().getCustomer());
         }
         return "redirect:/personalContact";
     }
@@ -208,6 +195,11 @@ public class HomeController {
     public String deleteContactPerson(@PathVariable("id") Long contactId) {
         contactService.softDeleteContact(contactId);
         return "redirect:/personalContact";
+    }
+
+    @GetMapping("/companyRegister")
+    public String companyInformation() {
+        return "company/companyInformation";
     }
 
 }

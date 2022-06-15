@@ -17,12 +17,12 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
         </div>
 
         <form method="post" action="/addAddress">
-          <input type="hidden" value="${customer.customerId}" name="customer" id="customer" />
-          <input type="hidden" value="${customer.code}" name="customerCode" id="customerCode" />
+          <input type="hidden" value="${address != null ? address.customer.customerId : customer.customerId}" name="customer" id="customer" />
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="addressId">Address Id: </label>
               <input type="text" disabled class="form-control" id="addressId" name="addressId" value="${address.addressId}" />
+              <input type="hidden" name="addressId" value="${address.addressId}" />
             </div>
           </div>
           <div class="form-row">
@@ -104,17 +104,17 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
               <td></td>
             </tr>
           </thead>
-           <c:forEach var="document" items="${page.getObjects()}">
+           <c:forEach var="address" items="${page.getObjects()}">
             <tbody align="center">
               <tr>
-                <td>${document.addressId}</td>
-                <td>${document.addressType}</td>
-                <td>${document.phone1}</td>
-                <td>${document.country.countryName}</td>
+                <td>${address.addressId}</td>
+                <td>${address.addressType}</td>
+                <td>${address.phone1}</td>
+                <td>${address.country.countryName}</td>
                 <td>Enable</td>
                 <td>
-                  <i class="far fa-edit icon-button" onclick="openPage('/editAddress/${document.addressId}')"></i>
-                  <i class="far fa-trash-alt icon-button" onclick="openPage('/deleteAddress/${document.addressId}')"></i>
+                  <i class="far fa-edit icon-button" onclick="openPage('/editAddress/${address.addressId}')"></i>
+                  <i class="far fa-trash-alt icon-button" onclick="openPage('/deleteAddress/${address.addressId}')"></i>
                 </td>
               </tr>
             </tbody>

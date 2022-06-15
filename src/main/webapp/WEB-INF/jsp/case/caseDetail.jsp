@@ -16,8 +16,8 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           <div class="col-md-12">
             <h5 class="float-right">
               <span>Customer ID: </span>
-              <button type="button" class="btn btn-secondary">00001</button>
-              <button type="button" class="btn btn-secondary">John Doe</button>
+              <button type="button" class="btn btn-secondary">${customer != null ? customer.code : caseDto.customer.code}</button>
+              <button type="button" class="btn btn-secondary">${customer != null ? customer.firstName : caseDto.customer.firstName}</button>
             </h5>
           </div>
         </div>

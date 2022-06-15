@@ -20,8 +20,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           <hr />
         </div>
         <form method="post" action="addContactPerson">
-          <input type="hidden" value="${customer.customerId}" name="customer" id="customer" />
-          <input type="hidden" value="${customer.code}" name="customerCode" id="customerCode" />
+          <input type="hidden" value="${contact != null ? contact.customer.customerId : customer.customerId}" name="customer" id="customer" />
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="contactPersonId">Contact Id: </label>
@@ -123,7 +122,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
 
     <jsp:include page="/WEB-INF/jsp/templates/basicModal.jsp">
       <jsp:param name="message" value="Thank you for your registration. Your Personal ID is ${customer.customerId}." />
-      <jsp:param name="url" value="/company/information"/>
+      <jsp:param name="url" value="/"/>
     </jsp:include>
   </body>
 </html>

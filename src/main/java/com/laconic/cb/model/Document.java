@@ -10,6 +10,7 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -38,4 +39,8 @@ public class Document extends BaseEntity {
     private String language;
     @Column(name = "IS_DELETED")
     private Boolean isDeleted = false;
+    @Column(name = "DISABLE_BY")
+    private String disableBy;
+    @Column(name = "DISABLE_DATE")
+    private Date disableDate;
 }

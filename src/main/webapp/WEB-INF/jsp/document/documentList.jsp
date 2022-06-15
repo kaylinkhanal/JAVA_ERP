@@ -31,19 +31,19 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                       <td>Action</td>
                   </tr>
                   </thead>
-                  <c:forEach var="document" items="${page.getObjects()}">
+                  <c:forEach var="address" items="${page.getObjects()}">
                       <tbody align="center">
                       <tr>
-                          <td>${document.documentId}</td>
-                          <td>${document.documentName}</td>
-                          <td>${document.documentType.documentTypeName}</td>
-                          <td>${document.branch}</td>
-                          <td>${document.language}</td>
+                          <td>${address.documentId}</td>
+                          <td>${address.documentName}</td>
+                          <td>${address.documentType.documentTypeName}</td>
+                          <td>${address.branch}</td>
+                          <td>${address.language}</td>
                           <td>Enable</td>
                           <td>
-                              <i class="fa fa-print icon-button" onclick="printBlankDocument(${document.documentId})"></i>
-                              <i class="far fa-edit icon-button" onclick="openPage('/document/editDocument/${document.documentId}')"></i>
-                              <i class="far fa-trash-alt icon-button" onclick="openPage('/document/deleteDocument/${document.documentId}')"></i>
+                              <i class="fa fa-print icon-button" onclick="printBlankDocument(${address.documentId})"></i>
+                              <i class="far fa-edit icon-button" onclick="openPage('/document/editDocument/${address.documentId}')"></i>
+                              <i class="far fa-trash-alt icon-button" onclick="openPage('/document/deleteDocument/${address.documentId}')"></i>
                           </td>
                       </tr>
                       </tbody>

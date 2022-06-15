@@ -18,7 +18,9 @@ import java.util.Date;
 @NoArgsConstructor
 public class Case extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "Case_SEQ_GEN", sequenceName = "Case_SEQ",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Case_SEQ_GEN")
     @Column(name = "CASE_ID")
     private Long caseId;
     @Column(name = "CONTACT")
@@ -59,4 +61,8 @@ public class Case extends BaseEntity {
     private Customer customer;
     @Column(name = "IS_DELETED")
     private Boolean isDeleted = false;
+    @Column(name = "DISABLE_BY")
+    private String disableBy;
+    @Column(name = "DISABLE_DATE")
+    private Date disableDate;
 }

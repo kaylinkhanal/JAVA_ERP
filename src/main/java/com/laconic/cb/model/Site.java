@@ -1,20 +1,22 @@
 package com.laconic.cb.model;
 
 import lombok.*;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "SITE")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class Site extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "Site_SEQ_GEN", sequenceName = "Site_SEQ",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Site_SEQ_GEN")
     @Column(name = "SITE_ID")
     private Long siteId;
     @Column(name = "ADDRESS")
@@ -29,8 +31,8 @@ public class Site extends BaseEntity {
     private Long CountryId;
     @Column(name = "CUSTOMER_CODE")
     private String customerCode;
-    @OneToOne
-    @JoinColumn(name = "CUSTOMER_ID")
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID", nullable = false)
     private Customer customer;
     @Column(name = "DISTRICT")
     private String district;
@@ -64,4 +66,6 @@ public class Site extends BaseEntity {
     private String zipCode;
     @Column(name = "IS_DELETED")
     private Boolean isDeleted = false;
+    @Column(name = "DISABLE_DATE")
+    private Date disableDate;
 }

@@ -21,6 +21,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
               <label for="siteId">Site Id: </label>
               <input type="text" disabled class="form-control" id="siteId" name="siteId" value="${site.siteId}"/>
               <input type="hidden" class="form-control" name="siteId" value="${site.siteId}"/>
+              <input type="hidden" class="form-control" name="customer" value="${site != null ? site.customer.customerId : customer.customerId}"/>
             </div>
           </div>
           <div class="form-row">
@@ -123,9 +124,9 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
       </div>
     </div>
     <jsp:include page="/WEB-INF/jsp/templates/basicModal.jsp">
-      <jsp:param name="message" value="Thank you for your registration. Your Company ID is ${company.companyId} Please
+      <jsp:param name="message" value="Thank you for your registration. Your Company ID is ${site != null ? site.customer.customerId : customer.customerId} Please
             process next step" />
-      <jsp:param name="url" value="/company/contactPerson"/>
+      <jsp:param name="url" value="/personalContact"/>
     </jsp:include>
   </body>
 </html>

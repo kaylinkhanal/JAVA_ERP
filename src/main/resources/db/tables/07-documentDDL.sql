@@ -4,7 +4,7 @@ create table DOCUMENT  (
         DOCUMENT_NO	NUMBER(22),
         DOCUMENT_TYPE_ID	NUMBER(22) not null,
         BRANCH VARCHAR2(50) not null,
-        CONTENT VARCHAR2(5000) not null,
+        CONTENT CLOB,
         PRINTING_FORMAT VARCHAR2(100) not null,
         "LANGUAGE" VARCHAR2(50) not null,
         IS_DELETED VARCHAR2(1) not null,

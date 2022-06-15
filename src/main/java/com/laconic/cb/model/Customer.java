@@ -1,14 +1,7 @@
 package com.laconic.cb.model;
 
 import com.laconic.cb.enums.Gender;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -17,12 +10,15 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "CUSTOMER")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Customer extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "Customer_SEQ_GEN", sequenceName = "Customer_SEQ",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Customer_SEQ_GEN")
     @Column(name = "CUSTOMER_ID")
     private Long customerId;
     @Column(name = "FIRST_NAME")
@@ -48,22 +44,34 @@ public class Customer extends BaseEntity {
     private Date registerDate;
     @Column(name = "IS_DELETED")
     private Boolean isDeleted = false;
+    @Column(name = "TYPE")
+    private String type;
+    @Column(name = "COMPANY_NAME")
+    private String companyName;
+    @Column(name = "TAX_ID")
+    private String taxId;
+    @Column(name = "BUSINESS_TYPE")
+    private String businessType;
+    @Column(name = "WEBSITE")
+    private String website;
+    @Column(name = "TRADING_RELATION")
+    private String tradingRelation;
+    @Column(name = "DISABLE_BY")
+    private String disableBy;
+    @Column(name = "DISABLE_DATE")
+    private Date disableDate;
 
-//    @OneToOne
-//    @NotFound(action = NotFoundAction.EXCEPTION)
-//    @JoinColumn(name = "CODE",
-//            referencedColumnName = "CUSTOMER_CODE",
-//            insertable = false, updatable = false,
-//            foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
-//    private Address address;
-//
-//    @OneToOne
-//    @NotFound(action = NotFoundAction.EXCEPTION)
-//    @JoinColumn(name = "CODE",
-//            referencedColumnName = "CUSTOMER_CODE",
-//            insertable = false, updatable = false,
-//            foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
-//    private ContactPerson contactPerson;
+    @OneToOne(mappedBy = "customer", fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    private Address address;
+
+    @OneToOne(mappedBy = "customer", fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    private ContactPerson contactPerson;
+
+    @OneToOne(mappedBy = "customer", fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    private Site site;
 
 //    @Column(name = "ACCOUNTING_DONATION_ID")
 //    private Long accountingDonationId;
