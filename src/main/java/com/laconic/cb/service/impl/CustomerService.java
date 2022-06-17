@@ -2,6 +2,7 @@ package com.laconic.cb.service.impl;
 
 import com.laconic.cb.constants.AppConstants;
 import com.laconic.cb.model.Customer;
+import com.laconic.cb.model.dto.CustomerResponse;
 import com.laconic.cb.repository.ICustomerCodeSequenceRepository;
 import com.laconic.cb.repository.ICustomerRepository;
 import com.laconic.cb.service.ICustomerService;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,6 +50,16 @@ public class CustomerService implements ICustomerService {
     public Page<Customer> getAllCustomer(int pageNo) {
         Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
         return customerRepository.findAllByIsDeletedFalse(pageable);
+    }
+
+    @Override
+    public List<Customer> getAllCustomer() {
+        return customerRepository.findAll();
+    }
+
+    @Override
+    public List<Customer> findCustomer(String keyword) {
+        return customerRepository.findCustomers(keyword);
     }
 
     @Override

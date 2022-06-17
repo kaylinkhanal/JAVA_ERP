@@ -1,5 +1,6 @@
 package com.laconic.cb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,6 +32,7 @@ public class Site extends BaseEntity {
     private Long CountryId;
     @Column(name = "CUSTOMER_CODE")
     private String customerCode;
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID", nullable = false)
     private Customer customer;

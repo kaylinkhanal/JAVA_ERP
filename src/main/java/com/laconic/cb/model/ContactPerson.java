@@ -1,5 +1,6 @@
 package com.laconic.cb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.laconic.cb.enums.AddressType;
 import lombok.*;
@@ -31,7 +32,7 @@ public class ContactPerson extends BaseEntity {
     private String conStatus;
 //    @Column(name = "CUSTOMER_ID", unique = true, updatable = false, nullable = false)
 //    private Long customerId;
-    @JsonManagedReference
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID", nullable = false)
     private Customer customer;

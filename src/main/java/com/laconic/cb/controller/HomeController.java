@@ -113,7 +113,6 @@ public class HomeController {
     public String customerList(Model model, HttpSession session,
                                @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
                                ModelMap modelMap) {
-        List<CustomerResponse> customers = new ArrayList<>();
         Page<Customer> customerPage = customerService.getAllCustomer(pageNo);
         List<Customer> customerList = customerPage.getContent().stream().collect(Collectors.toList());
         model.addAttribute("customers", customerList);
@@ -121,6 +120,18 @@ public class HomeController {
         Pagination.getPagination(modelMap, customerPage, totalCustomers, customerList, "/customerList");
         getCustomer(model, session);
         return "personal/customerList";
+    }
+
+    @GetMapping("/customers")
+    @ResponseBody
+    public List<Customer> getCustomerList() {
+        return customerService.getAllCustomer();
+    }
+
+    @GetMapping("/searchCustomer")
+    @ResponseBody
+    public List<Customer> searchCustomer(@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword) {
+        return customerService.findCustomer(keyword);
     }
 
     @GetMapping("/editCustomer/{id}")

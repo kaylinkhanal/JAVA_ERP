@@ -1,5 +1,6 @@
 package com.laconic.cb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.laconic.cb.enums.CaseStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -56,6 +57,7 @@ public class Case extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "CONTACT_PERSON_ID")
     private ContactPerson contactPerson;
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;

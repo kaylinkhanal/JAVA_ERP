@@ -96,7 +96,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
         <table border="1" width="60%" class="table table-striped">
           <thead align="center" class="bg-primary">
             <tr>
-              <td>Adress ID</td>
+              <td>Address ID</td>
               <td>Address Type</td>
               <td>Phone</td>
               <td>Country</td>

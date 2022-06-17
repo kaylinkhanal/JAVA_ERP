@@ -61,15 +61,15 @@ public class Customer extends BaseEntity {
     @Column(name = "DISABLE_DATE")
     private Date disableDate;
 
-    @OneToOne(mappedBy = "customer", fetch = FetchType.EAGER,
+    @OneToOne(mappedBy = "customer", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private Address address;
 
-    @OneToOne(mappedBy = "customer", fetch = FetchType.EAGER,
+    @OneToOne(mappedBy = "customer", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private ContactPerson contactPerson;
 
-    @OneToOne(mappedBy = "customer", fetch = FetchType.EAGER,
+    @OneToOne(mappedBy = "customer", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private Site site;
 

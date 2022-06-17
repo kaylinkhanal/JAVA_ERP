@@ -7,7 +7,11 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
   <head>
     <meta charset="ISO-8859-1" />
     <title>Create Case</title>
-    <style></style>
+    <style>
+      .searchInput {
+        margin: 10px;
+      }
+    </style>
   </head>
   <body>
     <div class="container-wrapper">
@@ -16,8 +20,8 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           <div class="col-md-12">
             <h5 class="float-right">
               <span>Customer ID: </span>
-              <button type="button" class="btn btn-secondary">${customer != null ? customer.code : caseDto.customer.code}</button>
-              <button type="button" class="btn btn-secondary">${customer != null ? customer.firstName : caseDto.customer.firstName}</button>
+              <button type="button" id="code" class="btn btn-secondary">${customer != null ? customer.code : caseDto.customer.code}</button>
+              <button type="button" id="firstName" class="btn btn-secondary">${customer != null ? customer.firstName : caseDto.customer.firstName}</button>
             </h5>
           </div>
         </div>
@@ -41,9 +45,9 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
               <div class="row">
                 <div class="form-group col-md-10">
                   <div class="col-md-12 row">
-                    <input type="button" value="Select" class="btn btn-primary col-sm-2" id="select" value="${caseDto.contact}" />
-                    <label for="contact" class="col-sm-2 pl-5 col-form-label">Contact</label>
-                    <input  type="text" class="form-control col-sm-8" id="contact" name="contact" value="${caseDto.contact}" required/>
+                    <input type="button" value="Select" class="btn btn-primary col-sm-2" id="select" />
+                    <label for="customer" class="col-sm-2 pl-5 col-form-label" id="currentCustomer">Customer</label>
+                    <input  type="text" class="form-control col-sm-8" id="customer" name="customer" value="${caseDto.customer.firstName}" required/>
                   </div>
                   <div class="col-md-12 row">
                     <label for="title">Title </label>
@@ -145,6 +149,27 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
     </div>
   </body>
 </html>
+<div id="searchModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Search Customers</h5>
+        <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <input type="text" id="keyword" name="keyword" class="searchInput" placeholder="Customer name or code">
+      <div class="modal-body">
+        <form>
+        <table id="customerTable" class="table">
+          <thead><td></td><td>Customer Name</td><td>Customer Code</td><td>Type</td></thead>
+          <tbody></tbody>
+        </table>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 <script type="text/javascript">
   $(document).ready(function () {
     setDate('${caseDto.operatingDate}', 'operatingDate');
@@ -155,4 +180,74 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
     setDate('${caseDto.closingDate}', 'closingDate');
     setDate('${caseDto.suspenseDate}', 'suspenseDate');
   });
+  $('#close').click(function() {
+    let tbody = $('#customerTable').children('tbody');
+    tbody.empty();
+    $('#keyword').val('');
+
+  });
+  $('#select').click(function() {
+    $("#searchModal").modal({
+      backdrop: 'static',
+      keyboard: false
+    });
+    $.ajax({
+      url: "${pageContext.request.contextPath}/customers",
+      type: "GET",
+      success: function (response) {
+        response.forEach(function (element) {
+          $('#firstName').val(element.firstName + ' ' + element.lastName);
+          $('#code').val(element.code);
+
+          let tbody = $('#customerTable').children('tbody');
+          let table = tbody.length ? tbody : $('#customerTable');
+          tbody.append('<tr value='+element.firstName +' '+  element.lastName+'><td><input type="checkbox" id="selectedCustomer" value='+element.customerId+'></td>' +
+                  '<td>'+element.firstName+'</td><td>'+element.code+'</td><td>'+element.type+'</td></tr>');
+        });
+      },
+      error:  function(XMLHttpRequest) {
+        console.error("Something went wrong");
+      }
+    });
+  });
+
+  $('#keyword').on("input", function () {
+    let keyword = $('#keyword').val();
+    let tbody = $('#customerTable').children('tbody');
+    let table = tbody.length ? tbody : $('#customerTable');
+    if (keyword) {
+      $.ajax({
+        url: "${pageContext.request.contextPath}/searchCustomer?keyword="+keyword,
+        type: "GET",
+        success: function (response) {
+          tbody.empty();
+          response.forEach(function (element) {
+
+            tbody.append('<tr value='+element.firstName +' '+  element.lastName+'><td><input type="checkbox" id="selectedCustomer" class="selectedCustomer" ></td>' +
+                    '<td>'+element.firstName+'</td><td>'+element.code+'</td><td>'+element.type+'</td></tr>');
+          });
+        },
+        error:  function(XMLHttpRequest) {
+          console.error("Something went wrong");
+        }
+      });
+    }
+  });
+
+  $("#selectedCustomer").on("click", function() {
+    // $('#firstName').val(element.firstName + ' ' + element.lastName);
+    // $('#code').val(element.code);
+    debugger;
+    $("#currentCustomer").val('Ram')
+    console.log($("#selectedCustomer").val())
+  });
+
+  $(".table").on('click','tr',function(e){
+    e.preventDefault();
+    let id = $(this).attr('value');
+    $("#currentCustomer").val(id)
+    $("#customer").val(id);
+    $("#searchModal .close").click()
+  });
 </script>
+
