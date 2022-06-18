@@ -25,15 +25,6 @@ public abstract class BaseEntity {
     private Date creationDate;
 
     @LastModifiedBy
-    @Column(name = "DISABLE_BY")
-    private String disableBy;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    @Column(name = "DISABLE_DATE")
-    private Date disableDate;
-
-    @LastModifiedBy
     @Column(name = "LAST_UPDATED_BY")
     private String lastUpdatedBy;
 

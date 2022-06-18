@@ -3,6 +3,7 @@ package com.laconic.cb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -26,5 +27,9 @@ public class EmailTemplate extends BaseEntity {
     private String content;
     @Column(name = "IS_DELETED")
     private Boolean isDeleted = false;
+    @Column(name = "DISABLE_BY")
+    private String disableBy;
+    @Column(name = "DISABLE_DATE")
+    private Date disableDate;
 }
 

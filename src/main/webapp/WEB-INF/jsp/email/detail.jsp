@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="ISO-8859-1" />
-    <title>Document Template</title>
+    <title>Email Template</title>
     <%--      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">--%>
 </head>
 <body>

@@ -21,7 +21,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           </div>
           <div class="modal-footer">
             <input type="button" class="btn btn-primary" value="Personal" name="Personal" onclick="openPage('personalRegister')"/>
-            <input type="button" class="btn btn-primary" value="Company"  name="Company"  onclick="openPage('/company/information')" />
+            <input type="button" class="btn btn-primary" value="Company"  name="Company"  onclick="openPage('/companyRegister')" />
             <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel</button>
           </div>
         </div>

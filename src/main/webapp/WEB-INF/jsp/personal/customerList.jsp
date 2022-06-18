@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="ISO-8859-1" />
-    <title>Document Template List</title>
+    <title>Customer List</title>
 </head>
 <body>
 <div class="container-wrapper">
@@ -36,12 +36,12 @@
                     <tbody align="center">
                     <tr>
                         <td>${customer.customerId}</td>
-                        <td>Personal</td>
-                        <td>${customer.customerName}</td>
-                        <td>${customer.address}</td>
-                        <td>${customer.contactPerson}</td>
-                        <td>${customer.idPassportNo}</td>
-                        <td>${customer.gender}</td>
+                        <td>${customer.type}</td>
+                        <td>${customer.firstName != null ? customer.firstName : customer.companyName}</td>
+                        <td>${customer.address != null ? customer.address.addressNo : customer.site.address}</td>
+                        <td>${customer.contactPerson != null ? customer.contactPerson.contactName : ''}</td>
+                        <td>${customer.idPassportNo != null ? customer.idPassportNo : ''}</td>
+                        <td>${customer.gender != null ? customer.gender : ''}</td>
 
                         <td>
                             <i class="far fa-edit icon-button" onclick="openPage('/editCustomer/${customer.customerId}')"></i>

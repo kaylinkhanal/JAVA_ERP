@@ -16,7 +16,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
         </div>
 
         <form METHOD="post" action="addCompanyFinance">
-          <input type="hidden" id="companyId" value="${companyFinance.company.companyId}" name="companyId" />
+          <input type="hidden" id="customer" value="${companyFinance != null ? companyFinance.customer.customerId : customer.customerId}" name="customer" />
           <input type="hidden" id="financeId" value="${companyFinance.financeId}" name="financeId" />
           <div class="form-row">
             <div class="form-group col-md-6">
@@ -26,7 +26,14 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
             <div class="form-group col-md-6">
               <label for="paymentTerm">Payment Term</label>
               <select id="paymentTerm" name="paymentTerm" class="form-control" value="${companyFinance.paymentTerm}" required>
-                <option selected value="">Choose...</option>
+                <c:choose>
+                  <c:when test="${companyFinance == null}">
+                    <option selected value="">Choose...</option>
+                  </c:when>
+                  <c:otherwise>
+                    <option selected value="${companyFinance.paymentTerm}">${companyFinance.paymentTerm}</option>
+                  </c:otherwise>
+                </c:choose>
                 <option value="Term 1">Term 1</option>
                 <option value="Term 2">Term 2</option>
               </select>
@@ -121,9 +128,9 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
       </div>
     </div>
     <jsp:include page="/WEB-INF/jsp/templates/basicModal.jsp">
-      <jsp:param name="message" value="Thank you for your registration. Your Company ID is ${company.companyId} Please
+      <jsp:param name="message" value="Thank you for your registration. Your Company ID is ${customer.customerId} Please
             process next step" />
-      <jsp:param name="url" value="/company/information"/>
+      <jsp:param name="url" value="/companyRegister"/>
     </jsp:include>
   </body>
 </html>

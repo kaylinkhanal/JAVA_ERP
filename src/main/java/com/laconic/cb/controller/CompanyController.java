@@ -24,50 +24,49 @@ public class CompanyController {
 
     public static final int PAGE_SIZE = 2;
     private final SiteService siteService;
-    private final CompanyService companyService;
+    private final CustomerService customerService;
 
     private final CompanyFinanceService companyFinanceService;
 
-    private final CompanyContactPersonService contactPersonService;
 
     private final CountryService countryService;
 
     private final CurrencyService currencyService;
 
-    public CompanyController(SiteService siteService, CompanyService companyService, CompanyFinanceService companyFinanceService, CompanyContactPersonService contactPersonService, CountryService countryService, CurrencyService currencyService) {
+    public CompanyController(SiteService siteService, CustomerService customerService, CompanyFinanceService companyFinanceService, CountryService countryService, CurrencyService currencyService) {
         this.siteService = siteService;
-        this.companyService = companyService;
+        this.customerService = customerService;
         this.companyFinanceService = companyFinanceService;
-        this.contactPersonService = contactPersonService;
         this.countryService = countryService;
         this.currencyService = currencyService;
     }
 
     @GetMapping("/site")
     public String companySite(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int page,
-            ModelMap modelMap, Model model) {
+                              ModelMap modelMap, Model model, HttpSession request) {
         Page<Site> sites = siteService.getAllSites(page);
         long totalSites = siteService.getTotalSites();
         Pagination.getPagination(modelMap, sites, totalSites,
                 sites.getContent().stream().collect(Collectors.toList()), "/company/site");
         model.addAttribute("countries", countryService.getAllCountries());
+        model.addAttribute("customer", SessionStorage.getStorage(request, "customer"));
         return "company/companySite";
     }
 
-    @GetMapping("/contactPerson")
-    public String companyContactPerson(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int page,
-                                       ModelMap modelMap, Model model) {
-        Page<CompanyContactPerson> contactPersonPage = contactPersonService.getAllCompanyContactPerson(page);
-        long totalContactPerson = contactPersonService.getTotalCompanyContactPerson();
-        Pagination.getPagination(modelMap, contactPersonPage, totalContactPerson,
-                contactPersonPage.getContent().stream().collect(Collectors.toList()), "/company/contactPerson");
-        model.addAttribute("sites", siteService.getAllSites());
-        return "company/companyContactPerson";
-    }
+//    @GetMapping("/contactPerson")
+//    public String companyContactPerson(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int page,
+//                                       ModelMap modelMap, Model model) {
+//        Page<CompanyContactPerson> contactPersonPage = contactPersonService.getAllCompanyContactPerson(page);
+//        long totalContactPerson = contactPersonService.getTotalCompanyContactPerson();
+//        Pagination.getPagination(modelMap, contactPersonPage, totalContactPerson,
+//                contactPersonPage.getContent().stream().collect(Collectors.toList()), "/company/contactPerson");
+//        model.addAttribute("sites", siteService.getAllSites());
+//        return "company/companyContactPerson";
+//    }
 
     @GetMapping("/finance")
     public String companyFinance(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int page,
-                                 ModelMap model) {
+                                 ModelMap model, HttpSession session) {
         Page<CompanyFinance> financePage = companyFinanceService.getAllCompanyFinance(page);
         long totalCompanyFinance = companyFinanceService.getTotalCompanyFinance();
         Pagination.getPagination(model, financePage, totalCompanyFinance,
@@ -75,28 +74,21 @@ public class CompanyController {
         model.addAttribute("countries", countryService.getAllCountries());
         model.addAttribute("currencies", currencyService.getAllCurrencies());
         model.addAttribute("sites", siteService.getAllSites());
+        model.addAttribute("company", SessionStorage.getStorage(session,"customer"));
         return "company/companyFinance";
     }
 
-    @GetMapping("/information")
-    public String companyInformation() {
-        return "company/companyInformation";
-    }
+
 
     @PostMapping("addSite")
     public String addCompanySite(Model model, Site site, HttpSession session, RedirectAttributes redirectAttributes) {
         Site savedSite;
-        Customer customer = (Customer) SessionStorage.getStorage(session, "customer");
-        Company company = (Company) SessionStorage.getStorage(session, "company");
-        site.setCustomer(customer);
-        site.setCompanyId(company.getCompanyId());
         if (site.getSiteId() != null) {
             savedSite = siteService.updateCompanySite(site);
         } else {
             savedSite = siteService.addCompanySite(site);
         }
         model.addAttribute("site", savedSite);
-        model.addAttribute("company", company);
         redirectAttributes.addFlashAttribute("success", true);
         return "redirect:/company/site";
     }
@@ -106,7 +98,6 @@ public class CompanyController {
         Optional<Site> site = siteService.findById(id);
         if (site.isPresent()) {
             model.addFlashAttribute("site", site.get());
-            model.addFlashAttribute("customer", site.get().getCustomer());
         }
         return "redirect:/company/site";
     }
@@ -117,23 +108,19 @@ public class CompanyController {
         return "redirect:/company/site";
     }
 
-    @PostMapping("addCompany")
-    public String addCompany(Company company, RedirectAttributes redirectAttributes, HttpSession session) {
-        Customer customer = (Customer) SessionStorage.getStorage(session, "customer");
-        company.setCustomer(customer);
-        Company savedCompany = companyService.save(company);
-        SessionStorage.setStorage(session, "company", savedCompany);
-        redirectAttributes.addFlashAttribute("company", savedCompany);
-        redirectAttributes.addFlashAttribute("success", true);
-        return "redirect:/company/information";
-    }
+//    @PostMapping("addCompany")
+//    public String addCompany(Customer customer, RedirectAttributes redirectAttributes, HttpSession session) {
+//        Customer savedCustomer = customerService.save(customer);
+//        SessionStorage.setStorage(session, "company", savedCustomer);
+//        redirectAttributes.addFlashAttribute("company", savedCustomer);
+//        redirectAttributes.addFlashAttribute("success", true);
+//        return "redirect:/company/information";
+//    }
 
     @PostMapping("addCompanyFinance")
     public String addCompanyFinance(CompanyFinance companyFinance, RedirectAttributes redirectAttributes, HttpSession session) {
         Customer customer = (Customer) SessionStorage.getStorage(session, "customer");
-        Company company = (Company) SessionStorage.getStorage(session, "company");
         companyFinance.setCustomer(customer);
-        companyFinance.setCompany(company);
         CompanyFinance savedCompanyFinance;
         if (companyFinance.getFinanceId() != null) {
             savedCompanyFinance = companyFinanceService.updateCompanyFinance(companyFinance);
@@ -141,39 +128,39 @@ public class CompanyController {
             savedCompanyFinance = companyFinanceService.saveCompanyFinance(companyFinance);
         }
         redirectAttributes.addFlashAttribute("companyFinance", savedCompanyFinance);
-        redirectAttributes.addFlashAttribute("company", company);
         redirectAttributes.addFlashAttribute("success", true);
+        redirectAttributes.addFlashAttribute("customer", customer != null ? customer : savedCompanyFinance.getCustomer());
         return "redirect:/company/finance";
     }
 
-    @PostMapping("addCompanyContactPerson")
-    public String addCompanyContactPerson(CompanyContactPerson contactPerson, RedirectAttributes redirectAttributes, HttpSession session) {
-        Customer customer = (Customer) SessionStorage.getStorage(session, "customer");
-        Company company = (Company) SessionStorage.getStorage(session, "company");
-        contactPerson.setCompany(company);
-        contactPerson.setCustomer(customer);
-        CompanyContactPerson saveContactPerson;
-        if (contactPerson.getContactPersonId() != null) {
-            saveContactPerson = contactPersonService.updateCompanyContactPerson(contactPerson);
-        } else {
-            saveContactPerson = contactPersonService.saveCompanyContactPerson(contactPerson);
-        }
-        redirectAttributes.addFlashAttribute("contact", saveContactPerson);
-        redirectAttributes.addFlashAttribute("company", company);
-        redirectAttributes.addFlashAttribute("success", true);
-        return "redirect:/company/contactPerson";
-    }
+//    @PostMapping("addCompanyContactPerson")
+//    public String addCompanyContactPerson(CompanyContactPerson contactPerson, RedirectAttributes redirectAttributes, HttpSession session) {
+//        Customer customer = (Customer) SessionStorage.getStorage(session, "customer");
+//        Company company = (Company) SessionStorage.getStorage(session, "company");
+//        contactPerson.setCompany(company);
+//        contactPerson.setCustomer(customer);
+//        CompanyContactPerson saveContactPerson;
+//        if (contactPerson.getContactPersonId() != null) {
+//            saveContactPerson = contactPersonService.updateCompanyContactPerson(contactPerson);
+//        } else {
+//            saveContactPerson = contactPersonService.saveCompanyContactPerson(contactPerson);
+//        }
+//        redirectAttributes.addFlashAttribute("contact", saveContactPerson);
+//        redirectAttributes.addFlashAttribute("company", company);
+//        redirectAttributes.addFlashAttribute("success", true);
+//        return "redirect:/company/contactPerson";
+//    }
 
-    @GetMapping("/editContactPerson/{id}")
-    public String editContactPerson(@PathVariable("id") Long contactId, RedirectAttributes model) {
-        Optional<CompanyContactPerson> contactPerson = contactPersonService.findById(contactId);
-        if (contactPerson.isPresent()) {
-            model.addFlashAttribute("contact", contactPerson.get());
-            model.addFlashAttribute("customer", contactPerson.get().getCustomer());
-        }
-        return "redirect:/company/contactPerson";
-
-    }
+//    @GetMapping("/editContactPerson/{id}")
+//    public String editContactPerson(@PathVariable("id") Long contactId, RedirectAttributes model) {
+//        Optional<CompanyContactPerson> contactPerson = contactPersonService.findById(contactId);
+//        if (contactPerson.isPresent()) {
+//            model.addFlashAttribute("contact", contactPerson.get());
+//            model.addFlashAttribute("customer", contactPerson.get().getCustomer());
+//        }
+//        return "redirect:/company/contactPerson";
+//
+//    }
 
     @GetMapping("/editCompanyFinance/{id}")
     public String editContactFinance(@PathVariable("id") Long financeId, RedirectAttributes model) {
@@ -185,11 +172,11 @@ public class CompanyController {
         return "redirect:/company/finance";
     }
 
-    @GetMapping("/deleteContactPerson/{id}")
-    public String deleteContactPerson(@PathVariable("id") Long id) {
-        contactPersonService.softDeleteCompanyContactPerson(id);
-        return "redirect:/company/contactPerson";
-    }
+//    @GetMapping("/deleteContactPerson/{id}")
+//    public String deleteContactPerson(@PathVariable("id") Long id) {
+//        contactPersonService.softDeleteCompanyContactPerson(id);
+//        return "redirect:/company/contactPerson";
+//    }
 
     @GetMapping("/deleteCompanyFinance/{id}")
     public String deleteCompanyFinance(@PathVariable("id") Long id) {

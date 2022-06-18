@@ -1,11 +1,9 @@
 package com.laconic.cb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.laconic.cb.enums.AddressType;
-import com.laconic.cb.enums.Relationship;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,12 +11,15 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "CONTACT_PERSON")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class ContactPerson extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "ContactPerson_SEQ_GEN", sequenceName = "ContactPerson_SEQ",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ContactPerson_SEQ_GEN")
     @Column(name = "CONTACT_PERSON_ID")
     private Long contactPersonId;
     @Column(name = "COMPANY_ID")
@@ -29,10 +30,11 @@ public class ContactPerson extends BaseEntity {
     private String contactName;
     @Column(name = "CON_STATUS")
     private String conStatus;
-    @Column(name = "CUSTOMER_CODE")
-    private Long customerCode;
-    @OneToOne
-    @JoinColumn(name = "CUSTOMER_ID")
+//    @Column(name = "CUSTOMER_ID", unique = true, updatable = false, nullable = false)
+//    private Long customerId;
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID", nullable = false)
     private Customer customer;
     @Column(name = "DECISION_MAKER")
     private String decisionMaker;
@@ -40,8 +42,6 @@ public class ContactPerson extends BaseEntity {
     private String dep;
     @Column(name = "DESCRIPTION", columnDefinition = "TEXT")
     private String description;
-//    @Column(name = "DISABLE_BY")
-//    private String disableBy;
     @Column(name = "EFFECTIVE_DATE")
     private Date effectiveDate;
     @Column(name = "EMAIL")
@@ -60,8 +60,6 @@ public class ContactPerson extends BaseEntity {
     private String remarkLcn;
     @Column(name = "ROW_NUMBER")
     private Long rowNumber;
-    @Column(name = "SITE_CODE")
-    private String siteCode;
     @OneToOne
     @JoinColumn(name = "SITE_ID")
     private Site site;
@@ -70,9 +68,12 @@ public class ContactPerson extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "ADDRESS_TYPE")
     private AddressType addressType;
-    @Enumerated(EnumType.STRING)
     @Column(name = "RELATIONSHIP")
-    private Relationship relationship;
+    private String relationship;
     @Column(name = "IS_DELETED")
     private Boolean isDeleted = false;
+    @Column(name = "DISABLE_BY")
+    private String disableBy;
+    @Column(name = "DISABLE_DATE")
+    private Date disableDate;
 }

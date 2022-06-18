@@ -25,6 +25,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
               <label for="customerId">Customer Id</label>
               <input type="text" disabled class="form-control" id="customerId" name="customerId" value="${customer.customerId}"/>
               <input type="hidden" class="form-control"  name="customerId" value="${customer.customerId}"/>
+              <input type="hidden" class="form-control"  name="type" value="Personal"/>
             </div>
             <div class="form-group col-md-6">
               <label for="registerDate">Register Date</label>
@@ -80,17 +81,15 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           </div>
           <button type="submit" id="save" class="btn btn-primary">Save</button
           ><br /><br />
-         <c:if test="${customer != null}">
-           <input type="button" class="btn btn-primary" value="Add Address" name="personalAddress" onclick="openPage('personalAddress')" />
-           <input type="button" class="btn btn-primary" value="Add Contact Person" name="personalContact" onclick="openPage('personalContact')"/>
-         </c:if>
+         <input type="button" class="btn btn-primary" value="Add Address" name="personalAddress" onclick="openPage('personalAddress')" />
+         <input type="button" class="btn btn-primary" value="Add Contact Person" name="personalContact" onclick="openPage('personalContact')"/>
          </form>
       </div>
     </div>
     <jsp:include page="/WEB-INF/jsp/templates/basicModal.jsp">
       <jsp:param name="message" value="Thank you for your registration. Your Personal ID is ${customer.customerId} Please
             process next step" />
-      <jsp:param name="url" value="/personalAddress"/>
+      <jsp:param name="url" value="${customer.firstName != null ? 'personalAddress' : '/company/site'}" />
     </jsp:include>
   </body>
 </html>
@@ -101,7 +100,6 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
   });
   <c:if test="${success == true}">
     $("#saveModal").modal("show");
-    setStorage('customer', JSON.stringify('${customer}'));
   </c:if>
 </script>
 
