@@ -53,7 +53,7 @@ public class SiteService implements ISiteService {
 
     @Override
     public void softDeleteSite(Long id) {
-        siteRepository.softDeleteCompanyFinance(id);
+        siteRepository.softDeleteSite(id);
     }
 
     @Override

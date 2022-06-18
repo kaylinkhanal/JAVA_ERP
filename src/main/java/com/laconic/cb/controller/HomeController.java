@@ -130,7 +130,7 @@ public class HomeController {
 
     @GetMapping("/searchCustomer")
     @ResponseBody
-    public List<Customer> searchCustomer(@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword) {
+    public List<CustomerResponse> searchCustomer(@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword) {
         return customerService.findCustomer(keyword);
     }
 

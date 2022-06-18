@@ -1,6 +1,6 @@
 package com.laconic.cb.repository;
 
-import com.laconic.cb.model.Site;
+import com.laconic.cb.model.Item;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,18 +13,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ISiteRepository extends JpaRepository<Site, Long> {
-    Page<Site> findAll(Pageable pageable);
-
-    @Query(value = "update SITE set IS_DELETED = 1 where SITE_ID=:siteId", nativeQuery = true)
+public interface IItemRepository extends JpaRepository<Item, Long> {
+    @Query(value = "update ITEM set IS_DELETED = 1 where ITEM_ID=:itemId", nativeQuery = true)
     @Modifying
     @Transactional
-    void softDeleteSite(Long siteId);
+    void softDeleteItem(Long itemId);
 
-    Optional<Site> findBySiteIdAndIsDeletedFalse(Long siteId);
+    Optional<Item> findByItemIdAndIsDeletedFalse(Long itemId);
 
-    Page<Site> findAllByIsDeletedFalse(Pageable pageable);
-    List<Site> findAllByIsDeletedFalse();
+    Page<Item> findAllByIsDeletedFalse(Pageable pageable);
+    List<Item> findAllByIsDeletedFalse();
 
     long countByIsDeletedFalse();
 }
