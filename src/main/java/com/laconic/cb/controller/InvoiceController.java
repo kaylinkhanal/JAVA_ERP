@@ -30,8 +30,8 @@ public class InvoiceController {
         this.itemService = itemService;
     }
 
-    @GetMapping("/create")
-    public String createInvoice() {
+    @GetMapping("/create/{caseId}")
+    public String createInvoice(@PathVariable("caseId") Long caseId) {
         return "invoice/createInvoice";
     }
 
@@ -70,7 +70,12 @@ public class InvoiceController {
         return "redirect:/invoice/createInvoice";
     }
     @GetMapping("/createItem")
-    public String createItem() {
+    public String createItem(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+                             ModelMap modelMap) {
+        Page<Item> itemPage = itemService.getAllItems(pageNo);
+        List<Item> itemList = itemPage.getContent().stream().collect(Collectors.toList());
+        long totalItems = itemService.getTotalItems();
+        Pagination.getPagination(modelMap, itemPage, totalItems, itemList, "/invoice/createItem");
         return "invoice/createItem";
     }
 
@@ -86,7 +91,7 @@ public class InvoiceController {
         if (item.isPresent()) {
             model.addAttribute("item", item.get());
         }
-        return "redirect:/invoice/createItem";
+        return "invoice/createItem";
     }
 
     @PostMapping("/addItem")
@@ -95,17 +100,17 @@ public class InvoiceController {
         if (item.getItemId() != null) {
             savedItem = itemService.updateItem(item);
         } else savedItem = itemService.saveItem(item);
-        redirectAttributes.addFlashAttribute("item", savedItem);
+//        redirectAttributes.addFlashAttribute("item", savedItem);
         return "redirect:/invoice/createItem";
     }
 
-    @GetMapping("/itemList")
-    public String itemList(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
-                              ModelMap modelMap) {
-        Page<Item> itemPage = itemService.getAllItems(pageNo);
-        List<Item> itemList = itemPage.getContent().stream().collect(Collectors.toList());
-        long totalItems = itemService.getTotalItems();
-        Pagination.getPagination(modelMap, itemPage, totalItems, itemList, "/invoice/createItem");
-        return "invoice/createItem";
-    }
+//    @GetMapping("/itemList")
+//    public String itemList(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+//                              ModelMap modelMap) {
+//        Page<Item> itemPage = itemService.getAllItems(pageNo);
+//        List<Item> itemList = itemPage.getContent().stream().collect(Collectors.toList());
+//        long totalItems = itemService.getTotalItems();
+//        Pagination.getPagination(modelMap, itemPage, totalItems, itemList, "/invoice/createItem");
+//        return "invoice/createItem";
+//    }
 }

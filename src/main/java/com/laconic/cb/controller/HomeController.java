@@ -128,9 +128,19 @@ public class HomeController {
         return customerService.getAllCustomer();
     }
 
+    @GetMapping("/findCustomer/{id}")
+    @ResponseBody
+    public Customer findCustomer(@PathVariable("id") Long id) {
+        Optional<Customer> customer = customerService.findById(id);
+        if (customer.isPresent()) {
+            return  customer.get();
+        }
+        return null;
+    }
+
     @GetMapping("/searchCustomer")
     @ResponseBody
-    public List<CustomerResponse> searchCustomer(@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword) {
+    public List<Customer> searchCustomer(@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword) {
         return customerService.findCustomer(keyword);
     }
 

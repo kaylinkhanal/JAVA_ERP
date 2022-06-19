@@ -9,7 +9,7 @@ create table INVOICE  (
       PAYMENT_TERM VARCHAR2(100) not null,
       BANK_ACCOUNT VARCHAR2(100) not null,
       DESCRIPTION VARCHAR2(1000) not null,
-      STATUS VARCHAR2(100) not null,
+      STATUS VARCHAR2(100),
       CREATION_DATE	DATE,
       DISABLE_BY	VARCHAR2(20),
       DISABLE_DATE	DATE,

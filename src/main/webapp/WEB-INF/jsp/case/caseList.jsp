@@ -76,7 +76,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <td>${caseDto.caseId}</td>
                     <td>${caseDto.customer.code}</td>
                     <td>${caseDto.title}</td>
-                    <td>${caseDto.customer.firstName.toString()}</td>
+                    <td>${caseDto.customer.companyName != null ? caseDto.customer.companyName : caseDto.customer.firstName.concat(' ').concat(caseDto.customer.lastName)}</td>
                     <td>${caseDto.contactPerson.contactName}</td>
                     <td></td>
                     <td>${caseDto.status}</td>

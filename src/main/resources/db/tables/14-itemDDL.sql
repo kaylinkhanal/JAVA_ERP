@@ -2,7 +2,7 @@ create table ITEM  (
       ITEM_ID	NUMBER(22) not null,
       ITEM_NAME VARCHAR2(100) not null,
       ITEM_PART_NAME VARCHAR2(100) not null,
-      STATUS VARCHAR2(100) not null,
+      STATUS VARCHAR2(100),
       CREATION_DATE	DATE,
       DISABLE_BY	VARCHAR2(20),
       DISABLE_DATE	DATE,

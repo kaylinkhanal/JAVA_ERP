@@ -16,8 +16,8 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           <div class="col-md-12">
             <h5 class="float-right">
               <span>Customer ID: </span>
-              <button type="button" class="btn btn-secondary">${customer != null ? customer.code : caseDto.customer.code}</button>
-              <button type="button" class="btn btn-secondary">${customer != null ? customer.firstName : caseDto.customer.firstName}</button>
+              <button type="button" class="btn btn-secondary">${caseDto.customer.code}</button>
+              <button type="button" class="btn btn-secondary">${caseDto.customer.companyName != null ? caseDto.customer.companyName : caseDto.customer.firstName.concat(' ').concat(caseDto.customer.lastName)}</button>
             </h5>
           </div>
         </div>
@@ -201,6 +201,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
             </div>
           </div>
           <button type="button" id="save" class="btn btn-primary float-right" onclick="openPage('/case/editCase/${caseDto.caseId}')">Edit this case</button>
+          <button type="button" id="save" class="btn btn-primary float-right" onclick="openPage('/invoice/create/${caseDto.caseId}')">Create Invoice</button>
           <br /><br />
         </form>
       </div>
