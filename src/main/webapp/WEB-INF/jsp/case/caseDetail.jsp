@@ -17,7 +17,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
             <h5 class="float-right">
               <span>Customer ID: </span>
               <button type="button" class="btn btn-secondary">${caseDto.customer.code}</button>
-              <button type="button" class="btn btn-secondary">${caseDto.customer.companyName != null ? caseDto.customer.companyName : caseDto.customer.fullName)}</button>
+              <button type="button" class="btn btn-secondary">${caseDto.customer.companyName != null ? caseDto.customer.companyName : caseDto.customer.fullName}</button>
             </h5>
           </div>
         </div>
@@ -200,8 +200,8 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
               </div>
             </div>
           </div>
-          <button type="button" id="save" class="btn btn-primary float-right" onclick="openPage('/case/editCase/${caseDto.caseId}')">Edit this case</button>
-          <button type="button" id="save" class="btn btn-primary float-right" onclick="openPage('/invoice/create/${caseDto.caseId}')">Create Invoice</button>
+          <button type="button" id="editCase" class="btn btn-primary float-right" onclick="openPage('/case/editCase/${caseDto.caseId}')">Edit this case</button>
+          <button type="button" id="createInvoice" class="btn btn-primary float-right" onclick="openPage('/invoice/create/${caseDto.caseId}')">Create Invoice</button>
           <br /><br />
         </form>
       </div>

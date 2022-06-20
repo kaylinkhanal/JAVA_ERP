@@ -31,7 +31,7 @@ public class ContactPerson extends BaseEntity {
     private String contactName;
     @Column(name = "CON_STATUS")
     private String conStatus;
-//    @Column(name = "CUSTOMER_ID", unique = true, updatable = false, nullable = false)
+    //    @Column(name = "CUSTOMER_ID", unique = true, updatable = false, nullable = false)
 //    private Long customerId;
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, optional = false)
