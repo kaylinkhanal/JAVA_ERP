@@ -4,6 +4,7 @@ import com.laconic.cb.model.Case;
 import com.laconic.cb.model.EmailTemplate;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ICaseService {
@@ -17,4 +18,6 @@ public interface ICaseService {
     Optional<Case> findById(Long id);
 
     long getTotalCase();
+
+    List<Case> searchCase(String keyword);
 }

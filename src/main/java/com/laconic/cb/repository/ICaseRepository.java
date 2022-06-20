@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -19,8 +20,12 @@ public interface ICaseRepository extends JpaRepository<Case, Long> {
     void softDeleteCase(Long caseId);
 
     Page<Case> findAllByIsDeletedFalse(Pageable pageable);
+    List<Case> findAllByIsDeletedFalse();
 
     long countByIsDeletedFalse();
 
     Optional<Case> findByCaseIdAndIsDeletedFalse(Long caseId);
+
+//    @Query(value = "select * from CASE where TITLE like %:keyword%", nativeQuery = true)
+    List<Case> findByTitleContainingIgnoreCaseOrCustomer_FullNameLikeIgnoreCaseOrCustomer_CompanyNameLikeIgnoreCaseAndIsDeletedFalse(String keyword, String keyword1, String keyword2);
 }

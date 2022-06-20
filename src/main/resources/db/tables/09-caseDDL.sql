@@ -1,9 +1,9 @@
 create table CASE  (
       CASE_ID	NUMBER(22) not null,
-      CONTACT	VARCHAR2(100) not null,
+      CONTACT	VARCHAR2(100),
       TITLE	VARCHAR2(100) not null,
       STATUS	VARCHAR2(100) not null,
-      DESCRIPTION	VARCHAR2(500) not null,
+      DESCRIPTION	VARCHAR2(500),
       CONTACT_PERSON_ID NUMBER(22) not null,
       CUSTOMER_ID NUMBER(22) not null,
       OPERATING_DATE DATE not null,

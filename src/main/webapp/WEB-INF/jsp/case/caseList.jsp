@@ -23,9 +23,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
         <div class="col-md-12 row">
           <h3 class="float-left">
             <span>CaseList: </span>
-            <button type="button" class="btn btn-primary">
-              Create New Case
-            </button>
+            <button type="button" class="btn btn-primary" onclick="openPage('/case/create')">Create New Case</button>
           </h3>
         </div>
         <form class="col-xs-12 border p-3">
@@ -35,12 +33,12 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           </div>
           <div class="form-row col-md-10">
             <div class="form-group col-md-3">
-              <label for="search">Search: </label>
-              <input type="text" class="form-control" id="search" />
+              <label for="searchKeyword">Search: </label>
+              <input type="text" class="form-control" id="searchKeyword" />
             </div>
             <div class="form-group col-md-3">
-              <label for="search1"> : </label>
-              <input type="text" class="form-control" id="search1" />
+              <br>
+              <i class="fas fa-search" onclick="filterCase()"></i>
             </div>
             <div class="form-group col-md-3">
               <label for="filter">Filter</label>
@@ -57,7 +55,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
               </select>
             </div>
             <div align="center" class="col-md-12">
-              <table border="1" width="100%" class="table table-striped">
+              <table border="1" width="100%" class="table table-striped" id="caseTable">
                 <thead align="center" class="bg-primary">
                   <tr>
                     <td>Case ID</td>
@@ -76,7 +74,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <td>${caseDto.caseId}</td>
                     <td>${caseDto.customer.code}</td>
                     <td>${caseDto.title}</td>
-                    <td>${caseDto.customer.firstName.toString()}</td>
+                    <td>${caseDto.customer.companyName != null ? caseDto.customer.companyName : caseDto.customer.fullName}</td>
                     <td>${caseDto.contactPerson.contactName}</td>
                     <td></td>
                     <td>${caseDto.status}</td>
@@ -100,3 +98,4 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
     </div>
   </body>
 </html>
+<script><%@include file="/WEB-INF/script/case.js" %></script>

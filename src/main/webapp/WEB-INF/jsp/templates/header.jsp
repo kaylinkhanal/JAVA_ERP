@@ -46,8 +46,6 @@
                     <a class="dropdown-item" href="/email/list">Email Template List</a>
                 </div>
             </li>
-<%--            <li class="nav-item"><a class="nav-link" href="/document/typeList">Document Management</a></li>--%>
-<%--            <li class="nav-item"><a class="nav-link" href="/case/create">Case (Order)</a></li>--%>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Case (Order)
@@ -57,7 +55,17 @@
                     <a class="dropdown-item" href="/case/list">Case List</a>
                 </div>
             </li>
-            <li class="nav-item"><a class="nav-link" href="#">Installment/Invoice/Deposit</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"></a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Installment/Invoice/Deposit
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+<%--                    <a class="dropdown-item" href="/invoice/create">Create Invoice</a>--%>
+<%--                    <div class="dropdown-divider"></div>--%>
+                    <a class="dropdown-item" href="/invoice/createItem">Create Item</a>
+                </div>
+            </li>
             <li class="nav-item"><a class="nav-link" href="#">Report</a></li>
 
             <% Customer customer=(Customer) session.getAttribute("customer"); %>

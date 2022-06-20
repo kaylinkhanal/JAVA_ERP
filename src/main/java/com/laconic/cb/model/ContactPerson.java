@@ -1,5 +1,6 @@
 package com.laconic.cb.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.laconic.cb.enums.AddressType;

@@ -1,6 +1,6 @@
 package com.laconic.cb.repository;
 
-import com.laconic.cb.model.Site;
+import com.laconic.cb.model.Invoice;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,22 +9,19 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ISiteRepository extends JpaRepository<Site, Long> {
-    Page<Site> findAll(Pageable pageable);
-
-    @Query(value = "update SITE set IS_DELETED = 1 where SITE_ID=:siteId", nativeQuery = true)
+public interface IInvoiceRepository extends JpaRepository<Invoice, Long> {
+    @Query(value = "update INVOICE set IS_DELETED = 1 where INVOICE_ID=:invoiceId", nativeQuery = true)
     @Modifying
     @Transactional
-    void softDeleteSite(Long siteId);
+    void softDeleteInvoice(Long invoiceId);
 
-    Optional<Site> findBySiteIdAndIsDeletedFalse(Long siteId);
+    Optional<Invoice> findByInvoiceIdAndIsDeletedFalse(Long invoiceId);
 
-    Page<Site> findAllByIsDeletedFalse(Pageable pageable);
-    List<Site> findAllByIsDeletedFalse();
+    Page<Invoice> findAllByIsDeletedFalse(Pageable pageable);
+//    List<Invoice> findAllByIsDeletedFalse();
 
     long countByIsDeletedFalse();
 }

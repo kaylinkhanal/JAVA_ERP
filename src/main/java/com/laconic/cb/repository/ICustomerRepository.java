@@ -1,8 +1,6 @@
 package com.laconic.cb.repository;
 
 import com.laconic.cb.model.Customer;
-import com.laconic.cb.model.EmailTemplate;
-import com.laconic.cb.model.dto.CustomerResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,6 +26,6 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
 
     Optional<Customer> findByCustomerIdAndIsDeletedFalse(Long customerId);
 
-    @Query(value = "select * from CUSTOMER where FIRST_NAME like %:keyword% or CODE like %:keyword%", nativeQuery = true)
-    List<Customer> findCustomers(String keyword);
+//    @Query(value = "select * from CUSTOMER where FIRST_NAME like %:keyword% or CODE like %:keyword%", nativeQuery = true)
+    List<Customer> findByFullNameContainingIgnoreCaseOrCompanyNameContainingIgnoreCase(String keyword, String keyword1);
 }
