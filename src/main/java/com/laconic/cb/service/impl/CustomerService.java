@@ -2,7 +2,6 @@ package com.laconic.cb.service.impl;
 
 import com.laconic.cb.constants.AppConstants;
 import com.laconic.cb.model.Customer;
-import com.laconic.cb.model.dto.CustomerResponse;
 import com.laconic.cb.repository.ICustomerCodeSequenceRepository;
 import com.laconic.cb.repository.ICustomerRepository;
 import com.laconic.cb.service.ICustomerService;
@@ -29,6 +28,9 @@ public class CustomerService implements ICustomerService {
     public Customer save(Customer customer) {
         Long code = customerCodeSequenceRepository.getNextCustomerCodeSequence();
         customer.setCode(code);
+        if (customer.getFirstName() != null && customer.getLastName() != null) {
+            customer.setFullName(customer.getFirstName()+" "+ customer.getLastName());
+        }
         return customerRepository.save(customer);
     }
 
@@ -41,6 +43,9 @@ public class CustomerService implements ICustomerService {
     public Customer update(Customer customer) {
         Optional<Customer> dbCustomer = customerRepository.findById(customer.getCustomerId());
         if (dbCustomer.isPresent()) {
+            if (customer.getFirstName() != null && customer.getLastName() != null) {
+                dbCustomer.get().setFullName(customer.getFirstName()+" "+ customer.getLastName());
+            }
             return customerRepository.saveAndFlush(customer);
         }
         return null;
@@ -59,7 +64,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public List<Customer> findCustomer(String keyword) {
-        return customerRepository.findCustomers(keyword);
+        return customerRepository.findByFullNameContainingIgnoreCaseOrCompanyNameContainingIgnoreCase(keyword, keyword);
     }
 
     @Override

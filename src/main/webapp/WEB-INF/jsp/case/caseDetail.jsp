@@ -17,7 +17,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
             <h5 class="float-right">
               <span>Customer ID: </span>
               <button type="button" class="btn btn-secondary">${caseDto.customer.code}</button>
-              <button type="button" class="btn btn-secondary">${caseDto.customer.companyName != null ? caseDto.customer.companyName : caseDto.customer.firstName.concat(' ').concat(caseDto.customer.lastName)}</button>
+              <button type="button" class="btn btn-secondary">${caseDto.customer.companyName != null ? caseDto.customer.companyName : caseDto.customer.fullName)}</button>
             </h5>
           </div>
         </div>

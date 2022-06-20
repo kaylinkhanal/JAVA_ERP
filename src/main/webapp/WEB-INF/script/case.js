@@ -24,7 +24,7 @@ $('#select').click(function () {
         type: "GET",
         success: function (response) {
             response.forEach(function (element) {
-                let customerName = element.companyName != null ? element.companyName : element.firstName +' ' + element.lastName;
+                let customerName = element.companyName != null ? element.companyName : element.fullName;
                 $('#customerName').val(customerName);
                 $('#code').val(element.code);
 
@@ -52,7 +52,7 @@ $('#keyword').on("input", function () {
             success: function (response) {
                 tbody.empty();
                 response.forEach(function (element) {
-                    let customerName = element.companyName != null ? element.companyName : element.firstName +' ' + element.lastName;
+                    let customerName = element.companyName != null ? element.companyName : element.fullName;
                     tbody.append('<tr value=' + element.customerId +'><td>' +
                         '<input type="checkbox" id="selectedCustomer" class="selectedCustomer" ></td>' +
                         '<td>' + customerName + '</td>' +
@@ -74,7 +74,7 @@ $(".table").on('click', 'tr', function (e) {
             url: "${pageContext.request.contextPath}/findCustomer/" + id,
             type: "GET",
             success: function (response) {
-                let customerName = response.companyName != null ? response.companyName: response.firstName +' ' + response.lastName;
+                let customerName = response.companyName != null ? response.companyName: response.fullName;
                 $("#searchModal .close").click();
                 $('#code').html(response.code);
                 // $('#customer').html(response.customerId);
@@ -88,3 +88,36 @@ $(".table").on('click', 'tr', function (e) {
         });
     }
 });
+
+function filterCase() {
+    let keyword = $("#searchKeyword").val();
+    if (keyword) {
+        $.ajax({
+            url: "${pageContext.request.contextPath}/case/searchCase?keyword=" + keyword,
+            type: "GET",
+            success: function (response) {
+                let tbody = $('#caseTable').children('tbody');
+                tbody.empty();
+                response.forEach(function (element) {
+                    // let customerName = element.companyName != null ? element.companyName : element.fullName;
+                    tbody.append('<tr><td>' + element.caseId + '</td>' +
+                        '<td>' + element.title + '</td>' +
+                        '<td>' + element.title + '</td>' +
+                        '<td>' + element.title + '</td>' +
+                        '<td>' + element.contactPerson.contactName + '</td>' +
+                        '<td></td>' +
+                        '<td>' + element.status + '</td>' +
+                        '<td>\n' +
+                        '<i class="far fa-edit icon-button" onclick="openPage(\'/case/editCase/${caseDto.caseId}\')"></i>\n' +
+                        '<i class="far fa-file-alt icon-button" onclick="openPage(\'/case/detail/${caseDto.caseId}\')"></i>\n' +
+                        '<i class="far fa-trash-alt icon-button" onclick="openPage(\'/case/deleteCase/${caseDto.caseId}\')"></i>\n' +
+                        '</td>' +
+                        '</tr>');
+                });
+            },
+            error: function (XMLHttpRequest) {
+                console.error("Something went wrong");
+            }
+        });
+    }
+}

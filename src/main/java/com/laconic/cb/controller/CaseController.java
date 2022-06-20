@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -39,6 +40,13 @@ public class CaseController {
         Pagination.getPagination(model, casePage, totalCompanyFinance,
                 casePage.getContent().stream().collect(Collectors.toList()), "/case/list");
         return "case/caseList";
+    }
+
+    @GetMapping("/searchCase")
+    @ResponseBody
+    public List<Case> caseList(@RequestParam(value = "keyword", required = true) String keyword,
+                           ModelMap model) {
+        return caseService.searchCase(keyword);
     }
 
     @GetMapping("/create")

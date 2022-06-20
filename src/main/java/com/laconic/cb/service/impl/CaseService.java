@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -49,5 +50,10 @@ public class CaseService implements ICaseService {
     @Override
     public long getTotalCase() {
         return caseRepository.countByIsDeletedFalse();
+    }
+
+    @Override
+    public List<Case> searchCase(String keyword) {
+        return caseRepository.findByTitleContainingIgnoreCaseOrCustomer_FullNameLikeIgnoreCaseOrCustomer_CompanyNameLikeIgnoreCaseAndIsDeletedFalse(keyword, keyword, keyword);
     }
 }
