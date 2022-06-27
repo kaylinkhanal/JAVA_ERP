@@ -58,7 +58,7 @@ public class Case extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "CONTACT_PERSON_ID")
     private ContactPerson contactPerson;
-    @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;

@@ -6,6 +6,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
   <head>
     <meta charset="ISO-8859-1" />
     <title>Case List</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
     <style></style>
   </head>
   <body>
