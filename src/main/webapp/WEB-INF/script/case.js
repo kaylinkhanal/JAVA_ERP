@@ -105,6 +105,7 @@ function filterCase() {
             url: "${pageContext.request.contextPath}/case/searchCase?keyword=" + keyword,
             type: "GET",
             success: function (response) {
+                tbody.empty();
                 response.forEach(function (element) {
                     let customerName = element.customer.companyName != null ? element.customer.companyName : element.customer.fullName;
                     tbody.append('<tr><td>' + element.caseId + '</td>' +

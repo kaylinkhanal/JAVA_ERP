@@ -66,7 +66,15 @@
                     <a class="dropdown-item" href="/invoice/createItem">Create Item</a>
                 </div>
             </li>
-            <li class="nav-item"><a class="nav-link" href="#">Report</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown6" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Report
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/report/paymentStatus">Payment Status</a>
+                    <a class="dropdown-item" href="/report/securityBox">Security Box</a>
+                </div>
+            </li>
 
             <% Customer customer=(Customer) session.getAttribute("customer"); %>
             <c:if test="${customer != null}">

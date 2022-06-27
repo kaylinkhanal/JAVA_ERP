@@ -60,6 +60,11 @@ public class InvoiceController {
         return "redirect:/invoice/createInvoice";
     }
 
+    @GetMapping("/detail")
+    public String invoiceDetail() {
+        return "invoice/detail";
+    }
+
     @PostMapping("/addInvoice")
     public String addInvoice(Invoice invoice, RedirectAttributes redirectAttributes) {
         Invoice savedInvoice;
