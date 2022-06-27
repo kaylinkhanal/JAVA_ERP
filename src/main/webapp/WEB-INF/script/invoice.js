@@ -5,7 +5,7 @@ $('#close').click(function () {
 
 });
 // need to change search customer when changing this function
-$('#select').click(function () {
+$('#select, #addItem').click(function () {
     $("#searchModal").modal({
         backdrop: 'static',
         keyboard: false

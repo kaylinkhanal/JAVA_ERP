@@ -46,7 +46,6 @@
             </jsp:include>
         </div>
         <form method="post" action="/addInvoice">
-            <input type="hidden" value="${address != null ? address.customer.customerId : customer.customerId}" name="customer" id="customer" />
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label for="invoiceNumber">Invoice Number: </label>

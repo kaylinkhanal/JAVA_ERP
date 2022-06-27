@@ -200,8 +200,8 @@
                     </div>
                 </div>
             </div>
-            <button type="button" id="save" class="btn btn-primary float-right" onclick="openPage('/case/editCase/${caseDto.caseId}')">Edit this case</button>
-            <button type="button" id="save" class="btn btn-primary float-right" onclick="openPage('/invoice/create/${caseDto.caseId}')">Create Invoice</button>
+            <button type="button" id="editCase" class="btn btn-primary float-right" onclick="openPage('/case/editCase/${caseDto.caseId}')">Edit this case</button>
+            <button type="button" id="createInvoice" class="btn btn-primary float-right" onclick="openPage('/invoice/create/${caseDto.caseId}')">Create Invoice</button>
             <br /><br />
         </form>
     </div>

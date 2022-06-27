@@ -62,7 +62,7 @@ public class InvoiceController {
 
     @GetMapping("/detail")
     public String invoiceDetail() {
-        return "invoice/detail";
+        return "invoice/invoiceDetail";
     }
 
     @PostMapping("/addInvoice")
@@ -82,6 +82,16 @@ public class InvoiceController {
         long totalItems = itemService.getTotalItems();
         Pagination.getPagination(modelMap, itemPage, totalItems, itemList, "/invoice/createItem");
         return "invoice/createItem";
+    }
+
+    @GetMapping("/createInstallment")
+    public String createInstallment(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+                             ModelMap modelMap) {
+//        Page<Item> itemPage = itemService.getAllItems(pageNo);
+//        List<Item> itemList = itemPage.getContent().stream().collect(Collectors.toList());
+//        long totalItems = itemService.getTotalItems();
+//        Pagination.getPagination(modelMap, itemPage, totalItems, itemList, "/invoice/createItem");
+        return "invoice/createInstallment";
     }
 
     @GetMapping("/deleteItem/{id}")

@@ -5,7 +5,7 @@ create table INVOICE  (
       REJECT_REMARK VARCHAR2(100) not null,
       INVOICE_TITLE VARCHAR2(100) not null,
       VAT VARCHAR2(100) not null,
-      EXCHANGE_RATE VARCHAR2(100) not null,
+      EXCHANGE_RATE DECIMAL(9,2) not null,
       PAYMENT_TERM VARCHAR2(100) not null,
       BANK_ACCOUNT VARCHAR2(100) not null,
       DESCRIPTION VARCHAR2(1000) not null,

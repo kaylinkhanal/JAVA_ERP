@@ -34,11 +34,10 @@ public class Invoice extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "CURRENCY_ID")
     private Currency currency;
-    @OneToOne
-    @JoinColumn(name = "CASE_ID")
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "CASE_ID", nullable = false)
     private Case caseDto;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")
-    @JsonIgnore
     private List<InvoiceDetail> invoiceDetails;
     @Column(name = "EXCHANGE_RATE")
     private Double exchangeRate;
