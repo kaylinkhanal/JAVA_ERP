@@ -5,7 +5,7 @@ $('#close').click(function () {
 
 });
 // need to change search customer when changing this function
-$('#select, #addItem').click(function () {
+$('#select').click(function () {
     $("#searchModal").modal({
         backdrop: 'static',
         keyboard: false
@@ -72,6 +72,48 @@ $(".table").on('click', 'tr', function (e) {
                 $('input[name="customer"]').val(response.customerId);
                 $('#customerName').html(customerName);
                 $('#customerInput').val(customerName);
+            },
+            error: function (XMLHttpRequest) {
+                console.error("Something went wrong");
+            }
+        });
+    }
+});
+
+$('#addItem').click(function () {
+    $("#searchModal").modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+    $.ajax({
+        url: "${pageContext.request.contextPath}/invoice/itemList",
+        type: "GET",
+        success: function (response) {
+            let tbody = $('#itemTable').children('tbody');
+            let table = tbody.length ? tbody : $('#itemTable');
+            tbody.empty();
+            response.forEach(function (element) {
+                tbody.append('<tr value=' + element.itemId +'><td><input type="checkbox" id="selectedItem" value=' + element.itemId + '></td>' +
+                    '<td>' + element.itemId + '</td><td>' + element.itemName + '</td><td>' + element.itemPartName + '</td></tr>');
+            });
+        },
+        error: function (XMLHttpRequest) {
+            console.error("Something went wrong");
+        }
+    });
+});
+
+$("#itemTable").on('click', 'tr', function (e) {
+    e.preventDefault();
+    let id = $(this).attr('value');
+    console.log(id)
+    if (id) {
+        $.ajax({
+            url: "${pageContext.request.contextPath}/invoice/findItem/" + id,
+            type: "GET",
+            success: function (response) {
+                $('#itemName').html(response.itemName);
+                $("#item").css('visibility', 'visible')
             },
             error: function (XMLHttpRequest) {
                 console.error("Something went wrong");

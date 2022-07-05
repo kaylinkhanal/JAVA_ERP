@@ -31,17 +31,17 @@
           <td>Status</td>
         </tr>
         </thead>
-        <c:forEach var="address" items="${page.getObjects()}">
+        <c:forEach var="installment" items="${page.getObjects()}">
           <tbody align="center">
           <tr>
-            <td>${address.addressId}</td>
-            <td>${address.addressType}</td>
-            <td>${address.phone1}</td>
-            <td>${address.country.countryName}</td>
+            <td>${installment.caseDto.caseId}</td>
+            <td>${installment.installmentTitle}</td>
+            <td>${installment.installmentTitle}</td>
+            <td>${installment.installmentTitle}</td>
             <td>Enable</td>
             <td>
-              <i class="far fa-edit icon-button" onclick="openPage('/editAddress/${address.addressId}')"></i>
-              <i class="far fa-trash-alt icon-button" onclick="openPage('/deleteAddress/${address.addressId}')"></i>
+              <i class="far fa-edit icon-button" onclick="openPage('/editInstallment/${installment.installmentId}')"></i>
+              <i class="far fa-trash-alt icon-button" onclick="openPage('/deleteInstallment/${installment.installmentId}')"></i>
             </td>
           </tr>
           </tbody>
@@ -51,13 +51,15 @@
         <jsp:param name="page" value="${page}" />
       </jsp:include>
     </div>
-    <form method="post" action="invoice/addInstallment">
-      <input type="hidden" value="${installment.id}" name="id" id="id" />
+    <form method="post" action="/invoice/addInstallment">
+      <input type="hidden" value="${installment.installmentId}" name="installmentId" id="installmentId" />
+      <input type="hidden" value="${caseDto.caseId}" name="caseDto" id="caseDto" />
+      <input type="hidden" value="${caseDto.customer.customerId}" name="customer" id="customer" />
       <div class="form-row">
         <div class="form-group col-md-8">
           <label for="installmentNumber">Installment Number: </label>
-          <input type="text" disabled class="form-control" id="installmentNumber" name="installmentNumber" value="" />
-          <input type="hidden" name="installmentNumber" value="" />
+          <input type="text" disabled class="form-control" id="installmentNumber" name="installmentNumber" value="${installmentNumber}" />
+          <input type="hidden" name="installmentNumber" value="${installmentNumber}" />
         </div>
         <div class="form-group col-md-4">
           <label for="installmentDate">Installment Date: </label>
@@ -99,7 +101,20 @@
         </div>
         <div class="form-group col-md-4">
           <label for="currency">Currency: </label>
-          <input type="text" class="form-control" id="currency" name="addressNo" value="" required />
+          <select id="currency" name="currency" class="form-control" value="${installment.currency}" required>
+            <c:choose>
+              <c:when test="${installment == null}">
+                <option selected value="">Choose...</option>
+              </c:when>
+              <c:otherwise>
+                <option selected value="${installment.currency.currencyId}">${installment.currency.currencyName}</option>
+              </c:otherwise>
+            </c:choose>
+
+            <c:forEach var="currency" items="${currencies }" >
+              <option value="${currency.currencyId }">${currency.currencyName}</option>
+            </c:forEach>
+          </select>
         </div>
         <div class="form-group col-md-4">
           <label for="exchangeRate">Exchange Rate: </label>
@@ -129,29 +144,34 @@
         <label class="col-md-8 taxable">VAT taxable?</label>
       </div>
       <div class="form-row" style="background: aliceblue">
-        <div class="form-group col-md-2">
-        </div>
-        <div class="form-group col-md-2">
+
+        <div class="form-group col-md-3">
           <br/><br/>
           <label>Subtotal: </label>
         </div>
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-3">
           <label for="vat">Non-Vat </label>
           <div class="col-md-10">
             <input type="text" class="form-control" id="nonVat" name="nonVat" value="" />
           </div>
         </div>
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-3">
           <label for="currency">Vat </label>
           <input type="text" class="form-control" id="subtotalVat" name="subtotalVat" value="" />
         </div>
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-3">
           <label for="exchangeRate">Amount </label>
           <input type="text" class="form-control" id="subtotalAmount" name="subtotalAmount" value="" />
         </div>
-        <div class="form-group col-md-2">
-        </div>
+
       </div><br/>
+      <div class="form-row" id="item" style="visibility: hidden; background: darkgray">
+        <div class="form-group col-md-12">
+          <label for="vat" id="itemName" class="col-md-4"></label>
+          <label class="col-md-2">Amount</label>
+          <input class="col-md-5" type="text" placeholder="0.00">
+        </div>
+      </div><br>
       <div class="form-row col-md-6">
         <div class="form-group col-md-2">
           <input type="submit" value="Save">
@@ -160,6 +180,7 @@
           <input type="button" value="Cancel">
         </div>
       </div>
+
     </form>
   </div>
 </div>
@@ -167,16 +188,16 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Search Customers</h5>
+        <h5 class="modal-title">Search Items</h5>
         <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <input type="text" id="keyword" name="keyword" class="searchInput" placeholder="Customer name or code">
+      <input type="text" id="keyword" name="keyword" class="searchInput" placeholder="Item Name">
       <div class="modal-body">
         <form>
-          <table id="customerTable" class="table">
-            <thead><td></td><td>Customer Name</td><td>Customer Code</td><td>Type</td></thead>
+          <table id="itemTable" class="table">
+            <thead><td></td><td>Item Id</td><td>Item Name</td><td>Item Part Name</td></thead>
             <tbody></tbody>
           </table>
         </form>

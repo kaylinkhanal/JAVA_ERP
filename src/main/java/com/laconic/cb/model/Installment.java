@@ -6,6 +6,7 @@ import com.laconic.cb.model.Case;
 import com.laconic.cb.model.Currency;
 import com.laconic.cb.model.InvoiceDetail;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -28,6 +29,7 @@ public class Installment extends BaseEntity {
     @Column(name = "INSTALLMENT_NUMBER")
     private String installmentNumber;
     @Column(name = "INSTALLMENT_DATE")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date installmentDate;
     @Column(name = "SEQUENCE")
     private String sequence;
@@ -36,7 +38,7 @@ public class Installment extends BaseEntity {
     @Column(name = "REJECT_REMARK")
     private String rejectRemark;
     @Column(name = "INSTALLMENT_TITLE")
-    private String invoiceTitle;
+    private String installmentTitle;
     @Column(name = "VAT")
     private String vat;
     @OneToOne
@@ -45,6 +47,9 @@ public class Installment extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "CASE_ID")
     private Case caseDto;
+    @OneToOne
+    @JoinColumn(name = "CUSTOMER_ID")
+    private Customer customer;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "installment")
     @JsonIgnore
     private List<InstallmentDetail> installmentDetails;

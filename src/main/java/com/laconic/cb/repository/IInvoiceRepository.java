@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -21,7 +22,7 @@ public interface IInvoiceRepository extends JpaRepository<Invoice, Long> {
     Optional<Invoice> findByInvoiceIdAndIsDeletedFalse(Long invoiceId);
 
     Page<Invoice> findAllByIsDeletedFalse(Pageable pageable);
-//    List<Invoice> findAllByIsDeletedFalse();
+    List<Invoice> findAllByIsDeletedFalseAndCaseDto_CaseId(Long caseId);
 
     long countByIsDeletedFalse();
 }
