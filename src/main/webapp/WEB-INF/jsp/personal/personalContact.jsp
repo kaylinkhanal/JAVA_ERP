@@ -16,7 +16,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
     <div class="container-wrapper">
       <div class="container">
         <div class="page-header">
-          <h1>Personal Contact Information</h1>
+          <h1>Contact Information</h1>
           <hr />
         </div>
         <form method="post" action="addContactPerson">
@@ -122,7 +122,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
 
     <jsp:include page="/WEB-INF/jsp/templates/basicModal.jsp">
       <jsp:param name="message" value="Thank you for your registration. Your Personal ID is ${customer.customerId}." />
-      <jsp:param name="url" value="/"/>
+      <jsp:param name="url" value="/case/create"/>
     </jsp:include>
   </body>
 </html>

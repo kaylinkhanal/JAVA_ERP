@@ -3,6 +3,7 @@ package com.laconic.cb.service;
 import com.laconic.cb.model.Invoice;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IInvoiceService {
@@ -10,10 +11,13 @@ public interface IInvoiceService {
     Invoice updateInvoice(Invoice invoice);
 
     Page<Invoice> getAllInvoices(int pageNo);
+    List<Invoice> getAllInvoices(Long caseId);
 
     long getTotalInvoices();
 
     void softDeleteInvoice(Long id);
 
     Optional<Invoice> findById(Long id);
+
+    Long getInvoiceNumber();
 }

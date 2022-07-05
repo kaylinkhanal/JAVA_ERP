@@ -47,7 +47,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                   <div class="col-md-12 row">
                     <input type="button" value="Select" class="btn btn-primary col-sm-2" id="select" />
                     <label for="customerInput" class="col-sm-2 pl-5 col-form-label" id="currentCustomer">Customer</label>
-                    <input  type="text" class="form-control col-sm-8" id="customerInput" readonly name="customerInput" value="${caseDto.customer.firstName.concat(' ').concat(caseDto.customer.lastName)}" required/>
+                    <input  type="text" class="form-control col-sm-8" id="customerInput" readonly name="customerInput" value="${caseDto.customer.fullName}" required/>
                   </div>
                   <div class="col-md-12 row">
                     <label for="title">Title </label>
@@ -94,7 +94,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                   <div class="col-md-12 row">
                     <div class="col-md-4">
                       <label for="proposalDate" class="col-form-label">Proposal Date</label>
-                      <input type="date" class="form-control" id="proposalDate" name="proposalDate" value="07-07-2022" required />
+                      <input type="date" class="form-control" id="proposalDate" name="proposalDate" value="${caseDto.proposalDate }" required />
                     </div>
                     <div class="col-md-4">
                       <label for="acceptanceDate" class="col-form-label">Acceptance Date</label>

@@ -2,6 +2,7 @@ package com.laconic.cb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -29,16 +30,20 @@ public class Invoice extends BaseEntity {
     private String rejectRemark;
     @Column(name = "INVOICE_TITLE")
     private String invoiceTitle;
+    @Column(name = "INVOICE_NUMBER")
+    private String invoiceNumber;
+    @Column(name = "INVOICE_DATE")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date invoiceDate;
     @Column(name = "VAT")
     private String vat;
     @OneToOne
     @JoinColumn(name = "CURRENCY_ID")
     private Currency currency;
-    @OneToOne
-    @JoinColumn(name = "CASE_ID")
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "CASE_ID", nullable = false)
     private Case caseDto;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")
-    @JsonIgnore
     private List<InvoiceDetail> invoiceDetails;
     @Column(name = "EXCHANGE_RATE")
     private Double exchangeRate;
