@@ -105,10 +105,10 @@ public class InvoiceController {
     public String createInstallment(@RequestParam(value = "caseId", defaultValue = "0", required = false) Long caseId,
             @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
                              ModelMap modelMap, Model model) {
-//        Page<Installment> itemPage = itemService.getAllItems(pageNo);
-//        List<Item> itemList = itemPage.getContent().stream().collect(Collectors.toList());
-//        long totalItems = itemService.getTotalItems();
-//        Pagination.getPagination(modelMap, itemPage, totalItems, itemList, "/invoice/createItem");
+//        Page<Installment> installmentPage = installmentService.getAllInstallment(pageNo);
+//        List<Installment> installmentList = installmentPage.getContent().stream().collect(Collectors.toList());
+//        long totalInstallments = installmentService.getTotalInstallments();
+//        Pagination.getPagination(modelMap, installmentPage, totalInstallments, installmentList, "/invoice/createInstallment");
         if (caseId != null) {
             Case caseDto = caseService.findById(caseId).get();
             model.addAttribute("caseDto", caseDto);
@@ -129,6 +129,12 @@ public class InvoiceController {
         return "invoice/createInstallment";
     }
 
+    @GetMapping("/deleteInstallment/{id}")
+    public String deleteInstallment(@PathVariable("id") Long id) {
+        installmentService.softDeleteInstallment(id);
+        return "redirect:/invoice/createInstallment";
+    }
+
     @GetMapping("/deleteItem/{id}")
     public String deleteItem(@PathVariable("id") Long id) {
         itemService.softDeleteItem(id);
@@ -141,6 +147,16 @@ public class InvoiceController {
         Optional<Item> item = itemService.findById(id);
         if (item.isPresent()) {
             return item.get();
+        }
+        return null;
+    }
+
+    @GetMapping("/findInstallment/{id}")
+    @ResponseBody
+    public Installment findInstallment(@PathVariable("id") Long id) {
+        Optional<Installment> installment = installmentService.findById(id);
+        if (installment.isPresent()) {
+            return installment.get();
         }
         return null;
     }
@@ -170,5 +186,11 @@ public class InvoiceController {
         Page<Item> itemPage = itemService.getAllItems(pageNo);
         List<Item> itemList = itemPage.getContent().stream().collect(Collectors.toList());
         return itemList;
+    }
+    @GetMapping("/installmentList")
+    @ResponseBody
+    public List<Installment> installmentList(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+                                             @RequestParam(value = "caseId", defaultValue = DEFAULT_PAGE_NUMBER, required = false) Long caseId) {
+        return installmentService.getAllInstallment(caseId);
     }
 }

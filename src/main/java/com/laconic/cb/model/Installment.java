@@ -1,10 +1,7 @@
 package com.laconic.cb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.laconic.cb.model.BaseEntity;
-import com.laconic.cb.model.Case;
-import com.laconic.cb.model.Currency;
-import com.laconic.cb.model.InvoiceDetail;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -44,9 +41,11 @@ public class Installment extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "CURRENCY_ID")
     private Currency currency;
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "CASE_ID")
     private Case caseDto;
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;

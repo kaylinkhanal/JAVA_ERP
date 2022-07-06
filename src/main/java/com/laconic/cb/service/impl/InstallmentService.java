@@ -1,11 +1,15 @@
 package com.laconic.cb.service.impl;
 
+import com.laconic.cb.constants.AppConstants;
 import com.laconic.cb.model.Installment;
 import com.laconic.cb.repository.IInstallmentRepository;
 import com.laconic.cb.service.IInstallmentService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 public class InstallmentService implements IInstallmentService {
@@ -14,8 +18,6 @@ public class InstallmentService implements IInstallmentService {
     public InstallmentService(IInstallmentRepository installmentRepository) {
         this.installmentRepository = installmentRepository;
     }
-
-
     @Override
     public Installment saveInstallment(Installment installment) {
         return installmentRepository.save(installment);
@@ -27,13 +29,13 @@ public class InstallmentService implements IInstallmentService {
     }
 
     @Override
-    public Page<Installment> getAllInstallment(int pageNo) {
-        return null;
+    public List<Installment> getAllInstallment(Long caseId) {
+        return installmentRepository.findAllByIsDeletedFalseAndCaseDto_CaseId(caseId);
     }
 
     @Override
     public long getTotalInstallments() {
-        return installmentRepository.count();
+        return installmentRepository.countByIsDeletedFalse();
     }
 
     @Override
