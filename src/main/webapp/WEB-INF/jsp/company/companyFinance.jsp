@@ -83,7 +83,6 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                   <option value="${country.countryId }">${country.countryName}</option>
                 </c:forEach>
               </select>
-              </select>
             </div>
           </div>
 

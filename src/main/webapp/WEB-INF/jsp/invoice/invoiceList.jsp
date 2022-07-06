@@ -40,7 +40,7 @@
           <tr>
             <td>${invoice.caseDto.caseId}</td>
             <td>${invoice.invoiceTitle}</td>
-            <td>${invoice.caseDto.customer.fullName}</td>
+            <td>${invoice.caseDto.customer.fullName != null ? invoice.caseDto.customer.fullName : invoice.caseDto.customer.companyName}</td>
             <td>${invoice.re}</td>
             <td><fmt:formatDate pattern="dd-MM-yyyy" value = "${invoice.caseDto.operatingDate}"/></td>
             <td>

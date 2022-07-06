@@ -201,13 +201,16 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
               <div class="col-md-12">
                 <div class="row">
                   <div class="col-md-2 form-group">
-                    <button type="button" id="editCase" class="btn btn-primary float-right" onclick="openPage('/case/editCase/${caseDto.caseId}')">Edit this case</button>
+                    <button type="button" id="editCase" class="btn btn-primary" onclick="openPage('/case/editCase/${caseDto.caseId}')">Edit this case</button>
                   </div>
                   <div class="col-md-2 form-group">
-                    <button type="button" id="createInvoice" class="btn btn-primary float-right" onclick="openPage('/invoice/create?caseId=${caseDto.caseId}')">Create Invoice</button>
+                    <button type="button" id="createInvoice" class="btn btn-primary" onclick="openPage('/invoice/create?caseId=${caseDto.caseId}')">Create Invoice</button>
                   </div>
                   <div class="col-md-2 form-group">
-                    <button type="button" id="invoiceList" class="btn btn-primary float-right" onclick="openPage('/invoice/list?caseId=${caseDto.caseId}')">Invoice List</button>
+                    <button type="button" id="invoiceList" class="btn btn-primary" onclick="openPage('/invoice/list?caseId=${caseDto.caseId}')">Invoice List</button>
+                  </div>
+                  <div class="col-md-2 form-group">
+                    <button type="button" id="attachDocument" class="btn btn-primary" onclick="openPage('/document/attachDocument?caseId=${caseDto.caseId}')">Attach Document</button>
                   </div>
                 </div>
               </div>
