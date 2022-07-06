@@ -21,7 +21,7 @@ public interface IInvoiceRepository extends JpaRepository<Invoice, Long> {
 
     Optional<Invoice> findByInvoiceIdAndIsDeletedFalse(Long invoiceId);
 
-    Page<Invoice> findAllByIsDeletedFalse(Pageable pageable);
+    Page<Invoice> findAllByIsDeletedFalseAndCaseDto_CaseId(Pageable pageable, Long caseId);
     List<Invoice> findAllByIsDeletedFalseAndCaseDto_CaseId(Long caseId);
 
     long countByIsDeletedFalse();

@@ -10,7 +10,7 @@ public interface IInvoiceService {
     Invoice saveInvoice(Invoice invoice);
     Invoice updateInvoice(Invoice invoice);
 
-    Page<Invoice> getAllInvoices(int pageNo);
+    Page<Invoice> getAllInvoices(int pageNo, Long caseId);
     List<Invoice> getAllInvoices(Long caseId);
 
     long getTotalInvoices();
