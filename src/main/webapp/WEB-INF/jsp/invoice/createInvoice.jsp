@@ -185,30 +185,10 @@
             </div><br>
             <input class="btn btn-primary" value="Save" type="submit"/>
         </form>
+        <br>
     </div>
 
 </div>
-<%--<div id="searchModal" class="modal" tabindex="-1" role="dialog">--%>
-<%--    <div class="modal-dialog" role="document">--%>
-<%--        <div class="modal-content">--%>
-<%--            <div class="modal-header">--%>
-<%--                <h5 class="modal-title">Search Items</h5>--%>
-<%--                <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">--%>
-<%--                    <span aria-hidden="true">&times;</span>--%>
-<%--                </button>--%>
-<%--            </div>--%>
-<%--            <input type="text" id="keyword" name="keyword" class="searchInput" placeholder="Item Name">--%>
-<%--            <div class="modal-body">--%>
-<%--                <form>--%>
-<%--                    <table id="itemTable" class="table">--%>
-<%--                        <thead><td></td><td>Item Id</td><td>Item Name</td><td>Item Part Name</td></thead>--%>
-<%--                        <tbody></tbody>--%>
-<%--                    </table>--%>
-<%--                </form>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
 <jsp:include page="/WEB-INF/jsp/templates/searchModal.jsp">
     <jsp:param name="modalId" value="itemSearchModal" />
     <jsp:param name="title" value="Search Item" />

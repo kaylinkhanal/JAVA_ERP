@@ -5,6 +5,8 @@ function openPage(pageURL) {
 function getEditor(classSelector) {
   $("."+classSelector).richText({
          code:false,
+         imageUpload:true,
+         fileUpload:true,
          fonts:true,
            fontList: ["Arial",
              "Arial Black",
