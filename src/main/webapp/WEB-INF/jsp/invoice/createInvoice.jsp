@@ -188,28 +188,45 @@
     </div>
 
 </div>
-<div id="searchModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Search Items</h5>
-                <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <input type="text" id="keyword" name="keyword" class="searchInput" placeholder="Item Name">
-            <div class="modal-body">
-                <form>
-                    <table id="itemTable" class="table">
-                        <thead><td></td><td>Item Id</td><td>Item Name</td><td>Item Part Name</td></thead>
-                        <tbody></tbody>
-                    </table>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
+<%--<div id="searchModal" class="modal" tabindex="-1" role="dialog">--%>
+<%--    <div class="modal-dialog" role="document">--%>
+<%--        <div class="modal-content">--%>
+<%--            <div class="modal-header">--%>
+<%--                <h5 class="modal-title">Search Items</h5>--%>
+<%--                <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">--%>
+<%--                    <span aria-hidden="true">&times;</span>--%>
+<%--                </button>--%>
+<%--            </div>--%>
+<%--            <input type="text" id="keyword" name="keyword" class="searchInput" placeholder="Item Name">--%>
+<%--            <div class="modal-body">--%>
+<%--                <form>--%>
+<%--                    <table id="itemTable" class="table">--%>
+<%--                        <thead><td></td><td>Item Id</td><td>Item Name</td><td>Item Part Name</td></thead>--%>
+<%--                        <tbody></tbody>--%>
+<%--                    </table>--%>
+<%--                </form>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
+<jsp:include page="/WEB-INF/jsp/templates/searchModal.jsp">
+    <jsp:param name="modalId" value="itemSearchModal" />
+    <jsp:param name="title" value="Search Item" />
+    <jsp:param name="placeholder" value="Search an item" />
+    <jsp:param name="id" value="Item Id" />
+    <jsp:param name="name" value="Item Name" />
+    <jsp:param name="other" value="Item Part Name" />
+    <jsp:param name="tableName" value="itemTable" />
+</jsp:include>
+<jsp:include page="/WEB-INF/jsp/templates/searchModal.jsp">
+    <jsp:param name="modalId" value="installmentSearchModal" />
+    <jsp:param name="title" value="Search Installment" />
+    <jsp:param name="placeholder" value="Search an installment" />
+    <jsp:param name="id" value="Installment Id" />
+    <jsp:param name="name" value="Installment Title" />
+    <jsp:param name="other" value="Installment Number" />
+    <jsp:param name="tableName" value="installmentTable" />
+</jsp:include>
 </body>
 </body>
 </html>

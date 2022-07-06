@@ -149,26 +149,14 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
     </div>
   </body>
 </html>
-<div id="searchModal" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Search Customers</h5>
-        <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <input type="text" id="keyword" name="keyword" class="searchInput" placeholder="Customer name or code">
-      <div class="modal-body">
-        <form>
-        <table id="customerTable" class="table">
-          <thead><td></td><td>Customer Name</td><td>Customer Code</td><td>Type</td></thead>
-          <tbody></tbody>
-        </table>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+<jsp:include page="/WEB-INF/jsp/templates/searchModal.jsp">
+  <jsp:param name="modalId" value="searchModal" />
+  <jsp:param name="title" value="Search Customer" />
+  <jsp:param name="placeholder" value="Search a customer" />
+  <jsp:param name="id" value="Customer Name" />
+  <jsp:param name="other" value="Type" />
+  <jsp:param name="name" value="Customer Code" />
+  <jsp:param name="tableName" value="customerTable" />
+</jsp:include>
 <script><%@include file="/WEB-INF/script/case.js" %></script>
 
