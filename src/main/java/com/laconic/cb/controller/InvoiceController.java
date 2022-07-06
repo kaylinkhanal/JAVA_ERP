@@ -46,7 +46,7 @@ public class InvoiceController {
         model.addAttribute("invoiceNumber", number);
         model.addAttribute("caseId", caseId);
         model.addAttribute("currencies", currencyService.getAllCurrencies());
-        Page<Invoice> invoicePage = invoiceService.getAllInvoices(pageNo);
+        Page<Invoice> invoicePage = invoiceService.getAllInvoices(pageNo, caseId);
         List<Invoice> invoiceList = invoicePage.getContent().stream().collect(Collectors.toList());
         long totalInvoices = invoiceService.getTotalInvoices();
         Pagination.getPagination(modelMap, invoicePage, totalInvoices, invoiceList, "/invoice/createInvoice");

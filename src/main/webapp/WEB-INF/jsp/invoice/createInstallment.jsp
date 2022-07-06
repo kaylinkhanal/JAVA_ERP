@@ -167,9 +167,11 @@
       </div><br/>
       <div class="form-row" id="item" style="visibility: hidden; background: darkgray">
         <div class="form-group col-md-12">
+          <br/>
           <label for="vat" id="itemName" class="col-md-4"></label>
           <label class="col-md-2">Amount</label>
           <input class="col-md-5" type="text" placeholder="0.00">
+          <hr/>
         </div>
       </div><br>
       <div class="form-row col-md-6">
