@@ -79,3 +79,69 @@ $(".table").on('click', 'tr', function (e) {
         });
     }
 });
+
+$('#addItem').click(function () {
+    $("#itemSearchModal").modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+    $.ajax({
+        url: "${pageContext.request.contextPath}/invoice/itemList",
+        type: "GET",
+        success: function (response) {
+            let tbody = $('#itemTable').children('tbody');
+            let table = tbody.length ? tbody : $('#itemTable');
+            tbody.empty();
+            response.forEach(function (element) {
+                tbody.append('<tr value=' + element.itemId +'><td><input type="checkbox" id="selectedItem" value=' + element.itemId + '></td>' +
+                    '<td>' + element.itemId + '</td><td>' + element.itemName + '</td><td>' + element.itemPartName + '</td></tr>');
+            });
+        },
+        error: function (XMLHttpRequest) {
+            console.error("Something went wrong");
+        }
+    });
+});
+
+$('#addInstallment').click(function () {
+    $("#installmentSearchModal").modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+    $.ajax({
+        url: "${pageContext.request.contextPath}/invoice/itemList",
+        type: "GET",
+        success: function (response) {
+            let tbody = $('#itemTable').children('tbody');
+            let table = tbody.length ? tbody : $('#itemTable');
+            tbody.empty();
+            response.forEach(function (element) {
+                tbody.append('<tr value=' + element.itemId +'><td><input type="checkbox" id="selectedItem" value=' + element.itemId + '></td>' +
+                    '<td>' + element.itemId + '</td><td>' + element.itemName + '</td><td>' + element.itemPartName + '</td></tr>');
+            });
+        },
+        error: function (XMLHttpRequest) {
+            console.error("Something went wrong");
+        }
+    });
+});
+
+$("#itemTable").on('click', 'tr', function (e) {
+    e.preventDefault();
+    let id = $(this).attr('value');
+    console.log(id)
+    if (id) {
+        $.ajax({
+            url: "${pageContext.request.contextPath}/invoice/findItem/" + id,
+            type: "GET",
+            success: function (response) {
+                $("#itemSearchModal .close").click();
+                $('#itemName').html(response.itemName);
+                $("#item").css('visibility', 'visible')
+            },
+            error: function (XMLHttpRequest) {
+                console.error("Something went wrong");
+            }
+        });
+    }
+});

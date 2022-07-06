@@ -47,7 +47,8 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                   <div class="col-md-12 row">
                     <input type="button" value="Select" class="btn btn-primary col-sm-2" id="select" />
                     <label for="customerInput" class="col-sm-2 pl-5 col-form-label" id="currentCustomer">Customer</label>
-                    <input  type="text" class="form-control col-sm-8" id="customerInput" readonly name="customerInput" value="${caseDto.customer.firstName.concat(' ').concat(caseDto.customer.lastName)}" required/>
+                    <input  type="text" class="form-control col-sm-8" id="customerInput" readonly name="customerInput"
+                            value="${caseDto.customer.fullName != null ? caseDto.customer.fullName : caseDto.customer.companyName}" required/>
                   </div>
                   <div class="col-md-12 row">
                     <label for="title">Title </label>
@@ -94,7 +95,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                   <div class="col-md-12 row">
                     <div class="col-md-4">
                       <label for="proposalDate" class="col-form-label">Proposal Date</label>
-                      <input type="date" class="form-control" id="proposalDate" name="proposalDate" value="07-07-2022" required />
+                      <input type="date" class="form-control" id="proposalDate" name="proposalDate" value="${caseDto.proposalDate }" required />
                     </div>
                     <div class="col-md-4">
                       <label for="acceptanceDate" class="col-form-label">Acceptance Date</label>
@@ -149,26 +150,14 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
     </div>
   </body>
 </html>
-<div id="searchModal" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Search Customers</h5>
-        <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <input type="text" id="keyword" name="keyword" class="searchInput" placeholder="Customer name or code">
-      <div class="modal-body">
-        <form>
-        <table id="customerTable" class="table">
-          <thead><td></td><td>Customer Name</td><td>Customer Code</td><td>Type</td></thead>
-          <tbody></tbody>
-        </table>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+<jsp:include page="/WEB-INF/jsp/templates/searchModal.jsp">
+  <jsp:param name="modalId" value="searchModal" />
+  <jsp:param name="title" value="Search Customer" />
+  <jsp:param name="placeholder" value="Search a customer" />
+  <jsp:param name="id" value="Customer Name" />
+  <jsp:param name="other" value="Type" />
+  <jsp:param name="name" value="Customer Code" />
+  <jsp:param name="tableName" value="customerTable" />
+</jsp:include>
 <script><%@include file="/WEB-INF/script/case.js" %></script>
 

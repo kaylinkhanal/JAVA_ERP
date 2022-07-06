@@ -1,9 +1,11 @@
 package com.laconic.cb.controller;
 
+import com.laconic.cb.model.Case;
 import com.laconic.cb.model.Country;
 import com.laconic.cb.model.Document;
 import com.laconic.cb.model.DocumentType;
 import com.laconic.cb.model.dto.DocumentAttributes;
+import com.laconic.cb.service.ICaseService;
 import com.laconic.cb.service.ICountryService;
 import com.laconic.cb.service.IDocumentService;
 import com.laconic.cb.service.IDocumentTypeService;
@@ -16,7 +18,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.print.Doc;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,11 +31,13 @@ public class DocumentController {
     private final IDocumentTypeService documentTypeService;
     private final IDocumentService documentService;
     private final ICountryService countryService;
+    private final ICaseService caseService;
 
-    public DocumentController(IDocumentTypeService documentTypeService, IDocumentService documentService, ICountryService countryService) {
+    public DocumentController(IDocumentTypeService documentTypeService, IDocumentService documentService, ICountryService countryService, ICaseService caseService) {
         this.documentTypeService = documentTypeService;
         this.documentService = documentService;
         this.countryService = countryService;
+        this.caseService = caseService;
     }
 
     @GetMapping("/create")
@@ -166,6 +169,16 @@ public class DocumentController {
         List<Country> countries = countryService.getAllCountries();
         model.addAttribute("documentTypes", documentTypes);
         model.addAttribute("countries", countries);
+        return "document/previewDocument";
+    }
+    @GetMapping("/attachDocument")
+    public String attachDocument(Model model,
+                                 @RequestParam(value = "caseId", required = true) Long caseId) {
+        List<DocumentType> documentTypes = documentTypeService.getAllDocumentTypes();
+        List<Country> countries = countryService.getAllCountries();
+        model.addAttribute("documentTypes", documentTypes);
+        Case caseDto = caseService.findById(caseId).get();
+        model.addAttribute("caseDto", caseDto);
         return "document/previewDocument";
     }
 

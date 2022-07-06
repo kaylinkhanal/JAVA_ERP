@@ -1,7 +1,5 @@
 package com.laconic.cb.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.laconic.cb.enums.Gender;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -68,6 +66,7 @@ public class Customer extends BaseEntity {
     @OneToOne(mappedBy = "customer", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private Address address;
+
     @OneToOne(mappedBy = "customer", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private ContactPerson contactPerson;

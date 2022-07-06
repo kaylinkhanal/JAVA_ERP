@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -58,7 +59,9 @@ public class Case extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "CONTACT_PERSON_ID")
     private ContactPerson contactPerson;
-    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "caseDto")
+    private List<Invoice> invoiceList;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
