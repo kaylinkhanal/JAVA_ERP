@@ -103,6 +103,31 @@ $('#addItem').click(function () {
     });
 });
 
+$('#addDeposit').click(function () {
+    $("#depositSearchModal").modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+    let caseId = getParameterByName('caseId');
+    $.ajax({
+        url: "${pageContext.request.contextPath}/invoice/depositList?caseId="+caseId,
+        type: "GET",
+        success: function (response) {
+            let tbody = $('#depositTable').children('tbody');
+            let table = tbody.length ? tbody : $('#depositTable');
+            tbody.empty();
+            response.forEach(function (element) {
+                tbody.append('<tr value=' + element.depositId +'><td><input type="checkbox" id="selectedItem" value=' + element.depositId + '></td>' +
+                    '<td>' + element.depositId + '</td><td>' + element.depositTitle + '</td><td>' + element.caseRemark + '</td></tr>');
+            });
+        },
+        error: function (XMLHttpRequest) {
+            console.error("Something went wrong");
+        }
+    });
+});
+
+
 $('#addInstallment').click(function () {
     $("#installmentSearchModal").modal({
         backdrop: 'static',
@@ -154,11 +179,13 @@ $("#itemClose").click(function () {
 $("#installmentClose").click(function () {
     $("#installment").css('display', 'none')
 });
+$("#depositClose").click(function () {
+    $("#deposit").css('display', 'none')
+});
 
 $("#installmentTable").on('click', 'tr', function (e) {
     e.preventDefault();
     let id = $(this).attr('value');
-    console.log(id)
     if (id) {
         $.ajax({
             url: "${pageContext.request.contextPath}/invoice/findInstallment/" + id,
@@ -167,6 +194,26 @@ $("#installmentTable").on('click', 'tr', function (e) {
                 $("#installmentSearchModal .close").click();
                 $('#installmentTitle').html(response.installmentTitle);
                 $("#installment").css('display', 'block')
+            },
+            error: function (XMLHttpRequest) {
+                console.error("Something went wrong");
+            }
+        });
+    }
+});
+
+$("#depositTable").on('click', 'tr', function (e) {
+    e.preventDefault();
+    let id = $(this).attr('value');
+    console.log(id)
+    if (id) {
+        $.ajax({
+            url: "${pageContext.request.contextPath}/invoice/findDeposit/" + id,
+            type: "GET",
+            success: function (response) {
+                $("#depositSearchModal .close").click();
+                $('#depositTitle').html(response.depositTitle);
+                $("#deposit").css('display', 'block')
             },
             error: function (XMLHttpRequest) {
                 console.error("Something went wrong");

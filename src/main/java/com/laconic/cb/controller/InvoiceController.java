@@ -1,9 +1,6 @@
 package com.laconic.cb.controller;
 
-import com.laconic.cb.model.Case;
-import com.laconic.cb.model.Installment;
-import com.laconic.cb.model.Invoice;
-import com.laconic.cb.model.Item;
+import com.laconic.cb.model.*;
 import com.laconic.cb.service.*;
 import com.laconic.cb.utils.Pagination;
 import org.springframework.data.domain.Page;
@@ -28,13 +25,15 @@ public class InvoiceController {
     private final ICurrencyService currencyService;
     private final IInstallmentService installmentService;
     private final ICaseService caseService;
+    private final IDepositService depositService;
 
-    public InvoiceController(IInvoiceService invoiceService, IItemService itemService, ICurrencyService currencyService, IInstallmentService installmentService, ICaseService caseService) {
+    public InvoiceController(IInvoiceService invoiceService, IItemService itemService, ICurrencyService currencyService, IInstallmentService installmentService, ICaseService caseService, IDepositService depositService) {
         this.invoiceService = invoiceService;
         this.itemService = itemService;
         this.currencyService = currencyService;
         this.installmentService = installmentService;
         this.caseService = caseService;
+        this.depositService = depositService;
     }
 
     @GetMapping("/create")
@@ -105,10 +104,10 @@ public class InvoiceController {
     public String createInstallment(@RequestParam(value = "caseId", defaultValue = "0", required = false) Long caseId,
             @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
                              ModelMap modelMap, Model model) {
-//        Page<Installment> installmentPage = installmentService.getAllInstallment(pageNo);
-//        List<Installment> installmentList = installmentPage.getContent().stream().collect(Collectors.toList());
-//        long totalInstallments = installmentService.getTotalInstallments();
-//        Pagination.getPagination(modelMap, installmentPage, totalInstallments, installmentList, "/invoice/createInstallment");
+        Page<Installment> installmentPage = installmentService.getAllInstallment(pageNo, caseId);
+        List<Installment> installmentList = installmentPage.getContent().stream().collect(Collectors.toList());
+        long totalInstallments = installmentService.getTotalInstallments();
+        Pagination.getPagination(modelMap, installmentPage, totalInstallments, installmentList, "/invoice/createInstallment");
         if (caseId != null) {
             Case caseDto = caseService.findById(caseId).get();
             model.addAttribute("caseDto", caseDto);
@@ -192,5 +191,59 @@ public class InvoiceController {
     public List<Installment> installmentList(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
                                              @RequestParam(value = "caseId", defaultValue = DEFAULT_PAGE_NUMBER, required = false) Long caseId) {
         return installmentService.getAllInstallment(caseId);
+    }
+
+    @GetMapping("/createDeposit")
+    public String createDeposit(@RequestParam(value = "caseId", defaultValue = "0", required = false) Long caseId,
+                                    @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+                                    ModelMap modelMap, Model model) {
+        Page<Deposit> depositPage = depositService.getAllDeposit(pageNo, caseId);
+        List<Deposit> depositList = depositPage.getContent().stream().collect(Collectors.toList());
+        long totalDeposits = depositService.getTotalDeposits();
+        Pagination.getPagination(modelMap, depositPage, totalDeposits, depositList, "/invoice/createDeposit");
+        if (caseId != null) {
+            Case caseDto = caseService.findById(caseId).get();
+            model.addAttribute("caseDto", caseDto);
+        }
+        String installmentNumber = "INS-"+depositService.getDepositNumber();
+        model.addAttribute("depositNumber", installmentNumber);
+        model.addAttribute("currencies", currencyService.getAllCurrencies());
+        return "invoice/createDeposit";
+    }
+
+    @PostMapping("addDeposit")
+    public String addDeposit(Deposit deposit, RedirectAttributes redirectAttributes) {
+        Deposit savedDeposit;
+        if (deposit.getDepositId() != null) {
+            savedDeposit = depositService.updateDeposit(deposit);
+        } else savedDeposit = depositService.saveDeposit(deposit);
+        redirectAttributes.addFlashAttribute("invoice", savedDeposit);
+        return "invoice/createDeposit";
+    }
+
+    @GetMapping("/depositList")
+    @ResponseBody
+    public List<Deposit> depositList(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+                                             @RequestParam(value = "caseId", defaultValue = DEFAULT_PAGE_NUMBER, required = false) Long caseId) {
+        return depositService.getAllDeposit(caseId);
+    }
+
+    @GetMapping("/findDeposit/{id}")
+    @ResponseBody
+    public Deposit findDeposit(@PathVariable("id") Long id) {
+        Optional<Deposit> deposit = depositService.findById(id);
+        if (deposit.isPresent()) {
+            return deposit.get();
+        }
+        return null;
+    }
+
+    @GetMapping("/editDeposit/{id}")
+    public String editDeposit(@PathVariable("id") Long id, Model model) {
+        Optional<Deposit> deposit = depositService.findById(id);
+        if (deposit.isPresent()) {
+            model.addAttribute("deposit", deposit.get());
+        }
+        return "invoice/createDeposit";
     }
 }

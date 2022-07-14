@@ -29,6 +29,12 @@ public class InstallmentService implements IInstallmentService {
     }
 
     @Override
+    public Page<Installment> getAllInstallment(int pageNo, Long caseId) {
+        Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
+        return installmentRepository.findAllByIsDeletedFalseAndCaseDto_CaseId(pageable, caseId);
+    }
+
+    @Override
     public List<Installment> getAllInstallment(Long caseId) {
         return installmentRepository.findAllByIsDeletedFalseAndCaseDto_CaseId(caseId);
     }
