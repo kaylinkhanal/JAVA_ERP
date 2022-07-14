@@ -217,7 +217,6 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
 
             </div>
           </div>
-
           <br /><br />
         </form>
       </div>

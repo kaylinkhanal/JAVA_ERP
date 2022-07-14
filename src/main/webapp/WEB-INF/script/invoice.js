@@ -108,16 +108,18 @@ $('#addInstallment').click(function () {
         backdrop: 'static',
         keyboard: false
     });
+    let caseId = getParameterByName('caseId');
+    console.log(caseId)
     $.ajax({
-        url: "${pageContext.request.contextPath}/invoice/itemList",
+        url: "${pageContext.request.contextPath}/invoice/installmentList?caseId="+caseId,
         type: "GET",
         success: function (response) {
-            let tbody = $('#itemTable').children('tbody');
-            let table = tbody.length ? tbody : $('#itemTable');
+            let tbody = $('#installmentTable').children('tbody');
+            let table = tbody.length ? tbody : $('#installmentTable');
             tbody.empty();
             response.forEach(function (element) {
-                tbody.append('<tr value=' + element.itemId +'><td><input type="checkbox" id="selectedItem" value=' + element.itemId + '></td>' +
-                    '<td>' + element.itemId + '</td><td>' + element.itemName + '</td><td>' + element.itemPartName + '</td></tr>');
+                tbody.append('<tr value=' + element.installmentId +'><td><input type="checkbox" id="selectedItem" value=' + element.installmentId + '></td>' +
+                    '<td>' + element.installmentId + '</td><td>' + element.installmentTitle + '</td><td>' + element.installmentNumber + '</td></tr>');
             });
         },
         error: function (XMLHttpRequest) {
@@ -137,7 +139,34 @@ $("#itemTable").on('click', 'tr', function (e) {
             success: function (response) {
                 $("#itemSearchModal .close").click();
                 $('#itemName').html(response.itemName);
-                $("#item").css('visibility', 'visible')
+                $("#item").css('display', 'block')
+            },
+            error: function (XMLHttpRequest) {
+                console.error("Something went wrong");
+            }
+        });
+    }
+});
+
+$("#itemClose").click(function () {
+    $("#item").css('display', 'none')
+});
+$("#installmentClose").click(function () {
+    $("#installment").css('display', 'none')
+});
+
+$("#installmentTable").on('click', 'tr', function (e) {
+    e.preventDefault();
+    let id = $(this).attr('value');
+    console.log(id)
+    if (id) {
+        $.ajax({
+            url: "${pageContext.request.contextPath}/invoice/findInstallment/" + id,
+            type: "GET",
+            success: function (response) {
+                $("#installmentSearchModal .close").click();
+                $('#installmentTitle').html(response.installmentTitle);
+                $("#installment").css('display', 'block')
             },
             error: function (XMLHttpRequest) {
                 console.error("Something went wrong");

@@ -24,10 +24,13 @@ public class InvoiceDetail extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "ITEM_ID")
     private Item item;
-
     @OneToOne
     @JoinColumn(name = "INSTALLMENT_ID")
     private Installment installment;
-
+    @Column(name = "ITEM_AMOUNT")
+    private Double itemAmount;
+    @Column(name = "INSTALLMENT_AMOUNT")
+    private Double installmentAmount;
+    @Column(name = "AMOUNT")
     private Double amount;
 }

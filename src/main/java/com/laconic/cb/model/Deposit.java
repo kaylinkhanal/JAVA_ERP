@@ -1,7 +1,6 @@
 package com.laconic.cb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,29 +12,29 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "INSTALLMENT")
+@Table(name = "DEPOSIT")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Installment extends BaseEntity {
+public class Deposit extends BaseEntity {
     @Id
-    @SequenceGenerator(name = "Installment_SEQ_GEN", sequenceName = "Installment_SEQ",
+    @SequenceGenerator(name = "deposit_SEQ_GEN", sequenceName = "Deposit_SEQ",
             allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Installment_SEQ_GEN")
-    @Column(name = "INSTALLMENT_ID")
-    private Long installmentId;
-    @Column(name = "INSTALLMENT_NUMBER")
-    private String installmentNumber;
-    @Column(name = "INSTALLMENT_DATE")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Deposit_SEQ_GEN")
+    @Column(name = "DEPOSIT_ID")
+    private Long depositId;
+    @Column(name = "DEPOSIT_NUMBER")
+    private String depositNumber;
+    @Column(name = "DEPOSIT_DATE")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date installmentDate;
+    private Date depositDate;
     @Column(name = "SEQUENCE")
     private String sequence;
     @Column(name = "CASE_REMARK")
     private String caseRemark;
     @Column(name = "REJECT_REMARK")
     private String rejectRemark;
-    @Column(name = "INSTALLMENT_TITLE")
-    private String installmentTitle;
+    @Column(name = "DEPOSIT_TITLE")
+    private String depositTitle;
     @Column(name = "VAT")
     private String vat;
     @OneToOne
@@ -49,9 +48,9 @@ public class Installment extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "installment")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deposit")
     @JsonIgnore
-    private List<InstallmentDetail> installmentDetails;
+    private List<DepositDetail> depositDetails;
     @Column(name = "EXCHANGE_RATE")
     private Double exchangeRate;
     @Column(name = "PAYMENT_TERM")

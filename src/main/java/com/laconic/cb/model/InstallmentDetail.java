@@ -24,4 +24,6 @@ public class InstallmentDetail extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "ITEM_ID")
     private Item item;
+    @Column(name = "ITEM_AMOUNT")
+    private Double itemAmount;
 }

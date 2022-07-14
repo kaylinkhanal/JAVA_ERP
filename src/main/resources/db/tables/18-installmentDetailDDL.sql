@@ -2,6 +2,7 @@ create table INSTALLMENT_DETAIL  (
         INSTALLMENT_DETAIL_ID	NUMBER(22) not null,
         INSTALLMENT_ID	NUMBER(22) not null,
         ITEM_ID	NUMBER(22) not null,
+        ITEM_AMOUNT DECIMAL(9,2),
         CREATION_DATE	DATE,
         DISABLE_BY	VARCHAR2(20),
         DISABLE_DATE	DATE,
