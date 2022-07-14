@@ -116,6 +116,15 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
               </textArea>
             </div>
           </div>
+<%--            <div id="sample">--%>
+<%--                <script type="text/javascript">--%>
+
+<%--                    bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });--%>
+<%--                </script>--%>
+
+<%--                <textarea name="area3" style="width: 300px; height: 100px;">       HTML content default in textarea--%>
+<%--</textarea>--%>
+<%--            </div>--%>
         </form>
       </div>
     </div>

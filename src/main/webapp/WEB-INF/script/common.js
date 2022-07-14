@@ -14,24 +14,6 @@ function getParameterByName(name, url = window.location.href) {
 function getEditor(classSelector) {
   $("."+classSelector).richText({
          code:false,
-         imageUpload:true,
-         fileUpload:true,
-         fonts:true,
-           fontList: ["Arial",
-             "Arial Black",
-             "Comic Sans MS",
-             "Courier New",
-             "Geneva",
-             "Georgia",
-             "Helvetica",
-             "Impact",
-             "Lucida Console",
-             "Tahoma",
-             "Times New Roman",
-             "Verdana"
-           ],
-           fontColor:true,
-           fontSize:true,
      });
 }
 

@@ -2,6 +2,7 @@ create table INVOICE_DETAIL  (
        INVOICE_DETAIL_ID	NUMBER(22) not null,
        INVOICE_ID	NUMBER(22) not null,
        ITEM_ID	NUMBER(22) not null,
+       ITEM_AMOUNT DECIMAL(9,2),
        CREATION_DATE	DATE,
        DISABLE_BY	VARCHAR2(20),
        DISABLE_DATE	DATE,
