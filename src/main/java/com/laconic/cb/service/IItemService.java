@@ -3,6 +3,7 @@ package com.laconic.cb.service;
 import com.laconic.cb.model.Item;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IItemService {
@@ -10,6 +11,7 @@ public interface IItemService {
     Item updateItem(Item item);
 
     Page<Item> getAllItems(int pageNo);
+    List<Item> getAllItems();
 
     long getTotalItems();
 

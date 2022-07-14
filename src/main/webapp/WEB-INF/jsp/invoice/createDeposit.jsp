@@ -2,6 +2,7 @@
          pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Create Deposit</title>
@@ -31,17 +32,17 @@
                     <td>Status</td>
                 </tr>
                 </thead>
-                <c:forEach var="installment" items="${page.getObjects()}">
+                <c:forEach var="deposit" items="${page.getObjects()}">
                     <tbody align="center">
                     <tr>
-                        <td>${installment.caseDto.caseId}</td>
-                        <td>${installment.installmentTitle}</td>
-                        <td>${installment.installmentTitle}</td>
-                        <td>${installment.installmentTitle}</td>
-                        <td>Enable</td>
+                        <td>${deposit.caseDto.caseId}</td>
+                        <td>${deposit.depositTitle}</td>
+                        <td>${deposit.customer.fullName != null ? deposit.customer.fullName: deposit.customer.companyName}</td>
+                        <td>${deposit.customer.contactNo}</td>
+                        <td><fmt:formatDate pattern="dd-MM-yyyy" value = "${deposit.caseDto.operatingDate}"/></td>
                         <td>
-                            <i class="far fa-edit icon-button" onclick="openPage('/editInstallment/${installment.installmentId}')"></i>
-                            <i class="far fa-trash-alt icon-button" onclick="openPage('/deleteInstallment/${installment.installmentId}')"></i>
+                            <i class="far fa-edit icon-button" onclick="openPage('/deposit/editDeposit/${deposit.depositId}')"></i>
+                            <i class="far fa-trash-alt icon-button" onclick="openPage('/deposit/deleteDeposit/${deposit.depositId}')"></i>
                         </td>
                     </tr>
                     </tbody>
@@ -51,20 +52,20 @@
                 <jsp:param name="page" value="${page}" />
             </jsp:include>
         </div>
-        <form method="post" action="/invoice/addInstallment">
-            <input type="hidden" value="${installment.installmentId}" name="installmentId" id="installmentId" />
+        <form method="post" action="/invoice/addDeposit">
+            <input type="hidden" value="${deposit.depositId}" name="depositId" id="depositId" />
             <input type="hidden" value="${caseDto.caseId}" name="caseDto" id="caseDto" />
             <input type="hidden" value="${caseDto.customer.customerId}" name="customer" id="customer" />
             <div class="form-row">
                 <div class="form-group col-md-8">
-                    <label for="installmentNumber">Installment Number: </label>
-                    <input type="text" disabled class="form-control" id="installmentNumber" name="installmentNumber" value="${installmentNumber}" />
-                    <input type="hidden" name="installmentNumber" value="${installmentNumber}" />
+                    <label for="depositNumber">Deposit Number: </label>
+                    <input type="text" disabled class="form-control" id="depositNumber" name="depositNumber" value="${depositNumber}" />
+                    <input type="hidden" name="depositNumber" value="${depositNumber}" />
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="installmentDate">Installment Date: </label>
-                    <input type="date" class="form-control" id="installmentDate" name="installmentDate" value="" />
-                    <input type="hidden" name="installmentDate" value="" />
+                    <label for="depositDate">Deposit Date: </label>
+                    <input type="date" class="form-control" id="depositDate" name="depositDate" value="" />
+                    <input type="hidden" name="depositDate" value="" />
                 </div>
             </div>
             <div class="form-row">
@@ -90,8 +91,8 @@
 
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <label for="installmentTitle">Installment Title: </label>
-                    <input type="text" class="form-control" id="installmentTitle" name="installmentTitle" value="" required />
+                    <label for="depositTitle">Deposit Title: </label>
+                    <input type="text" class="form-control" id="depositTitle" name="depositTitle" value="" required />
                 </div>
             </div>
             <div class="form-row">
@@ -101,13 +102,13 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="currency">Currency: </label>
-                    <select id="currency" name="currency" class="form-control" value="${installment.currency}" required>
+                    <select id="currency" name="currency" class="form-control" value="${deposit.currency}" required>
                         <c:choose>
-                            <c:when test="${installment == null}">
+                            <c:when test="${deposit == null}">
                                 <option selected value="">Choose...</option>
                             </c:when>
                             <c:otherwise>
-                                <option selected value="${installment.currency.currencyId}">${installment.currency.currencyName}</option>
+                                <option selected value="${deposit.currency.currencyId}">${deposit.currency.currencyName}</option>
                             </c:otherwise>
                         </c:choose>
 
@@ -165,7 +166,7 @@
                 </div>
 
             </div><br/>
-            <div class="form-row" id="item" style="visibility: hidden; background: darkgray">
+            <div class="form-row" id="item" style="display: none; background: darkgray">
                 <div class="form-group col-md-12">
                     <br/>
                     <label for="vat" id="itemName" class="col-md-4"></label>
@@ -186,27 +187,15 @@
         </form>
     </div>
 </div>
-<div id="searchModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Search Items</h5>
-                <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <input type="text" id="keyword" name="keyword" class="searchInput" placeholder="Item Name">
-            <div class="modal-body">
-                <form>
-                    <table id="itemTable" class="table">
-                        <thead><td></td><td>Item Id</td><td>Item Name</td><td>Item Part Name</td></thead>
-                        <tbody></tbody>
-                    </table>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<jsp:include page="/WEB-INF/jsp/templates/searchModal.jsp">
+    <jsp:param name="modalId" value="itemSearchModal" />
+    <jsp:param name="title" value="Search Item" />
+    <jsp:param name="placeholder" value="Search an item" />
+    <jsp:param name="id" value="Item Id" />
+    <jsp:param name="name" value="Item Name" />
+    <jsp:param name="other" value="Item Part Name" />
+    <jsp:param name="tableName" value="itemTable" />
+</jsp:include>
 </body>
 </body>
 </html>

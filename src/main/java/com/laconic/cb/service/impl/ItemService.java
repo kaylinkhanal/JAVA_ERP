@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,6 +35,11 @@ public class ItemService implements IItemService {
     public Page<Item> getAllItems(int pageNo) {
         Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
         return itemRepository.findAllByIsDeletedFalse(pageable);
+    }
+
+    @Override
+    public List<Item> getAllItems() {
+        return itemRepository.findAllByIsDeletedFalse();
     }
 
     @Override

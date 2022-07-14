@@ -37,7 +37,7 @@
                         <td>${invoice.caseDto.caseId}</td>
                         <td>${invoice.invoiceTitle}</td>
                         <td>${invoice.caseDto.customer.fullName != null ? invoice.caseDto.customer.fullName: invoice.caseDto.customer.companyName}</td>
-                        <td>${invoice.re}</td>
+                        <td>${invoice.caseDto.customer.contactNo}</td>
                         <td><fmt:formatDate pattern="dd-MM-yyyy" value = "${invoice.caseDto.operatingDate}"/></td>
                         <td>
                             <i class="far fa-edit icon-button" onclick="openPage('/invoice/edit/${invoice.invoiceId}')"></i>
@@ -144,7 +144,7 @@
                     <input type="button" id="addInstallment" value="Add Installment"/>
                 </div>
                 <div class="form-group col-md-4">
-                    <button>Add Deposit</button>
+                    <input type="button" id="addDeposit" value="Add Deposit"/>
                 </div>
             </div>
             <div class="form-row">
@@ -198,6 +198,18 @@
                     <hr/>
                 </div>
             </div><br>
+            <div class="form-row" id="deposit" style="display: none; background: darkgray">
+                <div class="form-group col-md-12">
+                    <br/>
+                    <button type="button" class="depositClose" id="depositClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <label for="vat" id="depositTitle" class="col-md-4"></label>
+                    <label class="col-md-2">Amount</label>
+                    <input class="col-md-5" type="text" placeholder="0.00">
+                    <hr/>
+                </div>
+            </div><br>
             <input class="btn btn-primary" value="Save" type="submit"/>
         </form>
         <br>
@@ -221,6 +233,15 @@
     <jsp:param name="name" value="Installment Title" />
     <jsp:param name="other" value="Installment Number" />
     <jsp:param name="tableName" value="installmentTable" />
+</jsp:include>
+<jsp:include page="/WEB-INF/jsp/templates/searchModal.jsp">
+    <jsp:param name="modalId" value="depositSearchModal" />
+    <jsp:param name="title" value="Search Deposit" />
+    <jsp:param name="placeholder" value="Search a Deposit" />
+    <jsp:param name="id" value="Deposit Id" />
+    <jsp:param name="name" value="Deposit Title" />
+    <jsp:param name="other" value="Deposit Number" />
+    <jsp:param name="tableName" value="depositTable" />
 </jsp:include>
 </body>
 </body>

@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface IInstallmentService {
     Installment saveInstallment(Installment installment);
     Installment updateInstallment(Installment installment);
-
+    Page<Installment> getAllInstallment(int pageNo, Long caseId);
     List<Installment> getAllInstallment(Long caseId);
     long getTotalInstallments();
 

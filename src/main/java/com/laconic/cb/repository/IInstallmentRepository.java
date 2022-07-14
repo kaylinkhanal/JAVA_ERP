@@ -2,6 +2,7 @@ package com.laconic.cb.repository;
 
 import com.laconic.cb.model.Installment;
 import com.laconic.cb.model.Invoice;
+import liquibase.pro.packaged.P;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,6 +28,7 @@ public interface IInstallmentRepository extends JpaRepository<Installment, Long>
 
     Page<Installment> findAllByIsDeletedFalse(Pageable pageable);
     List<Installment> findAllByIsDeletedFalseAndCaseDto_CaseId(Long caseId);
+    Page<Installment> findAllByIsDeletedFalseAndCaseDto_CaseId(Pageable pageable, Long caseId);
 
     long countByIsDeletedFalse();
 }
