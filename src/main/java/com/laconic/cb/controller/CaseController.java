@@ -4,6 +4,7 @@ import com.laconic.cb.model.Case;
 import com.laconic.cb.model.Customer;
 import com.laconic.cb.service.ICaseService;
 import com.laconic.cb.service.IContactPersonService;
+import com.laconic.cb.service.ITitleService;
 import com.laconic.cb.utils.Pagination;
 import com.laconic.cb.utils.SessionStorage;
 import org.springframework.data.domain.Page;
@@ -26,10 +27,12 @@ public class CaseController {
 
     private final ICaseService caseService;
     private final IContactPersonService contactPersonService;
+    private final ITitleService titleService;
 
-    public CaseController(ICaseService caseService, IContactPersonService contactPersonService) {
+    public CaseController(ICaseService caseService, IContactPersonService contactPersonService, ITitleService titleService) {
         this.caseService = caseService;
         this.contactPersonService = contactPersonService;
+        this.titleService = titleService;
     }
 
     @GetMapping("/list")
@@ -54,6 +57,7 @@ public class CaseController {
         Customer customer = (Customer) SessionStorage.getStorage(session, "customer");
         model.addAttribute("customer", customer);
         model.addAttribute("contactPersons", contactPersonService.getAllContactPerson());
+        model.addAttribute("titles", titleService.getAllTitles());
         return "case/createCase";
     }
 

@@ -61,7 +61,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <label for="title" class="col-form-label">Title</label>
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-                    <label for="title">Booking Box</label>
+                    <label for="title">${caseDto.title}</label>
                   </div>
                 </div>
               </div>
