@@ -48,7 +48,7 @@ public class DocumentService implements IDocumentService {
 
     @Override
     public Optional<Document> findById(Long id) {
-        return documentRepository.findById(id);
+        return documentRepository.findByDocumentIdAndIsDeletedFalse(id);
     }
 
     @Override

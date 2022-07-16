@@ -22,6 +22,5 @@ public interface IDocumentService {
     Optional<Document> findByDocumentTypeId(Long documentTypeId);
     Optional<Document> findByDocumentIdAndDocumentTypeId(Long documentId, Long documentTypeId);
     List<Document> findAllByDocumentTypeId(Long documentTypeId);
-
     List<Document> findAllDocumentTemplates();
 }
