@@ -44,7 +44,7 @@ $("#documentTemplate").change(function () {
     }
 });
 
-function previewDocument() {
+function init() {
     let executorName = $("#executorName").val();
     let nationality = $("#nationality").val();
     let contactNumber = $("#contactNumber").val();
@@ -55,6 +55,8 @@ function previewDocument() {
     let effectiveDateFrom = $("#effectiveDateFrom").val();
     let effectiveDateTo = $("#effectiveDateTo").val();
     let address = $("#address").val();
+}
+function previewDocument() {
     if (documentType && documentTemplate && address && effectiveDateTo && effectiveDateFrom &&
         passportNumber && dateOfBirth && contactNumber && nationality && executorName) {
         $.ajax({

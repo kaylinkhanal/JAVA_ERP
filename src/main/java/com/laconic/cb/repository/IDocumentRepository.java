@@ -20,6 +20,7 @@ public interface IDocumentRepository extends JpaRepository<Document, Long> {
     void softDeleteDocument(Long documentId);
 
     Page<Document> findAllByIsDeletedFalse(Pageable pageable);
+    List<Document> findAllByIsDeletedFalse();
 
     Optional<Document> findByDocumentIdAndIsDeletedFalse(Long documentId);
 

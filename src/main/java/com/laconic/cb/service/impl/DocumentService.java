@@ -70,4 +70,9 @@ public class DocumentService implements IDocumentService {
     public List<Document> findAllByDocumentTypeId(Long documentTypeId) {
         return documentRepository.findAllByDocumentType_DocumentTypeIdAndIsDeletedFalse(documentTypeId);
     }
+
+    @Override
+    public List<Document> findAllDocumentTemplates() {
+        return documentRepository.findAllByIsDeletedFalse();
+    }
 }
