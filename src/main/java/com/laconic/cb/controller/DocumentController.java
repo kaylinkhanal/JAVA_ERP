@@ -18,6 +18,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -175,11 +177,41 @@ public class DocumentController {
     public String attachDocument(Model model,
                                  @RequestParam(value = "caseId", required = true) Long caseId) {
         List<DocumentType> documentTypes = documentTypeService.getAllDocumentTypes();
-        List<Country> countries = countryService.getAllCountries();
+//        List<Country> countries = countryService.getAllCountries();
         model.addAttribute("documentTypes", documentTypes);
         Case caseDto = caseService.findById(caseId).get();
         model.addAttribute("caseDto", caseDto);
         return "document/previewDocument";
+    }
+
+    @GetMapping("/caseDocumentPreview")
+    public String caseDocumentPreview(Model model,
+                                 @RequestParam(value = "caseId", required = true) Long caseId,
+                                 @RequestParam(value = "templateId", required = true) String templateId) {
+        Optional<Case> caseDto = caseService.findById(caseId);
+        model.addAttribute("caseDto", caseDto);
+        Optional<Document> document = documentService.findById(Long.getLong(templateId));
+        if (document.isPresent() && caseDto.isPresent()) {
+            Case dbCase = caseDto.get();
+            Document dbDocument = document.get();
+            if (document.get().getContent() != null) {
+                String content;
+                DocumentAttributes documentAttributes = DocumentAttributes.builder().documentId(dbDocument.getDocumentId())
+                        .address(dbCase.getCustomer().getAddress().getAddressNo())
+                        .executorName(dbCase.getCustomer().getFullName())
+                        .nationality(dbCase.getCustomer().getAddress().getCountry().getCountryName())
+                        .contactNumber(dbCase.getCustomer().getContactNo())
+                        .dateOfBirth(dbCase.getCustomer().getDateOfBirth().toString())
+                        .passportNumber(dbCase.getCustomer().getIdPassportNo())
+                        .effectiveDateTo((new Date()).toString())
+                        .effectiveDateFrom((new Date()).toString())
+                        .build();
+
+                content = ParseDocument.getParsedDocument(dbDocument.getContent(), documentAttributes);
+                model.addAttribute("document", content);
+            }
+        }
+        return "document/caseDocumentPreview";
     }
 
     @GetMapping("/detail/{id}")

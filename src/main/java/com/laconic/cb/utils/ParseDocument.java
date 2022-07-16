@@ -19,10 +19,10 @@ public class ParseDocument {
                 content = content.replace("@DOB", documentAttributes.getDateOfBirth());
             }
             if (content.contains("@EffectiveDateTo")) {
-                content = content.replace("@EffectiveDate", documentAttributes.getEffectiveDateTo());
+                content = content.replace("@EffectiveDate", documentAttributes.getEffectiveDateTo() != null ? documentAttributes.getEffectiveDateTo() : "");
             }
             if (content.contains("@EffectiveDateFrom")) {
-                content = content.replace("@EffectiveDate", documentAttributes.getEffectiveDateFrom());
+                content = content.replace("@EffectiveDate", documentAttributes.getEffectiveDateFrom() != null ? documentAttributes.getEffectiveDateFrom() : "");
             }
             if (content.contains("@Address")) {
                 content = content.replace("@Address", documentAttributes.getAddress());

@@ -50,8 +50,17 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                   <div class="form-group col-md-4">
                     <label for="caseId" class="col-form-label">Case ID</label>
                   </div>
-                  <div class="col-md-8 d-flex align-items-center">
+                  <div class="col-md-4 d-flex align-items-center">
                     <label for="caseId">${caseDto.caseId}</label>
+                  </div>
+                  <div class="col-md-4 d-flex align-items-center">
+                    <select id="document" name="document" class="form-control" required>
+                      <c:forEach var="template" items="${templates }" >
+                        <option selected value="">Choose...</option>
+                        <option value="${template.documentId }">${template.documentName}</option>
+                      </c:forEach>
+                    </select>
+
                   </div>
                 </div>
               </div>
@@ -60,10 +69,14 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                   <div class="form-group col-md-4">
                     <label for="title" class="col-form-label">Title</label>
                   </div>
-                  <div class="col-md-8 d-flex align-items-center">
-                    <label for="title">Booking Box</label>
+                  <div class="col-md-4 d-flex align-items-center">
+<%--                    <label for="title">${caseDto.title}</label>--%>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <button onclick="caseDocumentPreview(${caseDto.caseId});" class="btn btn-primary">Print</button>
                   </div>
                 </div>
+
               </div>
               <div class="col-md-12">
                 <div class="row">
@@ -209,9 +222,9 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                   <div class="col-md-2 form-group">
                     <button type="button" id="invoiceList" class="btn btn-primary" onclick="openPage('/invoice/list?caseId=${caseDto.caseId}')">Invoice List</button>
                   </div>
-                  <div class="col-md-2 form-group">
-                    <button type="button" id="attachDocument" class="btn btn-primary" onclick="openPage('/document/attachDocument?caseId=${caseDto.caseId}')">Attach Document</button>
-                  </div>
+<%--                  <div class="col-md-2 form-group">--%>
+<%--                    <button type="button" id="attachDocument" class="btn btn-primary" onclick="openPage('/document/attachDocument?caseId=${caseDto.caseId}')">Attach Document</button>--%>
+<%--                  </div>--%>
                 </div>
               </div>
 
@@ -223,3 +236,4 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
     </div>
   </body>
 </html>
+<script><%@include file="/WEB-INF/script/documentPreview.js" %></script>

@@ -48,7 +48,7 @@ public class DocumentService implements IDocumentService {
 
     @Override
     public Optional<Document> findById(Long id) {
-        return documentRepository.findById(id);
+        return documentRepository.findByDocumentIdAndIsDeletedFalse(id);
     }
 
     @Override
@@ -69,5 +69,10 @@ public class DocumentService implements IDocumentService {
     @Override
     public List<Document> findAllByDocumentTypeId(Long documentTypeId) {
         return documentRepository.findAllByDocumentType_DocumentTypeIdAndIsDeletedFalse(documentTypeId);
+    }
+
+    @Override
+    public List<Document> findAllDocumentTemplates() {
+        return documentRepository.findAllByIsDeletedFalse();
     }
 }
