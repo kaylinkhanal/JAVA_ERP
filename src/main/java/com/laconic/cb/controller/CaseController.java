@@ -67,11 +67,9 @@ public class CaseController {
     @GetMapping("/detail/{id}")
     public String caseDetail(@PathVariable("id") Long id, Model model, HttpSession session) {
         Optional<Case> getCase = caseService.findById(id);
-        Customer customer = (Customer) SessionStorage.getStorage(session, "customer");
         if (getCase.isPresent()) {
             model.addAttribute("caseDto", getCase.get());
         }
-        model.addAttribute("customer", customer);
         model.addAttribute("templates", documentService.findAllDocumentTemplates());
         return "case/caseDetail";
     }

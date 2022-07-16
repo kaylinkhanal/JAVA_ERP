@@ -35,13 +35,12 @@ function removeStorage(key) {
 
 function printDocument(response) {
     const pathname = window.location.href;
-    const divContents = response;
         const popupWin = window.open('', '_blank', 'width=992,height=600,location=1,status=1,scrollbars=1,left=100px');
         // popupWin.document.open();
         popupWin.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title></title>' +
             '<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css"  media="print">' +
             '</head><body onload="window.print()">');
-        popupWin.document.write(divContents);
+        popupWin.document.write(response);
         popupWin.document.write('</body></html>');
     popupWin.document.close();
 }

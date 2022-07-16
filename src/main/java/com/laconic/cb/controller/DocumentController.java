@@ -1,14 +1,8 @@
 package com.laconic.cb.controller;
 
-import com.laconic.cb.model.Case;
-import com.laconic.cb.model.Country;
-import com.laconic.cb.model.Document;
-import com.laconic.cb.model.DocumentType;
+import com.laconic.cb.model.*;
 import com.laconic.cb.model.dto.DocumentAttributes;
-import com.laconic.cb.service.ICaseService;
-import com.laconic.cb.service.ICountryService;
-import com.laconic.cb.service.IDocumentService;
-import com.laconic.cb.service.IDocumentTypeService;
+import com.laconic.cb.service.*;
 import com.laconic.cb.utils.Pagination;
 import com.laconic.cb.utils.ParseDocument;
 import org.springframework.data.domain.Page;
@@ -33,12 +27,14 @@ public class DocumentController {
     private final IDocumentService documentService;
     private final ICountryService countryService;
     private final ICaseService caseService;
+    private final ICustomerService customerService;
 
-    public DocumentController(IDocumentTypeService documentTypeService, IDocumentService documentService, ICountryService countryService, ICaseService caseService) {
+    public DocumentController(IDocumentTypeService documentTypeService, IDocumentService documentService, ICountryService countryService, ICaseService caseService, ICustomerService customerService) {
         this.documentTypeService = documentTypeService;
         this.documentService = documentService;
         this.countryService = countryService;
         this.caseService = caseService;
+        this.customerService = customerService;
     }
 
     @GetMapping("/create")
@@ -182,13 +178,13 @@ public class DocumentController {
         return "document/previewDocument";
     }
 
-    @GetMapping("/caseDocumentPreview")
-    public String caseDocumentPreview(Model model,
-                                 @RequestParam(value = "caseId", required = true) Long caseId,
-                                 @RequestParam(value = "templateId", required = true) String templateId) {
+    @GetMapping("/caseDocumentPreview/{caseId}/{templateId}")
+    public String caseDocumentPreview(@PathVariable Long caseId,
+                                      @PathVariable Long templateId,
+                                      Model model) {
         Optional<Case> caseDto = caseService.findById(caseId);
         model.addAttribute("caseDto", caseDto);
-        Optional<Document> document = documentService.findById(Long.getLong(templateId));
+        Optional<Document> document = documentService.findById(templateId);
         if (document.isPresent() && caseDto.isPresent()) {
             Case dbCase = caseDto.get();
             Document dbDocument = document.get();
@@ -209,7 +205,7 @@ public class DocumentController {
                 model.addAttribute("document", content);
             }
         }
-        return "document/previewDocument";
+        return "document/caseDocumentPreview";
     }
 
     @GetMapping("/detail/{id}")

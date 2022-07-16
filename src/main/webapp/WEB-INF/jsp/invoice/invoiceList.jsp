@@ -22,7 +22,7 @@
     </div>
     <div style="display: flex">
       <button onclick="openPage('/invoice/createInstallment?caseId=${caseId}')" class="btn btn-primary">Create Installment</button>
-      <button onclick="openPage('/invoice/createDeposit?caseId=${caseId}')" class="btn btn-primary">Create Deposit</button>
+      <button onclick="openPage('/invoice/createDeposit?caseId=${caseId}')" class="btn btn-primary ml-2">Create Deposit</button>
     </div>
     <div align="center">
       <table border="1" width="60%" class="table table-striped">
