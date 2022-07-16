@@ -215,5 +215,7 @@ public class DocumentController {
             model.addAttribute("documentType", documentType.get());
         }
         return "document/detail";
+
+        
     }
 }
