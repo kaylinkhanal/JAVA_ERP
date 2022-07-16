@@ -17,17 +17,12 @@
         </div>
         <div class="col-xs-12 row">
 
-            <div class="col-md-10 row">
-                <div class="form-row">
-                    <div class="form-group col-md-6" id="documentPreview">
-                        ${document}
-                    </div>
-                </div>
-
+            <div class="col-md-10 row border border-dark">
+                ${document}
             </div>
             <div class="col-md-2">
                 <br><br> <br><br>
-                <button type="button" onclick="printDocument(${document})" class="btn btn-primary float-right" id="save"><span class="far fa-save"></span>  Save</button>
+                <button type="button" onclick="printDocument('${document}')" class="btn btn-primary float-right" id="save"><span class="far fa-save"></span>  Save</button>
                 <br/><br/>
             </div>
         </div>

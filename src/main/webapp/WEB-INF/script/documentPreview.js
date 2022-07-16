@@ -86,6 +86,64 @@
 function caseDocumentPreview(caseId) {
     let documentTemplateId = $('#document').val()
     // $.ajax({
+<<<<<<< HEAD
+    //     url: "${pageContext.request.contextPath}/document/caseDocumentPreview",
+    //     type: "POST",
+    //     data: {
+    //         'caseId': caseId,
+    //         'documentId': documentTemplateId,
+    //     },
+    //     success: function (response) {
+    //         debugger;
+    //         console.log(response)
+    //     },
+    //     error:  function(XMLHttpRequest) {
+    //         debugger;
+    //         console.error("Something went wrong");
+    //     }
+    // });
+    debugger
+    console.log(caseId)
+    console.log(documentTemplateId)
+    console.log("${pageContext.request.contextPath}/document/caseDocumentPreview/"+caseId+"/"+documentTemplateId)
+    openPage("${pageContext.request.contextPath}/document/caseDocumentPreview/"+caseId+"/"+$('#document').val());
+    debugger
+    console.log(caseId)
+    console.log(documentTemplateId)
+}
+
+// function previewDocument() {
+//     let executorName = "${caseDto.customer.fullName != null ? caseDto.customer.fullName : caseDto.customer.companyName  }";
+//     let nationality = "${caseDto.customer.address.country.countryName}";
+//     let contactNumber = "${caseDto.customer.address.phone1}";
+//     let dateOfBirth = "${caseDto.customer.dateOfBirth}";
+//     let passportNumber = "${caseDto.customer.idPassportNo}";
+//     // let effectiveDateFrom = $("#effectiveDateFrom").val();
+//     // let effectiveDateTo = $("#effectiveDateTo").val();
+//     let address = "${caseDto.customer.address.addressNo}";
+//     $.ajax({
+//         url: "${pageContext.request.contextPath}/document/printTemplate",
+//         type: "POST",
+//         data: {
+//             executorName: executorName,
+//             nationality: nationality,
+//             contactNumber: contactNumber,
+//             dateOfBirth: dateOfBirth,
+//             passportNumber: passportNumber,
+//             // effectiveDateFrom: effectiveDateFrom,
+//             // effectiveDateTo: effectiveDateTo,
+//             address: address,
+//             documentId: documentTemplate
+//         },
+//         success: function (response) {
+//             printDocument(response)
+//         },
+//         error:  function(XMLHttpRequest) {
+//             console.error("Something went wrong");
+//         }
+//     });
+// }
+=======
     //     url: "${pageContext.request.contextPath}/document/caseDocumentPreview?caseId="+caseId+"&templateId="+documentTemplateId,
     //     type: "GET",
     //     success: function () {
@@ -130,6 +188,7 @@ function previewDocument() {
         }
     });
 }
+>>>>>>> f296255e35eae9780e7cd8c5f3e93410911dce65
 function printBlankDocument(documentId) {
     $.ajax({
         url: "${pageContext.request.contextPath}/document/printTemplate/",

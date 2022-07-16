@@ -16,8 +16,8 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           <div class="col-md-12">
             <h5 class="float-right">
               <span>Customer ID: </span>
-              <button type="button" class="btn btn-secondary">${caseDto.customer.code}</button>
-              <button type="button" class="btn btn-secondary">${caseDto.customer.companyName != null ? caseDto.customer.companyName : caseDto.customer.fullName}</button>
+<%--              <button type="button" class="btn btn-secondary">${caseDto.customer.code}</button>--%>
+<%--              <button type="button" class="btn btn-secondary">${caseDto.customer.companyName != null ? caseDto.customer.companyName : caseDto.customer.fullName}</button>--%>
             </h5>
           </div>
         </div>
@@ -70,10 +70,17 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <label for="title" class="col-form-label">Title</label>
                   </div>
                   <div class="col-md-4 d-flex align-items-center">
+<<<<<<< HEAD
+                    <label for="title">${caseDto.title}</label>
+=======
 <%--                    <label for="title">${caseDto.title}</label>--%>
                   </div>
                   <div class="form-group col-md-4">
                     <button onclick="caseDocumentPreview(${caseDto.caseId});" class="btn btn-primary">Print</button>
+>>>>>>> f296255e35eae9780e7cd8c5f3e93410911dce65
+                  </div>
+                  <div class="form-group col-md-4">
+                    <button onclick="caseDocumentPreview(${caseDto.caseId})" class="btn btn-primary">Print</button>
                   </div>
                 </div>
 
@@ -84,7 +91,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <label for="customer" class="col-form-label">Customer</label>
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-                    <label for="customer">${caseDto.customer.code} (customer)</label>
+<%--                    <label for="customer">${caseDto.customer.code} (customer)</label>--%>
                   </div>
                 </div>
               </div>
@@ -94,7 +101,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <label for="contact" class="col-form-label">Contact</label>
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-                    <label for="contact">${caseDto.customer.firstName}</label>
+<%--                    <label for="contact">${caseDto.customer.fullName}</label>--%>
                   </div>
                 </div>
               </div>
