@@ -21,6 +21,11 @@
             <div class="col-xs-12 row">
 
                 <div class="col-md-10 row">
+                    <div class="form-row">
+                        <div class="form-group col-md-6" id="documentPreview" style="visibility: hidden">
+
+                        </div>
+                    </div>
                     <div class="form-row col-md-12">
                         <div class="form-group col-md-6">
                             <label for="executorName">Executor Name: </label>
@@ -102,11 +107,7 @@
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-6" id="documentPreview" style="visibility: hidden">
 
-                </div>
-            </div>
         </form>
     </div>
 </div>

@@ -1,8 +1,10 @@
 package com.laconic.cb.model.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class DocumentAttributes {
     private String executorName;
     private String nationality;
