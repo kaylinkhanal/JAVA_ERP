@@ -10,19 +10,18 @@ $('#select').click(function () {
         backdrop: 'static',
         keyboard: false
     });
+    let tbody = $('#customerTable').children('tbody');
     $.ajax({
         url: "${pageContext.request.contextPath}/customers",
         type: "GET",
-        success: function (response) {
+        success: function(response) {
+            tbody.empty();
             response.forEach(function (element) {
                 let customerName = element.companyName != null ? element.companyName : element.firstName +' ' + element.lastName;
-                $('#customerName').val(customerName);
-                $('#code').val(element.code);
-
-                let tbody = $('#customerTable').children('tbody');
-                let table = tbody.length ? tbody : $('#customerTable');
-                tbody.append('<tr value=' + element.customerId +'><td><input type="checkbox" id="selectedCustomer" value=' + element.customerId + '></td>' +
-                    '<td>' + customerName + '</td><td>' + element.code + '</td><td>' + element.type + '</td></tr>');
+                tbody.append('<tr value=' + element.customerId +'><td>' +
+                    '<input type="checkbox" id="selectedCustomer" class="selectedCustomer" ></td>' +
+                    '<td>' + customerName + '</td>' +
+                    '<td>' + element.code + '</td><td>' + element.type + '</td></tr>');
             });
         },
         error: function (XMLHttpRequest) {

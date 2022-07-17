@@ -36,6 +36,10 @@
             display: flex;
             color: blue;
         }
+
+        .searchInput {
+            margin: 10px;
+        }
     </style>
 </head>
 <body>

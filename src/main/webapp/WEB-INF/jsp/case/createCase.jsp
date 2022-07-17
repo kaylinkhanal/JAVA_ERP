@@ -8,9 +8,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
     <meta charset="ISO-8859-1" />
     <title>Create Case</title>
     <style>
-      .searchInput {
-        margin: 10px;
-      }
+
     </style>
   </head>
   <body>
@@ -67,6 +65,15 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                       </c:choose>
                       <c:forEach var="title" items="${titles }" >
                         <option value="${title.caseTypeCode }">${title.caseTypeCode}</option>
+                      </c:forEach>
+                    </select>
+                  </div>
+                  <div class="col-md-12 row">
+                    <label class="col-form-label" for="title">Case Type</label>
+                    <select id="caseType" name="caseType" class="form-control" required>
+                      <option selected value="">Choose...</option>
+                      <c:forEach var="title" items="${titles }" >
+                        <option value="${title.caseTypeName }">${title.caseTypeName}</option>
                       </c:forEach>
                     </select>
                   </div>
