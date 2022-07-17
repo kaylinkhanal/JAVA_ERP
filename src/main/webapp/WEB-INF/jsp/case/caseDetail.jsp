@@ -70,18 +70,14 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <label for="title" class="col-form-label">Title</label>
                   </div>
                   <div class="col-md-4 d-flex align-items-center">
-<<<<<<< HEAD
                     <label for="title">${caseDto.title}</label>
-=======
-<%--                    <label for="title">${caseDto.title}</label>--%>
                   </div>
                   <div class="form-group col-md-4">
                     <button onclick="caseDocumentPreview(${caseDto.caseId});" class="btn btn-primary">Print</button>
->>>>>>> f296255e35eae9780e7cd8c5f3e93410911dce65
                   </div>
-                  <div class="form-group col-md-4">
-                    <button onclick="caseDocumentPreview(${caseDto.caseId})" class="btn btn-primary">Print</button>
-                  </div>
+<%--                  <div class="form-group col-md-4">--%>
+<%--                    <button onclick="caseDocumentPreview(${caseDto.caseId})" class="btn btn-primary">Print</button>--%>
+<%--                  </div>--%>
                 </div>
 
               </div>
