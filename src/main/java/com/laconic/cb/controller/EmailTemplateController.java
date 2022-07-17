@@ -4,15 +4,23 @@ import com.laconic.cb.model.EmailTemplate;
 import com.laconic.cb.service.IEmailTemplateService;
 import com.laconic.cb.utils.EmailSender;
 import com.laconic.cb.utils.Pagination;
+import org.springframework.core.io.InputStreamSource;
 import org.springframework.data.domain.Page;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.mail.internet.MimeMessage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -96,21 +104,48 @@ public class EmailTemplateController {
     @PostMapping("/sendEmail")
     public String sendEmail(EmailTemplate emailTemplate) {
         try {
-            sendEmail("aryandhakal60@gmail.com", emailTemplate.getSubject(), emailTemplate.getContent());
+            sendEmail("aryandhakal60@gmail.com", emailTemplate.getSubject(), emailTemplate.getContent(), emailTemplate.getAttachImage());
         } catch (Exception e) {
             System.out.println(e);
         }
         return "redirect:/email/list";
     }
-    public void sendEmail(String sendTo, String subject, String content) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(sendTo);
-        message.setText(content);
-        message.setSubject(subject);
-        message.setFrom("mandeepdhakal11@gmail.com");
-        message.setSentDate(new Date());
-        message.setReplyTo("mandeepdhakal11@gmail.com");
-        javaMailSender.send(message);
+    public void sendEmail(String sendTo, String subject, String content, MultipartFile multipartFile) {
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setTo(sendTo);
+//        message.setText(content);
+//        message.setSubject(subject);
+//        message.setFrom("mandeepdhakal11@gmail.com");
+//        message.setSentDate(new Date());
+//        message.setReplyTo("mandeepdhakal11@gmail.com");
+//        javaMailSender.send(message);
+        javaMailSender.send(new MimeMessagePreparator() {
+
+            @Override
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+                MimeMessageHelper messageHelper = new MimeMessageHelper(
+                        mimeMessage, true, "UTF-8");
+                messageHelper.setTo("mandeepdhakal11@gmail.com");
+                messageHelper.setSubject(subject);
+                messageHelper.setText(content);
+                messageHelper.setFrom("mandeepdhakal11@gmail.com");
+
+                // determines if there is an upload file, attach it to the e-mail
+                String attachName = multipartFile.getOriginalFilename();
+                if (!multipartFile.equals("")) {
+
+                    messageHelper.addAttachment(attachName, new InputStreamSource() {
+
+                        @Override
+                        public InputStream getInputStream() throws IOException {
+                            return multipartFile.getInputStream();
+                        }
+                    });
+                }
+
+            }
+
+        });
     }
 
 }
