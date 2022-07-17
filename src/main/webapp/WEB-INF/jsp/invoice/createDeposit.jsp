@@ -37,8 +37,8 @@
                     <tr>
                         <td>${deposit.caseDto.caseId}</td>
                         <td>${deposit.depositTitle}</td>
-                        <td>${deposit.customer.fullName != null ? deposit.customer.fullName: deposit.customer.companyName}</td>
-                        <td>${deposit.customer.contactNo}</td>
+                        <td>${deposit.caseDto.customer.fullName != null ? deposit.caseDto.customer.fullName: deposit.caseDto.customer.companyName}</td>
+                        <td>${deposit.caseDto.customer.contactNo}</td>
                         <td><fmt:formatDate pattern="dd-MM-yyyy" value = "${deposit.caseDto.operatingDate}"/></td>
                         <td>
                             <i class="far fa-edit icon-button" onclick="openPage('/deposit/editDeposit/${deposit.depositId}')"></i>

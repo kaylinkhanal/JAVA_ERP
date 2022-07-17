@@ -16,7 +16,7 @@
             <h1>Create Email Template</h1>
             <hr />
         </div>
-        <form method="post" action="addTemplate">
+        <form method="post" action="sendEmail" id="emailTemplate" enctype="multipart/form-data">
             <input type="hidden" value="${template.templateId}" name="templateId" />
             <div class="col-xs-12">
                 <div class="form-row col-md-8">
@@ -34,11 +34,18 @@
                   </textArea>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary float-right" id="save">Save Email Template</button>
+<%--                <div class="col-md-12">--%>
+<%--                    <input type="file" name="attachFile" size="100" />--%>
+<%--                </div>--%>
+                <div class="form-group col-md-6">
+<%--                    <input type="file" name="attachFile" id="attachFile" size="100" />--%>
+                    <input type="file" class="form-control-file" id="attachImage" name="attachImage">
                 </div>
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-primary float-left" id="sendEmail" onclick="sendEmailData()">Send Email</button>
+                    <button type="button" class="btn btn-primary float-right" id="save" onclick="saveEmailData()">Save Email Template</button>
+                </div>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary float-left" id="sendEmail">Send Email</button>
                 </div>
             </div>
         </form>
@@ -51,9 +58,27 @@
         getEditor("email");
     })
 
-    function sendEmailData() {
+    <%--function sendEmailData() {--%>
+    <%--    $.ajax({--%>
+    <%--        url: "${pageContext.request.contextPath}/email/sendEmail",--%>
+    <%--        type: "POST",--%>
+    <%--        data: {--%>
+    <%--            templateName: $("#templateName").val(),--%>
+    <%--            subject: $("#subject").val(),--%>
+    <%--            content: $("#content").val(),--%>
+    <%--        },--%>
+    <%--        success: function () {--%>
+    <%--            alert("sent")--%>
+    <%--        },--%>
+    <%--        error:  function(XMLHttpRequest) {--%>
+    <%--            console.error("Something went wrong");--%>
+    <%--        }--%>
+    <%--    });--%>
+    <%--}--%>
+
+    function saveEmailData() {
         $.ajax({
-            url: "${pageContext.request.contextPath}/email/sendEmail",
+            url: "${pageContext.request.contextPath}/email/addTemplate",
             type: "POST",
             data: {
                 templateName: $("#templateName").val(),
@@ -61,7 +86,7 @@
                 content: $("#content").val(),
             },
             success: function () {
-                alert("sent")
+
             },
             error:  function(XMLHttpRequest) {
                 console.error("Something went wrong");

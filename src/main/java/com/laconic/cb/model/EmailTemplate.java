@@ -1,6 +1,7 @@
 package com.laconic.cb.model;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -31,5 +32,7 @@ public class EmailTemplate extends BaseEntity {
     private String disableBy;
     @Column(name = "DISABLE_DATE")
     private Date disableDate;
+    @Transient
+    private MultipartFile attachImage;
 }
 
