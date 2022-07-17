@@ -1,0 +1,23 @@
+TITLE_ID,CASE_TYPE_NAME,CASE_TYPE_CODE,DURATION,PRICE
+1,Bangrak,1-year rent Type A,365,"฿ 6,500.00"
+2,Bangrak,1-year rent Type B,365,"฿ 8,000.00"
+3,Bangrak,1-year rent Type C,365,"฿ 12,000.00"
+4,Bangrak,1-year rent Type D,365,"฿ 14,000.00"
+5,Asok,1-year rent Type L,365,"฿ 11,500.00"
+6,Asok,1-year rent Type M,365,"฿ 8,000.00"
+7,Asok,1-year rent Type S,365,"฿ 4,500.00"
+8,Asok,1-year rent Type XL,365,"฿ 16,000.00"
+9,Bangrak,90-day rent Type A,90,"฿ 2,500.00"
+10,Bangrak,90-day rent Type B,90,"฿ 3,600.00"
+11,Asok,90-day rent Type L,90,"฿ 5,000.00"
+12,Asok,90-day rent Type M,90,"฿ 3,600.00"
+13,Asok,90-day rent Type S,90,"฿ 2,000.00"
+14,Asok,90-day rent Type XL,90,"฿ 7,000.00"
+15,Both,Access Card,,฿ 500.00
+16,Both,Credit Card Fee 3%,,
+17,Both,Credit Card Fee 3% for Security Deposit,,฿ 195.00
+18,Both,Late Charge - Special,,"฿ 1,000.00"
+19,Both,Locker Change Fee,,"฿ 1,000.00"
+20,Both,Lost 1 Key,,"฿ 3,500.00"
+21,Both,Lost 2 Keys,,"฿ 4,500.00"
+22,Both,Paypal Fee 5%,,

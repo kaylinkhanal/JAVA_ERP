@@ -56,11 +56,10 @@ public class Case extends BaseEntity {
     @Column(name = "SUSPENSE_DATE")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date suspenseDate;
-    @Column(name = "CONTACT_PERSON_ID")
-    private Long contactPerson;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "caseDto")
-    private List<Invoice> invoiceList;
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToOne
+    @JoinColumn(name = "CONTACT_PERSON_ID")
+    private ContactPerson contactPerson;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;

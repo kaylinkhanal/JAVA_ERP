@@ -45,3 +45,32 @@ databaseChangeLog:
                 - column:
                     name: CURRENCY_NAME
                     type: STRING
+  - changeSet:
+      author: mandip.dhakal
+      context: dev
+      runOnChange: true
+      id: inserting_titles
+      changes:
+        - loadUpdateData:
+            catalogName: LACONIC
+            file: /db/data/03-title.csv
+            tableName: TITLE
+            quotchar: "\""
+            separator: ","
+            primaryKey: TITLE_ID
+            columns:
+              - column:
+                  name: TITLE_ID
+                  type: NUMBER
+              - column:
+                  name: CASE_TYPE_NAME
+                  type: STRING
+              - column:
+                  name: CASE_TYPE_CODE
+                  type: STRING
+              - column:
+                  name: DURATION
+                  type: NUMBER
+              - column:
+                  name: PRICE
+                  type: STRING
