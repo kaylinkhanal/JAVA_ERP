@@ -1,6 +1,7 @@
 package com.laconic.cb.controller;
 
 import com.laconic.cb.model.*;
+import com.laconic.cb.model.dto.DepositDto;
 import com.laconic.cb.service.*;
 import com.laconic.cb.utils.Pagination;
 import org.springframework.data.domain.Page;
@@ -26,14 +27,16 @@ public class InvoiceController {
     private final IInstallmentService installmentService;
     private final ICaseService caseService;
     private final IDepositService depositService;
+    private final ICustomerService customerService;
 
-    public InvoiceController(IInvoiceService invoiceService, IItemService itemService, ICurrencyService currencyService, IInstallmentService installmentService, ICaseService caseService, IDepositService depositService) {
+    public InvoiceController(IInvoiceService invoiceService, IItemService itemService, ICurrencyService currencyService, IInstallmentService installmentService, ICaseService caseService, IDepositService depositService, ICustomerService customerService) {
         this.invoiceService = invoiceService;
         this.itemService = itemService;
         this.currencyService = currencyService;
         this.installmentService = installmentService;
         this.caseService = caseService;
         this.depositService = depositService;
+        this.customerService = customerService;
     }
 
     @GetMapping("/create")
@@ -212,11 +215,18 @@ public class InvoiceController {
     }
 
     @PostMapping("addDeposit")
-    public String addDeposit(Deposit deposit, RedirectAttributes redirectAttributes) {
+    public String addDeposit(@RequestBody DepositDto deposit, RedirectAttributes redirectAttributes) {
         Deposit savedDeposit;
+        Deposit dbDeposit = new Deposit(deposit);
+        Customer customer = customerService.findById(deposit.getCustomer()).get();
+        Case caseDto = caseService.findById(deposit.getCaseDto()).get();
+        Currency currency = currencyService.findById(deposit.getCurrency());
+        dbDeposit.setCustomer(customer);
+        dbDeposit.setCaseDto(caseDto);
+        dbDeposit.setCurrency(currency);
         if (deposit.getDepositId() != null) {
-            savedDeposit = depositService.updateDeposit(deposit);
-        } else savedDeposit = depositService.saveDeposit(deposit);
+            savedDeposit = depositService.updateDeposit(dbDeposit);
+        } else savedDeposit = depositService.saveDeposit(dbDeposit);
         redirectAttributes.addFlashAttribute("invoice", savedDeposit);
         return "invoice/createDeposit";
     }

@@ -1,6 +1,7 @@
 package com.laconic.cb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.laconic.cb.model.dto.DepositDto;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -71,4 +72,21 @@ public class Deposit extends BaseEntity {
     private String disableBy;
     @Column(name = "DISABLE_DATE")
     private Date disableDate;
+
+    public Deposit(DepositDto dto) {
+        this.setDepositId(dto.getDepositId());
+        this.setDepositNumber(dto.getDepositNumber());
+        this.setDepositDate(dto.getDepositDate());
+        this.setSequence(dto.getSequence());
+        this.setCaseRemark(dto.getCaseRemark());
+        this.setRejectRemark(dto.getRejectRemark());
+        this.setDepositTitle(dto.getDepositTitle());
+        this.setVat(dto.getVat());
+        this.setExchangeRate(dto.getExchangeRate());
+        this.setPaymentTerm(dto.getPaymentTerm());
+        this.setBankAccount(dto.getBankAccount());
+        this.setNonVat(dto.getNonVat());
+        this.setSubtotalAmount(dto.getSubtotalAmount());
+
+    }
 }

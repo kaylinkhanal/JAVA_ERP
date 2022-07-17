@@ -23,4 +23,9 @@ public class CurrencyService implements ICurrencyService {
     public List<Currency> getAllCurrencies() {
         return currencyRepository.findAll();
     }
+
+    @Override
+    public Currency findById(Long id) {
+        return currencyRepository.findById(id).get();
+    }
 }

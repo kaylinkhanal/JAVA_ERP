@@ -52,7 +52,7 @@
                 <jsp:param name="page" value="${page}" />
             </jsp:include>
         </div>
-        <form method="post" action="/invoice/addDeposit">
+        <form method="post" action="/invoice/addDeposit" id="addDepositForm">
             <input type="hidden" value="${deposit.depositId}" name="depositId" id="depositId" />
             <input type="hidden" value="${caseDto.caseId}" name="caseDto" id="caseDto" />
             <input type="hidden" value="${caseDto.customer.customerId}" name="customer" id="customer" />
@@ -166,15 +166,17 @@
                 </div>
 
             </div><br/>
-            <div class="form-row" id="item" style="display: none; background: darkgray">
+            <div class="form-row" id="itemDiv" style="display: none; background: darkgray">
                 <div class="form-group col-md-12">
                     <br/>
-                    <label for="vat" id="itemName" class="col-md-4"></label>
+                    <label id="item" name="item" class="col-md-1"></label>
+                    <label id="itemName" name="itemName" class="col-md-3"></label>
                     <label class="col-md-2">Amount</label>
-                    <input class="col-md-5" type="text" placeholder="0.00">
+                    <input class="col-md-5" type="text" name="itemAmount" id="itemAmount"  placeholder="0.00">
                     <hr/>
                 </div>
-            </div><br>
+            </div>
+            <br>
             <div class="form-row col-md-6">
                 <div class="form-group col-md-2">
                     <input type="submit" value="Save">
@@ -200,3 +202,66 @@
 </body>
 </html>
 <script><%@include file="/WEB-INF/script/invoice.js" %></script>
+<script>
+    $("#addDepositForm").submit(function(e) {
+        e.preventDefault(); // prevent actual form submit
+        // var form = $(this);
+        // var url = form.attr('action'); //get submit url [replace url here if desired]
+        let deposit = new Object();
+        let dto = new Object();
+        let itemName = $('#itemName').html();
+        let item = $('#item').html();
+        let itemAmount = $('#itemAmount').val()
+        let depositNumber = $('#depositNumber').val()
+        let depositDate = $('#depositDate').val()
+        let sequence = $('#sequence').val()
+        let caseRemark = $('#caseRemark').val()
+        let rejectRemark = $('#rejectRemark').val()
+        let depositTitle = $('#depositTitle').val()
+        let vat = $('#vat').val()
+        let currency = $('#currency').val()
+        let exchangeRate = $('#exchangeRate').val()
+        let paymentTerm = $('#paymentTerm').val()
+        let bankAccount = $('#bankAccount').val()
+        let nonVat = $('#nonVat').val()
+        let subtotalVat = $('#subtotalVat').val()
+        let subtotalAmount = $('#subtotalAmount').val()
+        let customer = ${caseDto.customer.customerId};
+        let caseDto = ${caseDto.caseId};
+
+        dto.itemName = itemName;
+        dto.item = item;
+        dto.itemAmount = itemAmount;
+        deposit.depositNumber = depositNumber;
+        deposit.depositTitle = depositTitle;
+        deposit.depositDate = depositDate;
+        deposit.sequence = sequence;
+        deposit.caseRemark = caseRemark;
+        deposit.rejectRemark = rejectRemark;
+        deposit.depositTitle = depositNumber;
+        deposit.vat = vat;
+        deposit.currency = currency;
+        deposit.exchangeRate = exchangeRate;
+        deposit.paymentTerm = paymentTerm;
+        deposit.bankAccount = bankAccount;
+        deposit.nonVat = nonVat;
+        deposit.subtotalVat = subtotalVat;
+        deposit.subtotalAmount = subtotalAmount;
+        deposit.customer = customer;
+        deposit.caseDto = caseDto;
+        const dtoList = [];
+        dtoList[0] = dto;
+        deposit.dtoList = dtoList
+        const dataJson = JSON.stringify(deposit)
+        console.log(dataJson)
+        $.ajax({
+            type: "post",
+            contentType: "application/json",
+            url: "${pageContext.request.contextPath}/invoice/addDeposit/",
+            data: dataJson, // serializes form input
+            success: function(data){
+                console.log(data);
+            }
+        });
+    });
+</script>

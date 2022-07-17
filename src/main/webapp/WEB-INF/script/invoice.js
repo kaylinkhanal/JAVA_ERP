@@ -162,8 +162,9 @@ $("#itemTable").on('click', 'tr', function (e) {
             type: "GET",
             success: function (response) {
                 $("#itemSearchModal .close").click();
+                $("#itemDiv").css('display', 'block')
                 $('#itemName').html(response.itemName);
-                $("#item").css('display', 'block')
+                $('#item').html(response.itemId);
             },
             error: function (XMLHttpRequest) {
                 console.error("Something went wrong");

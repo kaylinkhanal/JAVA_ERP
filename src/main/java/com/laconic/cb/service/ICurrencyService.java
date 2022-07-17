@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ICurrencyService {
     List<Currency> getAllCurrencies();
+    Currency findById(Long id);
 }
