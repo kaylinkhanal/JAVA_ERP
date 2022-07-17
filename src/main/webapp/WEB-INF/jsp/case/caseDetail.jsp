@@ -73,7 +73,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <label for="title">${caseDto.title}</label>
                   </div>
                   <div class="form-group col-md-4">
-                    <button onclick="caseDocumentPreview(${caseDto.caseId});" class="btn btn-primary">Print</button>
+                    <input type="button" onclick="caseDocumentPreview(${caseDto.caseId});" class="btn btn-primary" value="Print">
                   </div>
 <%--                  <div class="form-group col-md-4">--%>
 <%--                    <button onclick="caseDocumentPreview(${caseDto.caseId})" class="btn btn-primary">Print</button>--%>
