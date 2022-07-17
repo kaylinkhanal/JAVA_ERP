@@ -42,10 +42,9 @@
                     <input type="file" class="form-control-file" id="attachImage" name="attachImage">
                 </div>
                 <div class="col-md-12">
-<%--                    <button type="submit" class="btn btn-primary float-right" id="save">Save Email Template</button>--%>
+                    <button type="button" class="btn btn-primary float-right" id="save" onclick="saveEmailData()">Save Email Template</button>
                 </div>
                 <div class="col-md-12">
-<%--                    <button type="button" class="btn btn-primary float-left" id="sendEmail" onclick="sendEmailData()">Send Email</button>--%>
                     <button type="submit" class="btn btn-primary float-left" id="sendEmail">Send Email</button>
                 </div>
             </div>
@@ -60,12 +59,14 @@
     })
 
     <%--function sendEmailData() {--%>
-    <%--    let formData= $('#emailTemplate').serialize();--%>
-    <%--    console.log(formData)--%>
     <%--    $.ajax({--%>
     <%--        url: "${pageContext.request.contextPath}/email/sendEmail",--%>
     <%--        type: "POST",--%>
-    <%--        data: formData,--%>
+    <%--        data: {--%>
+    <%--            templateName: $("#templateName").val(),--%>
+    <%--            subject: $("#subject").val(),--%>
+    <%--            content: $("#content").val(),--%>
+    <%--        },--%>
     <%--        success: function () {--%>
     <%--            alert("sent")--%>
     <%--        },--%>
@@ -74,6 +75,24 @@
     <%--        }--%>
     <%--    });--%>
     <%--}--%>
+
+    function saveEmailData() {
+        $.ajax({
+            url: "${pageContext.request.contextPath}/email/addTemplate",
+            type: "POST",
+            data: {
+                templateName: $("#templateName").val(),
+                subject: $("#subject").val(),
+                content: $("#content").val(),
+            },
+            success: function () {
+
+            },
+            error:  function(XMLHttpRequest) {
+                console.error("Something went wrong");
+            }
+        });
+    }
 </script>
 
 
