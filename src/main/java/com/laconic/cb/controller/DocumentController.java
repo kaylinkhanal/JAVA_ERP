@@ -178,13 +178,14 @@ public class DocumentController {
         return "document/previewDocument";
     }
 
-    @GetMapping("/caseDocumentPreview/{caseId}/{templateId}")
-    public String caseDocumentPreview(@PathVariable Long caseId,
-                                      @PathVariable Long templateId,
-                                      Model model) {
+    @GetMapping("/caseDocumentPreview")
+    public String caseDocumentPreview(
+                                      Model model,
+                                      @RequestParam(value = "caseId", required = true) Long caseId,
+                                      @RequestParam(value = "templateId", required = true) String templateId) {
         Optional<Case> caseDto = caseService.findById(caseId);
         model.addAttribute("caseDto", caseDto);
-        Optional<Document> document = documentService.findById(templateId);
+        Optional<Document> document = documentService.findById(Long.parseLong(templateId));
         if (document.isPresent() && caseDto.isPresent()) {
             Case dbCase = caseDto.get();
             Document dbDocument = document.get();

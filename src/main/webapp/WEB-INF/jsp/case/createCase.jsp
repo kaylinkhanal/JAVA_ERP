@@ -66,7 +66,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                         </c:otherwise>
                       </c:choose>
                       <c:forEach var="title" items="${titles }" >
-                        <option value="${title.caseTypeName }">${title.caseTypeName}</option>
+                        <option value="${title.caseTypeCode }">${title.caseTypeCode}</option>
                       </c:forEach>
                     </select>
                   </div>

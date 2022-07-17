@@ -2,6 +2,7 @@ package com.laconic.cb.controller;
 
 import com.laconic.cb.model.Case;
 import com.laconic.cb.model.Customer;
+import com.laconic.cb.model.Title;
 import com.laconic.cb.service.ICaseService;
 import com.laconic.cb.service.IContactPersonService;
 import com.laconic.cb.service.IDocumentService;
@@ -60,7 +61,8 @@ public class CaseController {
         Customer customer = (Customer) SessionStorage.getStorage(session, "customer");
         model.addAttribute("customer", customer);
         model.addAttribute("contactPersons", contactPersonService.getAllContactPerson());
-        model.addAttribute("titles", titleService.getAllTitles());
+        List<Title> titleList = titleService.getAllTitles();
+        model.addAttribute("titles", titleList);
         return "case/createCase";
     }
 

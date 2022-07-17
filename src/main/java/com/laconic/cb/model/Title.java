@@ -24,7 +24,7 @@ public class Title extends BaseEntity{
     @Column(name = "DURATION")
     private Integer duration;
     @Column(name = "PRICE")
-    private Double price;
+    private String price;
     @Column(name = "IS_DELETED")
     private Boolean isDeleted = false;
     @Column(name = "DISABLE_BY")

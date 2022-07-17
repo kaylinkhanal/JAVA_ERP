@@ -84,9 +84,8 @@
 // }
 
 function caseDocumentPreview(caseId) {
-    let documentTemplateId = $('#document').val()
+    let documentTemplateId = $('#document').val();
     // $.ajax({
-<<<<<<< HEAD
     //     url: "${pageContext.request.contextPath}/document/caseDocumentPreview",
     //     type: "POST",
     //     data: {
@@ -102,14 +101,8 @@ function caseDocumentPreview(caseId) {
     //         console.error("Something went wrong");
     //     }
     // });
-    debugger
-    console.log(caseId)
-    console.log(documentTemplateId)
-    console.log("${pageContext.request.contextPath}/document/caseDocumentPreview/"+caseId+"/"+documentTemplateId)
-    openPage("${pageContext.request.contextPath}/document/caseDocumentPreview/"+caseId+"/"+$('#document').val());
-    debugger
-    console.log(caseId)
-    console.log(documentTemplateId)
+
+    openPage("${pageContext.request.contextPath}/document/caseDocumentPreview?caseId="+caseId+"&templateId="+documentTemplateId);
 }
 
 // function previewDocument() {
@@ -143,7 +136,6 @@ function caseDocumentPreview(caseId) {
 //         }
 //     });
 // }
-=======
     //     url: "${pageContext.request.contextPath}/document/caseDocumentPreview?caseId="+caseId+"&templateId="+documentTemplateId,
     //     type: "GET",
     //     success: function () {
@@ -154,8 +146,8 @@ function caseDocumentPreview(caseId) {
     //         console.error("Something went wrong");
     //     }
     // });
-    openPage("${pageContext.request.contextPath}/document/caseDocumentPreview?caseId="+caseId+"&templateId="+documentTemplateId);
-}
+    // openPage("${pageContext.request.contextPath}/document/caseDocumentPreview?caseId="+caseId+"&templateId="+documentTemplateId);
+
 
 function previewDocument() {
     let executorName = "${caseDto.customer.fullName != null ? caseDto.customer.fullName : caseDto.customer.companyName  }";
@@ -188,7 +180,7 @@ function previewDocument() {
         }
     });
 }
->>>>>>> f296255e35eae9780e7cd8c5f3e93410911dce65
+
 function printBlankDocument(documentId) {
     $.ajax({
         url: "${pageContext.request.contextPath}/document/printTemplate/",

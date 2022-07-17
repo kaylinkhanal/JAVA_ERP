@@ -73,7 +73,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <label for="title">${caseDto.title}</label>
                   </div>
                   <div class="form-group col-md-4">
-                    <button onclick="caseDocumentPreview(${caseDto.caseId});" class="btn btn-primary">Print</button>
+                    <input type="button" onclick="caseDocumentPreview(${caseDto.caseId});" class="btn btn-primary" value="Print">
                   </div>
 <%--                  <div class="form-group col-md-4">--%>
 <%--                    <button onclick="caseDocumentPreview(${caseDto.caseId})" class="btn btn-primary">Print</button>--%>
@@ -87,7 +87,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <label for="customer" class="col-form-label">Customer</label>
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-<%--                    <label for="customer">${caseDto.customer.code} (customer)</label>--%>
+                    <label for="customer">${caseDto.customer.code} (customer)</label>
                   </div>
                 </div>
               </div>
@@ -97,7 +97,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <label for="contact" class="col-form-label">Contact</label>
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-<%--                    <label for="contact">${caseDto.customer.fullName}</label>--%>
+                    <label for="contact">${caseDto.customer.fullName}</label>
                   </div>
                 </div>
               </div>
