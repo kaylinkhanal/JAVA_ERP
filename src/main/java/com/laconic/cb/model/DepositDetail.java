@@ -1,5 +1,6 @@
 package com.laconic.cb.model;
 
+import com.laconic.cb.model.dto.DepositDetailDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,4 +26,9 @@ public class DepositDetail extends BaseEntity {
     private Item item;
     @Column(name = "ITEM_AMOUNT")
     private Double itemAmount;
+
+    public DepositDetail(DepositDetailDto dto) {
+        this.setDepositDetailId(dto.getDepositDetailId());
+        this.setItemAmount(dto.getItemAmount());
+    }
 }

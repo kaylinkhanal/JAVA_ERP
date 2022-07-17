@@ -28,8 +28,9 @@ public class InvoiceController {
     private final ICaseService caseService;
     private final IDepositService depositService;
     private final ICustomerService customerService;
+    private final IDepositDetailService depositDetailService;
 
-    public InvoiceController(IInvoiceService invoiceService, IItemService itemService, ICurrencyService currencyService, IInstallmentService installmentService, ICaseService caseService, IDepositService depositService, ICustomerService customerService) {
+    public InvoiceController(IInvoiceService invoiceService, IItemService itemService, ICurrencyService currencyService, IInstallmentService installmentService, ICaseService caseService, IDepositService depositService, ICustomerService customerService, IDepositDetailService depositDetailService) {
         this.invoiceService = invoiceService;
         this.itemService = itemService;
         this.currencyService = currencyService;
@@ -37,6 +38,7 @@ public class InvoiceController {
         this.caseService = caseService;
         this.depositService = depositService;
         this.customerService = customerService;
+        this.depositDetailService = depositDetailService;
     }
 
     @GetMapping("/create")
@@ -214,6 +216,7 @@ public class InvoiceController {
         return "invoice/createDeposit";
     }
 
+    // need to shift logic part to service
     @PostMapping("addDeposit")
     public String addDeposit(@RequestBody DepositDto deposit, RedirectAttributes redirectAttributes) {
         Deposit savedDeposit;
@@ -224,9 +227,21 @@ public class InvoiceController {
         dbDeposit.setCustomer(customer);
         dbDeposit.setCaseDto(caseDto);
         dbDeposit.setCurrency(currency);
+        // save deposit
         if (deposit.getDepositId() != null) {
             savedDeposit = depositService.updateDeposit(dbDeposit);
         } else savedDeposit = depositService.saveDeposit(dbDeposit);
+        // save deposit detail
+        deposit.getDtoList().forEach(x -> {
+            DepositDetail depositDetail = new DepositDetail(x);
+            Item item = itemService.findById(x.getItem()).get();
+            Deposit deposit1 = depositService.findById(savedDeposit.getDepositId()).get();
+            depositDetail.setItem(item);
+            depositDetail.setDeposit(deposit1);
+            if (x.getDepositDetailId() != null) {
+                depositDetailService.updateDepositDetail(depositDetail);
+            } else depositDetailService.saveDepositDetail(depositDetail);
+        });
         redirectAttributes.addFlashAttribute("invoice", savedDeposit);
         return "invoice/createDeposit";
     }
