@@ -6,9 +6,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.laconic.cb.enums.CaseStatus;
 import lombok.*;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -69,4 +72,13 @@ public class Case extends BaseEntity {
     private String disableBy;
     @Column(name = "DISABLE_DATE")
     private Date disableDate;
+    @Column(name = "CASE_TYPE")
+    private String caseType;
+    @OneToMany
+    @NotFound(action = NotFoundAction.EXCEPTION)
+    @JoinColumn(name = "CASE_ID",
+            referencedColumnName = "CASE_ID",
+            insertable = false, updatable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    private List<CaseDocument> caseDocument = new ArrayList<>();
 }
