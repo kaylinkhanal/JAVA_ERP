@@ -48,32 +48,39 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <input  type="text" class="form-control col-sm-8" id="customerInput" readonly name="customerInput"
                             value="${caseDto.customer.fullName != null ? caseDto.customer.fullName : caseDto.customer.companyName}" required/>
                   </div>
+                  <div class="col-md-12 row">
+                    <label for="title">Title </label>
+                    <input type="text" class="form-control" id="title" name="title" required value="${caseDto.title}"/>
+                  </div>
 <%--                  <div class="col-md-12 row">--%>
-<%--                    <label for="title">Title </label>--%>
-<%--                    <input type="text" class="form-control" id="title" name="title" required value="${caseDto.title}"/>--%>
+<%--                    <label class="col-form-label" for="title">Title</label>--%>
+<%--                    <select id="title" name="title" class="form-control" required>--%>
+<%--                      <c:choose>--%>
+<%--                        <c:when test="${caseDto == null}">--%>
+<%--                          <option selected value="">Choose...</option>--%>
+<%--                        </c:when>--%>
+<%--                        <c:otherwise>--%>
+<%--                          <option selected value="${caseDto.title}">${caseDto.title}</option>--%>
+<%--                        </c:otherwise>--%>
+<%--                      </c:choose>--%>
+<%--                      <c:forEach var="title" items="${titles }" >--%>
+<%--                        <option value="${title.caseTypeCode }">${title.caseTypeCode}</option>--%>
+<%--                      </c:forEach>--%>
+<%--                    </select>--%>
 <%--                  </div>--%>
                   <div class="col-md-12 row">
-                    <label class="col-form-label" for="title">Title</label>
-                    <select id="title" name="title" class="form-control" required>
+                    <label class="col-form-label" for="title">Case Type</label>
+                    <select id="caseType" name="caseType" class="form-control" required>
                       <c:choose>
-                        <c:when test="${caseDto == null}">
+                        <c:when test="${caseDto.caseType == null}">
                           <option selected value="">Choose...</option>
                         </c:when>
                         <c:otherwise>
-                          <option selected value="${caseDto.title}">${caseDto.title}</option>
+                          <option selected value="${caseDto.caseType}">${caseDto.caseType}</option>
                         </c:otherwise>
                       </c:choose>
                       <c:forEach var="title" items="${titles }" >
                         <option value="${title.caseTypeCode }">${title.caseTypeCode}</option>
-                      </c:forEach>
-                    </select>
-                  </div>
-                  <div class="col-md-12 row">
-                    <label class="col-form-label" for="title">Case Type</label>
-                    <select id="caseType" name="caseType" class="form-control" required>
-                      <option selected value="">Choose...</option>
-                      <c:forEach var="title" items="${titles }" >
-                        <option value="${title.caseTypeName }">${title.caseTypeName}</option>
                       </c:forEach>
                     </select>
                   </div>

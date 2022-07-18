@@ -16,8 +16,8 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           <div class="col-md-12">
             <h5 class="float-right">
               <span>Customer ID: </span>
-<%--              <button type="button" class="btn btn-secondary">${caseDto.customer.code}</button>--%>
-<%--              <button type="button" class="btn btn-secondary">${caseDto.customer.companyName != null ? caseDto.customer.companyName : caseDto.customer.fullName}</button>--%>
+              <button type="button" class="btn btn-secondary">${caseDto.customer.code}</button>
+              <button type="button" class="btn btn-secondary">${caseDto.customer.companyName != null ? caseDto.customer.companyName : caseDto.customer.fullName}</button>
             </h5>
           </div>
         </div>
@@ -80,6 +80,16 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
 <%--                  </div>--%>
                 </div>
 
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="form-group col-md-4">
+                    <label class="col-form-label">Case Type</label>
+                  </div>
+                  <div class="col-md-8 d-flex align-items-center">
+                    <label>${caseDto.caseType}</label>
+                  </div>
+                </div>
               </div>
               <div class="col-md-12">
                 <div class="row">
@@ -230,13 +240,55 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
 <%--                  </div>--%>
                 </div>
               </div>
-
             </div>
           </div>
           <br /><br />
+        </form>
+        <form enctype="multipart/form-data" action="/case/attachDocument" method="post" class="col-xs-12 border p-3">
+          <div class="form-group col-md-6">
+            <br/>
+            <input type="file" class="form-control-file" id="multipartFile" name="multipartFile">
+            <br/>
+            <input type="hidden" name="caseId" value="${caseDto.caseId}" />
+            <input type="hidden" name="documentName" id="documentName" />
+            <input type="submit" class="btn btn-primary" value="Attach Document" /><br/><br/>
+          </div>
+          <%--              show document--%>
+          <div align="center" class="col-md-12">
+            <table border="1" width="100%" class="table table-striped" >
+              <thead align="center" class="bg-primary">
+              <tr>
+                <td>Document Name</td>
+                <td>Action</td>
+              </tr>
+              </thead>
+              <c:forEach items="${caseDto.caseDocument}" var="document">
+                <tbody align="center">
+                <tr>
+                  <td>${document.documentName}</td>
+                  <td>
+                    <i class="far fa-trash-alt icon-button" onclick="openPage('/case/deleteCaseDocument/${caseDto.caseId}/${document.caseDocumentId}')"></i>
+                  </td>
+                </tr>
+                </tbody>
+              </c:forEach>
+            </table>
+            <jsp:include page="/WEB-INF/jsp/templates/page.jsp">
+              <jsp:param name="page" value="${page}" />
+            </jsp:include>
+          </div>
         </form>
       </div>
     </div>
   </body>
 </html>
+<script>
+  $(document).ready(function() {
+    $('input[type="file"]').change(function(e) {
+      var file = e.target.files[0].name;
+      $("#documentName").val(file)
+      console.log(file)
+    });
+  });
+</script>
 <script><%@include file="/WEB-INF/script/documentPreview.js" %></script>
