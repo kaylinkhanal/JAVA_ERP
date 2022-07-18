@@ -214,6 +214,7 @@ public class InvoiceController {
         return "invoice/createDeposit";
     }
 
+    // need to shift logic to service
     @PostMapping("addDeposit")
     public String addDeposit(@RequestBody DepositDto deposit, RedirectAttributes redirectAttributes) {
         Deposit savedDeposit;
@@ -233,8 +234,7 @@ public class InvoiceController {
 
     @GetMapping("/depositList")
     @ResponseBody
-    public List<Deposit> depositList(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
-                                             @RequestParam(value = "caseId", defaultValue = DEFAULT_PAGE_NUMBER, required = false) Long caseId) {
+    public List<Deposit> depositList(@RequestParam(value = "caseId", defaultValue = DEFAULT_PAGE_NUMBER, required = false) Long caseId) {
         return depositService.getAllDeposit(caseId);
     }
 
