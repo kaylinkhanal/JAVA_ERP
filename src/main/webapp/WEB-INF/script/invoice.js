@@ -194,6 +194,7 @@ $("#installmentTable").on('click', 'tr', function (e) {
                 $("#installmentSearchModal .close").click();
                 $('#installmentTitle').html(response.installmentTitle);
                 $("#installment").css('display', 'block')
+                // $("#item").css('display', 'block')
             },
             error: function (XMLHttpRequest) {
                 console.error("Something went wrong");
