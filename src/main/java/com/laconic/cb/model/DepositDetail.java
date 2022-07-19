@@ -26,6 +26,8 @@ public class DepositDetail extends BaseEntity {
     private Item item;
     @Column(name = "ITEM_AMOUNT")
     private Double itemAmount;
+    @Column(name = "IS_DELETED")
+    private Boolean isDeleted = false;
 
     public DepositDetail(DepositDetailDto dto) {
         this.setDepositDetailId(dto.getDepositDetailId());

@@ -1,0 +1,1 @@
+UPDATE title SET IS_DELETED = 0

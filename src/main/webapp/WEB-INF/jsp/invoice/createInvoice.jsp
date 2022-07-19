@@ -51,13 +51,14 @@
                 <jsp:param name="page" value="${page}" />
             </jsp:include>
         </div>
-        <form method="post" action="/invoice/addInvoice">
+        <form method="post" id="addInvoiceForm" action="/invoice/addInvoice">
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label for="invoiceNumber">Invoice Number: </label>
                     <input type="text" disabled class="form-control" id="invoiceNumber" name="invoiceNumber" value="${invoiceNumber!=null ? invoiceNumber: invoice.invoiceNumber}" />
                     <input type="hidden" name="invoiceNumber" value="${invoiceNumber}" />
-                    <input type="hidden" name="caseDto" value="${caseId}" />
+                    <input type="hidden" name="caseDto" value="${caseDto.caseId}" />
+<%--                    <input type="hidden" name="customer" value="${caseDto.customer.customerId}" />--%>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="invoiceDate">Invoice Date: </label>
@@ -173,6 +174,13 @@
                     <input type="text" class="form-control" id="subtotalAmount" name="subtotalAmount" value="" />
                 </div>
 
+                <div class="form-group col-md-6">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="exchangeRate">Actual Amount </label>
+                    <input type="text" class="form-control" id="amount" name="amount" value="" />
+                </div>
+
             </div><br/>
 <%--            <div class="form-row" id="itemDiv" style="display: none; background: darkgray">--%>
 <%--                <div class="form-group col-md-12">--%>
@@ -199,33 +207,66 @@
                     <hr/>
                 </div>
             </div>
-            <br>
-            <br>
             <div class="form-row" id="installmentDiv" style="display: none; background: darkgray">
                 <div class="form-group col-md-12">
                     <br/>
-                    <label for="vat" id="installmentTitle" class="col-md-4"></label>
+                    <label id="installment" name="installment" class="col-md-1"></label>
+                    <label id="installmentTitle" class="col-md-3"></label>
                     <label class="col-md-2">Amount</label>
-                    <input class="col-md-5" type="text" placeholder="0.00">
+                    <input class="col-md-5" type="text" name="installmentAmount" id="installmentAmount" placeholder="0.00">
                     <button type="button" class="installmentClose" id="installmentClose">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <hr/>
                 </div>
-            </div><br>
+            </div>
             <div class="form-row" id="depositDiv" style="display: none; background: darkgray">
                 <div class="form-group col-md-12">
                     <br/>
-                    <label for="vat" id="depositTitle" class="col-md-4"></label>
+                    <label id="deposit" name="deposit" class="col-md-1"></label>
+                    <label for="vat" id="depositTitle" class="col-md-3"></label>
                     <label class="col-md-2">Amount</label>
-                    <input class="col-md-5" type="text" placeholder="0.00">
+                    <input class="col-md-5" type="text" placeholder="0.00" name="depositAmount" id="depositAmount">
                     <button type="button" class="depositClose" id="depositClose">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <hr/>
                 </div>
-            </div><br>
-            <input class="btn btn-primary" value="Save" type="submit"/>
+            </div>
+<%--            <div class="form-row" id="installmentDiv" style="display: none; background: darkgray">--%>
+<%--                <div class="form-group col-md-12">--%>
+<%--                    <br/>--%>
+<%--                    <label id="installment" name="installment" class="col-md-1"></label>--%>
+<%--                    <label id="installmentTitle" class="col-md-4"></label>--%>
+<%--                    <label class="col-md-2">Amount</label>--%>
+<%--                    <input class="col-md-5" type="text" name="installmentAmount" id="installmentAmount" placeholder="0.00">--%>
+<%--                    <button type="button" class="installmentClose" id="installmentClose">--%>
+<%--                        <span aria-hidden="true">&times;</span>--%>
+<%--                    </button>--%>
+<%--                    <hr/>--%>
+<%--                </div>--%>
+<%--            </div><br>--%>
+<%--            <div class="form-row" id="depositDiv" style="display: none; background: darkgray">--%>
+<%--                <div class="form-group col-md-12">--%>
+<%--                    <br/>--%>
+<%--                    <label id="deposit" name="deposit" class="col-md-1"></label>--%>
+<%--                    <label for="vat" id="depositTitle" class="col-md-4"></label>--%>
+<%--                    <label class="col-md-2">Amount</label>--%>
+<%--                    <input class="col-md-5" type="text" placeholder="0.00" name="depositAmount" id="depositAmount">--%>
+<%--                    <button type="button" class="depositClose" id="depositClose">--%>
+<%--                        <span aria-hidden="true">&times;</span>--%>
+<%--                    </button>--%>
+<%--                    <hr/>--%>
+<%--                </div>--%>
+<%--            </div><br>--%>
+            <div class="form-row col-md-6">
+                <div class="form-group col-md-2">
+                    <input type="submit" value="Save">
+                </div>
+                <div class="form-group col-md-2">
+                    <input type="button" value="Cancel">
+                </div>
+            </div>
         </form>
         <br>
     </div>
@@ -261,4 +302,82 @@
 </body>
 </body>
 </html>
+<script>
+    $("#addInvoiceForm").submit(function(e) {
+        e.preventDefault(); // prevent actual form submit
+        // var form = $(this);
+        // var url = form.attr('action'); //get submit url [replace url here if desired]
+        let invoice = new Object();
+        let dto = new Object();
+        let itemName = $('#itemName').html();
+        let item = $('#item').html();
+        let itemAmount = $('#itemAmount').val()
+        let installmentName = $('#installmentTitle').html();
+        let installment = $('#installment').html();
+        let installmentAmount = $('#installmentAmount').val()
+        let depositName = $('#depositTitle').html();
+        let deposit = $('#deposit').html();
+        let depositAmount = $('#depositAmount').val()
+
+        let invoiceNumber = $('#invoiceNumber').val()
+        let invoiceDate = $('#invoiceDate').val()
+        let re = $('#re').val()
+        let caseRemark = $('#caseRemark').val()
+        let rejectRemark = $('#rejectRemark').val()
+        let invoiceTitle = $('#invoiceTitle').val()
+        let vat = $('#vat').val()
+        let currency = $('#currency').val()
+        let exchangeRate = $('#exchangeRate').val()
+        let paymentTerm = $('#paymentTerm').val()
+        let bankAccount = $('#bankAccount').val()
+        let nonVat = $('#nonVat').val()
+        let subtotalVat = $('#subtotalVat').val()
+        let subtotalAmount = $('#subtotalAmount').val()
+        let description = $('#description').val()
+        let caseDto = ${caseDto.caseId};
+
+        dto.itemName = itemName;
+        dto.item = item;
+        dto.itemAmount = itemAmount;
+        dto.installmentName = installmentName;
+        dto.installment = installment;
+        dto.installmentAmount = installmentAmount;
+        dto.depositName = depositName;
+        dto.deposit = deposit;
+        dto.depositAmount = depositAmount;
+        invoice.invoiceNumber = invoiceNumber;
+        invoice.invoiceTitle = invoiceTitle;
+        invoice.invoiceDate = invoiceDate;
+        invoice.re = re;
+        invoice.caseRemark = caseRemark;
+        invoice.rejectRemark = rejectRemark;
+        invoice.invoiceTitle = invoiceNumber;
+        invoice.vat = vat;
+        invoice.currency = currency;
+        invoice.exchangeRate = exchangeRate;
+        invoice.paymentTerm = paymentTerm;
+        invoice.bankAccount = bankAccount;
+        invoice.nonVat = nonVat;
+        invoice.subtotalVat = subtotalVat;
+        invoice.subtotalAmount = subtotalAmount;
+        invoice.description = description;
+        // invoice.customer = customer;
+        invoice.caseDto = caseDto;
+        const dtoList = [];
+        dtoList[0] = dto;
+        invoice.dtoList = dtoList
+        const dataJson = JSON.stringify(invoice)
+        console.log(dataJson)
+        $.ajax({
+            type: "post",
+            contentType: "application/json",
+            url: "${pageContext.request.contextPath}/invoice/addInvoice/",
+            data: dataJson, // serializes form input
+            success: function(data){
+                openPage("${pageContext.request.contextPath}/case/list");
+            }
+        });
+    });
+</script>
 <script><%@include file="/WEB-INF/script/invoice.js" %></script>
+

@@ -193,6 +193,7 @@ $("#installmentTable").on('click', 'tr', function (e) {
             success: function (response) {
                 $("#installmentSearchModal .close").click();
                 $('#installmentTitle').html(response.installmentTitle);
+                $('#installment').html(response.installmentId);
                 $("#installmentDiv").css('display', 'block')
                 // $("#item").css('display', 'block')
             },
@@ -214,6 +215,7 @@ $("#depositTable").on('click', 'tr', function (e) {
             success: function (response) {
                 $("#depositSearchModal .close").click();
                 $('#depositTitle').html(response.depositTitle);
+                $('#deposit').html(response.depositId);
                 $("#depositDiv").css('display', 'block')
             },
             error: function (XMLHttpRequest) {

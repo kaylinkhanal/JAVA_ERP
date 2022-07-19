@@ -247,7 +247,6 @@
     installment.sequence = sequence;
     installment.caseRemark = caseRemark;
     installment.rejectRemark = rejectRemark;
-    installment.installmentTitle = installmentNumber;
     installment.vat = vat;
     installment.currency = currency;
     installment.exchangeRate = exchangeRate;
@@ -270,6 +269,7 @@
       data: dataJson, // serializes form input
       success: function(data){
         console.log(data);
+        openPage("${pageContext.request.contextPath}/case/list");
       }
     });
   });

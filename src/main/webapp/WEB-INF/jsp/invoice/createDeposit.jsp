@@ -241,7 +241,6 @@
         deposit.sequence = sequence;
         deposit.caseRemark = caseRemark;
         deposit.rejectRemark = rejectRemark;
-        deposit.depositTitle = depositNumber;
         deposit.vat = vat;
         deposit.currency = currency;
         deposit.exchangeRate = exchangeRate;
@@ -263,7 +262,7 @@
             url: "${pageContext.request.contextPath}/invoice/addDeposit/",
             data: dataJson, // serializes form input
             success: function(data){
-                console.log(data);
+                openPage("${pageContext.request.contextPath}/case/list");
             }
         });
     });

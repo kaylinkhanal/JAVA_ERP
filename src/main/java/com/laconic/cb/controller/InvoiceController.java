@@ -4,6 +4,7 @@ import com.laconic.cb.model.*;
 import com.laconic.cb.model.dto.DepositDto;
 import com.laconic.cb.model.dto.InstallmentDetailDto;
 import com.laconic.cb.model.dto.InstallmentDto;
+import com.laconic.cb.model.dto.InvoiceDto;
 import com.laconic.cb.service.*;
 import com.laconic.cb.utils.Pagination;
 import org.springframework.data.domain.Page;
@@ -47,10 +48,13 @@ public class InvoiceController {
     public String createInvoice(@RequestParam(value = "caseId", defaultValue = "0", required = false) Long caseId,
                                 @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
                                 ModelMap modelMap, Model model) {
+        Optional<Case> caseDto = caseService.findById(caseId);
         Long invoiceNumber = invoiceService.getInvoiceNumber();
         String number = "INS-"+ String.valueOf(invoiceNumber);
         model.addAttribute("invoiceNumber", number);
-        model.addAttribute("caseId", caseId);
+        if (caseDto.isPresent()) {
+            model.addAttribute("caseDto", caseDto.get());
+        }
         model.addAttribute("currencies", currencyService.getAllCurrencies());
         Page<Invoice> invoicePage = invoiceService.getAllInvoices(pageNo, caseId);
         List<Invoice> invoiceList = invoicePage.getContent().stream().collect(Collectors.toList());
@@ -89,13 +93,15 @@ public class InvoiceController {
     }
 
     @PostMapping("/addInvoice")
-    public String addInvoice(Invoice invoice, RedirectAttributes redirectAttributes) {
+    @ResponseBody
+    public String addInvoice(@RequestBody InvoiceDto dto, RedirectAttributes redirectAttributes) {
         Invoice savedInvoice;
-        if (invoice.getInvoiceId() != null) {
-            savedInvoice = invoiceService.updateInvoice(invoice);
-        } else savedInvoice = invoiceService.saveInvoice(invoice);
+        if (dto.getInvoiceId() != null) {
+            savedInvoice = invoiceService.updateInvoice(dto);
+        } else savedInvoice = invoiceService.saveInvoice(dto);
         redirectAttributes.addFlashAttribute("invoice", savedInvoice);
-        return "redirect:/invoice/create";
+//        return "redirect:/invoice/create";
+        return "Success";
     }
     @GetMapping("/createItem")
     public String createItem(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
@@ -227,6 +233,7 @@ public class InvoiceController {
 
     // need to shift logic part to service
     @PostMapping("addDeposit")
+    @ResponseBody
     public String addDeposit(@RequestBody DepositDto deposit, RedirectAttributes redirectAttributes) {
         Deposit savedDeposit;
         Deposit dbDeposit = new Deposit(deposit);
@@ -243,16 +250,16 @@ public class InvoiceController {
         // save deposit detail
         deposit.getDtoList().forEach(x -> {
             DepositDetail depositDetail = new DepositDetail(x);
-            Item item = itemService.findById(x.getItem()).get();
+            Optional<Item> item = itemService.findById(x.getItem());
             Deposit deposit1 = depositService.findById(savedDeposit.getDepositId()).get();
-            depositDetail.setItem(item);
+            if (item.isPresent()) depositDetail.setItem(item.get());
             depositDetail.setDeposit(deposit1);
             if (x.getDepositDetailId() != null) {
                 depositDetailService.updateDepositDetail(depositDetail);
             } else depositDetailService.saveDepositDetail(depositDetail);
         });
         redirectAttributes.addFlashAttribute("invoice", savedDeposit);
-        return "invoice/createDeposit";
+        return "success";
     }
 
     @GetMapping("/depositList")

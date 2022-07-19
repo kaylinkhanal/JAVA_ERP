@@ -62,9 +62,9 @@ public class InstallmentService implements IInstallmentService {
     private Installment getInstallment(InstallmentDto dto, Installment savedInstallment) {
         dto.getDtoList().forEach(x-> {
             InstallmentDetail installmentDetail = new InstallmentDetail(x);
-            Item item = iItemRepository.findByItemIdAndIsDeletedFalse(x.getItem()).get();
+            Optional<Item> item = iItemRepository.findByItemIdAndIsDeletedFalse(x.getItem());
             installmentDetail.setInstallment(savedInstallment);
-            installmentDetail.setItem(item);
+            if (item.isPresent()) installmentDetail.setItem(item.get());
             if (x.getInstallmentDetailId() != null) {
                 installmentDetailRepository.saveAndFlush(installmentDetail);
             } else installmentDetailRepository.saveAndFlush(installmentDetail);
