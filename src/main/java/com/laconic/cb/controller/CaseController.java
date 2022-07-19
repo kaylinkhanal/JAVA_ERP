@@ -3,10 +3,8 @@ package com.laconic.cb.controller;
 import com.laconic.cb.model.Case;
 import com.laconic.cb.model.Customer;
 import com.laconic.cb.model.Title;
-import com.laconic.cb.service.ICaseService;
-import com.laconic.cb.service.IContactPersonService;
-import com.laconic.cb.service.IDocumentService;
-import com.laconic.cb.service.ITitleService;
+import com.laconic.cb.model.dto.CaseDocumentRequest;
+import com.laconic.cb.service.*;
 import com.laconic.cb.utils.Pagination;
 import com.laconic.cb.utils.SessionStorage;
 import org.springframework.data.domain.Page;
@@ -31,12 +29,14 @@ public class CaseController {
     private final IContactPersonService contactPersonService;
     private final ITitleService titleService;
     private final IDocumentService documentService;
+    private final ICaseDocumentService caseDocumentService;
 
-    public CaseController(ICaseService caseService, IContactPersonService contactPersonService, ITitleService titleService, IDocumentService documentService) {
+    public CaseController(ICaseService caseService, IContactPersonService contactPersonService, ITitleService titleService, IDocumentService documentService, ICaseDocumentService caseDocumentService) {
         this.caseService = caseService;
         this.contactPersonService = contactPersonService;
         this.titleService = titleService;
         this.documentService = documentService;
+        this.caseDocumentService = caseDocumentService;
     }
 
     @GetMapping("/list")
@@ -106,5 +106,26 @@ public class CaseController {
     public String deleteCase(@PathVariable("id") Long id) {
         caseService.softDeleteCase(id);
         return "redirect:/case/list";
+    }
+
+    @GetMapping("/endCase/{id}")
+    public String endCase(@PathVariable("id") Long id) {
+        caseService.endCase(id);
+        return "redirect:/case/list";
+    }
+
+    @PostMapping("/attachDocument")
+    public String attachDocument(CaseDocumentRequest request, Model model) throws Exception {
+        Case caseDto = caseDocumentService.uploadCaseDocument(request);
+        model.addAttribute("caseDto", caseDto);
+        return "redirect:/case/detail/"+caseDto.getCaseId();
+    }
+
+    @GetMapping("/deleteCaseDocument/{caseId}/{documentId}")
+    public String deleteDocument(Model model,
+                                 @PathVariable("caseId") Long caseId, @PathVariable("documentId") Long documentId){
+        Case caseDto = caseDocumentService.deleteCaseDocument(caseId, documentId);
+        model.addAttribute("caseDto", caseDto);
+        return "redirect:/case/detail/"+caseId;
     }
 }

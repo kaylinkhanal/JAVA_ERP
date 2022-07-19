@@ -11,7 +11,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
   </head>
   <body>
     <div class="container-wrapper">
-      <div class="container mt-5">
+      <div class="container-fluid mt-5">
         <div class="row">
           <div class="col-md-12">
             <h3 class="float-right">
@@ -83,6 +83,11 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                       <i class="far fa-edit icon-button" onclick="openPage('/case/editCase/${caseDto.caseId}')"></i>
                       <i class="far fa-file-alt icon-button" onclick="openPage('/case/detail/${caseDto.caseId}')"></i>
                       <i class="far fa-trash-alt icon-button" onclick="openPage('/case/deleteCase/${caseDto.caseId}')"></i>
+
+<%--                      <i class="far fa-trash-alt icon-button" onclick="openPage('/case/deleteCase/${caseDto.caseId}')"></i>--%>
+                      <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="End Case" data-placement="right">
+                        <i style="font-size:15px" class="fa icon-button" onclick="openPage('/case/endCase/${caseDto.caseId}')">&#xf142;</i>
+                      </span>
                     </td>
                   </tr>
                   </tbody>

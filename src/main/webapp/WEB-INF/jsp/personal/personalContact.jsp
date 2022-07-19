@@ -68,7 +68,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           <div class="form-row">
             <div class="form-group col-md-12">
               <label for="description">Description: </label>
-              <textArea type="text" row="3"  class="form-control" id="description" name="description" required>${contact.description}</textArea>
+              <textArea type="text" row="3"  class="form-control" id="description" name="description">${contact.description}</textArea>
             </div>
           </div>
           <c:choose>

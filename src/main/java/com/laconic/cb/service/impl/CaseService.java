@@ -2,13 +2,20 @@ package com.laconic.cb.service.impl;
 
 import com.laconic.cb.constants.AppConstants;
 import com.laconic.cb.model.Case;
+import com.laconic.cb.model.Deposit;
+import com.laconic.cb.model.Installment;
+import com.laconic.cb.model.Invoice;
 import com.laconic.cb.repository.ICaseRepository;
+import com.laconic.cb.repository.IDepositRepository;
+import com.laconic.cb.repository.IInstallmentRepository;
+import com.laconic.cb.repository.IInvoiceRepository;
 import com.laconic.cb.service.ICaseService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,9 +23,15 @@ import java.util.Optional;
 public class CaseService implements ICaseService {
 
     private final ICaseRepository caseRepository;
+    private final IInvoiceRepository invoiceRepository;
+    private final IInstallmentRepository installmentRepository;
+    private final IDepositRepository depositRepository;
 
-    public CaseService(ICaseRepository caseRepository) {
+    public CaseService(ICaseRepository caseRepository, IInvoiceRepository invoiceRepository, IInstallmentRepository installmentRepository, IDepositRepository depositRepository) {
         this.caseRepository = caseRepository;
+        this.invoiceRepository = invoiceRepository;
+        this.installmentRepository = installmentRepository;
+        this.depositRepository = depositRepository;
     }
 
     @Override
@@ -55,5 +68,26 @@ public class CaseService implements ICaseService {
     @Override
     public List<Case> searchCase(String keyword) {
         return caseRepository.findByTitleContainingIgnoreCaseOrCustomer_FullNameLikeIgnoreCaseOrCustomer_CompanyNameLikeIgnoreCaseAndIsDeletedFalse(keyword, keyword, keyword);
+    }
+
+    @Override
+    @Transactional
+    public void endCase(Long id) {
+        Optional<Case> optionalCase = caseRepository.findByCaseIdAndIsDeletedFalse(id);
+        if (optionalCase != null) {
+            Case caseDto = optionalCase.get();
+            // get case related invoices, installments and deposits
+            List<Invoice> caseInvoices = invoiceRepository.findAllByIsDeletedFalseAndCaseDto_CaseId(caseDto.getCaseId());
+            List<Installment> caseInstallments = installmentRepository.findAllByIsDeletedFalseAndCaseDto_CaseId(caseDto.getCaseId());
+            List<Deposit> caseDeposits = depositRepository.findAllByIsDeletedFalseAndCaseDto_CaseId(caseDto.getCaseId());
+
+            // delete all invoices, installments and deposits related to case
+            invoiceRepository.deleteAll(caseInvoices);
+            installmentRepository.deleteAll(caseInstallments);
+            depositRepository.deleteAll(caseDeposits);
+
+            // delete the case itself
+            caseRepository.delete(caseDto);
+        }
     }
 }
