@@ -2,6 +2,8 @@ package com.laconic.cb.controller;
 
 import com.laconic.cb.model.*;
 import com.laconic.cb.model.dto.DepositDto;
+import com.laconic.cb.model.dto.InstallmentDetailDto;
+import com.laconic.cb.model.dto.InstallmentDto;
 import com.laconic.cb.service.*;
 import com.laconic.cb.utils.Pagination;
 import org.springframework.data.domain.Page;
@@ -124,19 +126,26 @@ public class InvoiceController {
     }
 
     @PostMapping("addInstallment")
-    public String addInstallment(Installment installment, RedirectAttributes redirectAttributes) {
+    @ResponseBody
+    public String addInstallment(@RequestBody InstallmentDto dto, RedirectAttributes redirectAttributes) {
         Installment savedInstallment;
-        if (installment.getInstallmentId() != null) {
-            savedInstallment = installmentService.updateInstallment(installment);
-        } else savedInstallment = installmentService.saveInstallment(installment);
+        if (dto.getInstallmentId() != null) {
+            savedInstallment = installmentService.updateInstallment(dto);
+        } else savedInstallment = installmentService.saveInstallment(dto);
         redirectAttributes.addFlashAttribute("invoice", savedInstallment);
-        return "invoice/createInstallment";
+        return "success";
     }
 
     @GetMapping("/deleteInstallment/{id}")
     public String deleteInstallment(@PathVariable("id") Long id) {
         installmentService.softDeleteInstallment(id);
-        return "redirect:/invoice/createInstallment";
+        return "redirect:/case/list";
+    }
+
+    @GetMapping("/deleteDeposit/{id}")
+    public String deleteDeposit(@PathVariable("id") Long id) {
+        depositService.softDeleteDeposit(id);
+        return "redirect:/case/list";
     }
 
     @GetMapping("/deleteItem/{id}")

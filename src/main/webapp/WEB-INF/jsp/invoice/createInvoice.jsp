@@ -174,39 +174,54 @@
                 </div>
 
             </div><br/>
-            <div class="form-row" id="item" style="display: none; background: darkgray">
+<%--            <div class="form-row" id="itemDiv" style="display: none; background: darkgray">--%>
+<%--                <div class="form-group col-md-12">--%>
+<%--                    <br/>--%>
+<%--                    <button type="button" class="itemClose" id="itemClose">--%>
+<%--                        <span aria-hidden="true">&times;</span>--%>
+<%--                    </button>--%>
+<%--                    <label for="vat" id="itemName" class="col-md-4"></label>--%>
+<%--                    <label class="col-md-2">Amount</label>--%>
+<%--                    <input class="col-md-5" type="text" placeholder="0.00">--%>
+<%--                    <hr/>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+            <div class="form-row" id="itemDiv" style="display: none; background: darkgray">
                 <div class="form-group col-md-12">
                     <br/>
+                    <label id="item" name="item" class="col-md-1"></label>
+                    <label id="itemName" name="itemName" class="col-md-3"></label>
+                    <label class="col-md-2">Amount</label>
+                    <input class="col-md-5" type="text" name="itemAmount" id="itemAmount"  placeholder="0.00">
                     <button type="button" class="itemClose" id="itemClose">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <label for="vat" id="itemName" class="col-md-4"></label>
-                    <label class="col-md-2">Amount</label>
-                    <input class="col-md-5" type="text" placeholder="0.00">
                     <hr/>
                 </div>
-            </div><br>
-            <div class="form-row" id="installment" style="display: none; background: darkgray">
+            </div>
+            <br>
+            <br>
+            <div class="form-row" id="installmentDiv" style="display: none; background: darkgray">
                 <div class="form-group col-md-12">
                     <br/>
-                    <button type="button" class="installmentClose" id="installmentClose">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                     <label for="vat" id="installmentTitle" class="col-md-4"></label>
                     <label class="col-md-2">Amount</label>
                     <input class="col-md-5" type="text" placeholder="0.00">
+                    <button type="button" class="installmentClose" id="installmentClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                     <hr/>
                 </div>
             </div><br>
-            <div class="form-row" id="deposit" style="display: none; background: darkgray">
+            <div class="form-row" id="depositDiv" style="display: none; background: darkgray">
                 <div class="form-group col-md-12">
                     <br/>
-                    <button type="button" class="depositClose" id="depositClose">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                     <label for="vat" id="depositTitle" class="col-md-4"></label>
                     <label class="col-md-2">Amount</label>
                     <input class="col-md-5" type="text" placeholder="0.00">
+                    <button type="button" class="depositClose" id="depositClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                     <hr/>
                 </div>
             </div><br>

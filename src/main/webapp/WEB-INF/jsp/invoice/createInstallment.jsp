@@ -52,7 +52,7 @@
         <jsp:param name="page" value="${page}" />
       </jsp:include>
     </div>
-    <form method="post" action="/invoice/addInstallment">
+    <form method="post" id="addInstallmentForm" action="/invoice/addInstallment">
       <input type="hidden" value="${installment.installmentId}" name="installmentId" id="installmentId" />
       <input type="hidden" value="${caseDto.caseId}" name="caseDto" id="caseDto" />
       <input type="hidden" value="${caseDto.customer.customerId}" name="customer" id="customer" />
@@ -174,18 +174,18 @@
 <%--          <input class="col-md-5" type="text" placeholder="0.00">--%>
 <%--          <hr/>--%>
 <%--        </div>--%>
-      <div class="form-row" id="item" style="display: none; background: darkgray">
+      <div class="form-row" id="itemDiv" style="display: none; background: darkgray">
         <div class="form-group col-md-12">
           <br/>
+          <label id="item" name="item" class="col-md-1"></label>
+          <label id="itemName" name="itemName" class="col-md-3"></label>
+          <label class="col-md-2">Amount</label>
+          <input class="col-md-5" type="text" name="itemAmount" id="itemAmount"  placeholder="0.00">
           <button type="button" class="itemClose" id="itemClose">
             <span aria-hidden="true">&times;</span>
           </button>
-          <label for="vat" id="itemName" class="col-md-4"></label>
-          <label class="col-md-2">Amount</label>
-          <input class="col-md-5" type="text" placeholder="0.00">
           <hr/>
         </div>
-      </div><br>
       </div><br>
       <div class="form-row col-md-6">
         <div class="form-group col-md-2">
@@ -211,4 +211,67 @@
 </body>
 </body>
 </html>
+<script>
+  $("#addInstallmentForm").submit(function(e) {
+    e.preventDefault(); // prevent actual form submit
+    // var form = $(this);
+    // var url = form.attr('action'); //get submit url [replace url here if desired]
+    let installment = new Object();
+    let dto = new Object();
+    let itemName = $('#itemName').html();
+    let item = $('#item').html();
+    let itemAmount = $('#itemAmount').val()
+    let installmentNumber = $('#installmentNumber').val()
+    let installmentDate = $('#installmentDate').val()
+    let sequence = $('#sequence').val()
+    let caseRemark = $('#caseRemark').val()
+    let rejectRemark = $('#rejectRemark').val()
+    let installmentTitle = $('#installmentTitle').val()
+    let vat = $('#vat').val()
+    let currency = $('#currency').val()
+    let exchangeRate = $('#exchangeRate').val()
+    let paymentTerm = $('#paymentTerm').val()
+    let bankAccount = $('#bankAccount').val()
+    let nonVat = $('#nonVat').val()
+    let subtotalVat = $('#subtotalVat').val()
+    let subtotalAmount = $('#subtotalAmount').val()
+    let customer = ${caseDto.customer.customerId};
+    let caseDto = ${caseDto.caseId};
+
+    dto.itemName = itemName;
+    dto.item = item;
+    dto.itemAmount = itemAmount;
+    installment.installmentNumber = installmentNumber;
+    installment.installmentTitle = installmentTitle;
+    installment.installmentDate = installmentDate;
+    installment.sequence = sequence;
+    installment.caseRemark = caseRemark;
+    installment.rejectRemark = rejectRemark;
+    installment.installmentTitle = installmentNumber;
+    installment.vat = vat;
+    installment.currency = currency;
+    installment.exchangeRate = exchangeRate;
+    installment.paymentTerm = paymentTerm;
+    installment.bankAccount = bankAccount;
+    installment.nonVat = nonVat;
+    installment.subtotalVat = subtotalVat;
+    installment.subtotalAmount = subtotalAmount;
+    installment.customer = customer;
+    installment.caseDto = caseDto;
+    const dtoList = [];
+    dtoList[0] = dto;
+    installment.dtoList = dtoList
+    const dataJson = JSON.stringify(installment)
+    console.log(dataJson)
+    $.ajax({
+      type: "post",
+      contentType: "application/json",
+      url: "${pageContext.request.contextPath}/invoice/addInstallment/",
+      data: dataJson, // serializes form input
+      success: function(data){
+        console.log(data);
+      }
+    });
+  });
+</script>
 <script><%@include file="/WEB-INF/script/invoice.js" %></script>

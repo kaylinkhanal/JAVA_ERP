@@ -162,9 +162,9 @@ $("#itemTable").on('click', 'tr', function (e) {
             type: "GET",
             success: function (response) {
                 $("#itemSearchModal .close").click();
-                $("#itemDiv").css('display', 'block')
                 $('#itemName').html(response.itemName);
                 $('#item').html(response.itemId);
+                $("#itemDiv").css('display', 'block')
             },
             error: function (XMLHttpRequest) {
                 console.error("Something went wrong");
@@ -174,13 +174,13 @@ $("#itemTable").on('click', 'tr', function (e) {
 });
 
 $("#itemClose").click(function () {
-    $("#item").css('display', 'none')
+    $("#itemDiv").css('display', 'none')
 });
 $("#installmentClose").click(function () {
-    $("#installment").css('display', 'none')
+    $("#installmentDiv").css('display', 'none')
 });
 $("#depositClose").click(function () {
-    $("#deposit").css('display', 'none')
+    $("#depositDiv").css('display', 'none')
 });
 
 $("#installmentTable").on('click', 'tr', function (e) {
@@ -193,7 +193,7 @@ $("#installmentTable").on('click', 'tr', function (e) {
             success: function (response) {
                 $("#installmentSearchModal .close").click();
                 $('#installmentTitle').html(response.installmentTitle);
-                $("#installment").css('display', 'block')
+                $("#installmentDiv").css('display', 'block')
                 // $("#item").css('display', 'block')
             },
             error: function (XMLHttpRequest) {
@@ -214,7 +214,7 @@ $("#depositTable").on('click', 'tr', function (e) {
             success: function (response) {
                 $("#depositSearchModal .close").click();
                 $('#depositTitle').html(response.depositTitle);
-                $("#deposit").css('display', 'block')
+                $("#depositDiv").css('display', 'block')
             },
             error: function (XMLHttpRequest) {
                 console.error("Something went wrong");

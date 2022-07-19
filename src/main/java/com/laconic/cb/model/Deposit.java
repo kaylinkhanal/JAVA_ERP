@@ -45,7 +45,7 @@ public class Deposit extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "CASE_ID")
     private Case caseDto;
-//    @JsonIgnore
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
