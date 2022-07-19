@@ -61,6 +61,8 @@ public class Invoice extends BaseEntity {
     private Double subtotalVat;
     @Column(name = "SUBTOTAL_AMOUNT")
     private Double subtotalAmount;
+    @Column(name = "AMOUNT")
+    private Double amount;
     @Column(name = "STATUS")
     private String status;
     @Column(name = "IS_DELETED")
@@ -85,5 +87,6 @@ public class Invoice extends BaseEntity {
         this.setNonVat(dto.getNonVat());
         this.setSubtotalAmount(dto.getSubtotalAmount());
         this.setDescription(dto.getDescription());
+        this.setAmount(dto.getAmount());
     }
 }

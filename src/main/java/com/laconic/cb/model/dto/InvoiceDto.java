@@ -25,5 +25,6 @@ public class InvoiceDto {
     private Long customer;
     private Long caseDto;
     private String description;
+    private Double amount;
     private List<InvoiceDetailDto> dtoList;
 }

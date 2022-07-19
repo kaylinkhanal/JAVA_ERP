@@ -335,6 +335,7 @@
         let subtotalAmount = $('#subtotalAmount').val()
         let description = $('#description').val()
         let caseDto = ${caseDto.caseId};
+        let amount = $("#amount").val()
 
         dto.itemName = itemName;
         dto.item = item;
@@ -362,6 +363,7 @@
         invoice.subtotalAmount = subtotalAmount;
         invoice.description = description;
         // invoice.customer = customer;
+        invoice.amount = amount;
         invoice.caseDto = caseDto;
         const dtoList = [];
         dtoList[0] = dto;
