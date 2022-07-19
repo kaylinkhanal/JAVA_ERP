@@ -20,4 +20,6 @@ public interface ICaseService {
     long getTotalCase();
 
     List<Case> searchCase(String keyword);
+
+    void endCase(Long id);
 }
