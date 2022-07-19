@@ -24,8 +24,8 @@ public interface IDepositRepository extends JpaRepository<Deposit, Long> {
 
     Optional<Deposit> findByDepositIdAndIsDeletedFalse(Long depositId);
 
-    Page<Deposit> findAllByIsDeletedFalseAndCaseDto_CaseId(Pageable pageable, Long caseId);
-    List<Deposit> findAllByIsDeletedFalseAndCaseDto_CaseId(Long caseId);
+    Page<Deposit> findAllByCaseDto_CaseId(Pageable pageable, Long caseId);
+    List<Deposit> findAllByCaseDto_CaseId(Long caseId);
 
     long countByIsDeletedFalse();
 }

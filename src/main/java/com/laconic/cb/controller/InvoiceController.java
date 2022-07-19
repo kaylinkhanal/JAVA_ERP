@@ -74,8 +74,9 @@ public class InvoiceController {
 
     @GetMapping("/delete/{id}")
     public String deleteInvoice(@PathVariable("id") Long id) {
+        Invoice invoice = invoiceService.findById(id).get();
         invoiceService.softDeleteInvoice(id);
-        return "redirect:/invoice/create";
+        return "redirect:/invoice/list?caseId=" + invoice.getCaseDto().getCaseId();
     }
 
     @GetMapping("/edit/{id}")
@@ -144,14 +145,16 @@ public class InvoiceController {
 
     @GetMapping("/deleteInstallment/{id}")
     public String deleteInstallment(@PathVariable("id") Long id) {
+        Installment installment = installmentService.findById(id).get();
         installmentService.softDeleteInstallment(id);
-        return "redirect:/case/list";
+        return "redirect:/case/list?caseId=" + installment.getCaseDto().getCaseId();
     }
 
     @GetMapping("/deleteDeposit/{id}")
     public String deleteDeposit(@PathVariable("id") Long id) {
+        Deposit deposit = depositService.findById(id).get();
         depositService.softDeleteDeposit(id);
-        return "redirect:/case/list";
+        return "redirect:/case/list?caseId=" + deposit.getCaseDto().getCaseId();
     }
 
     @GetMapping("/deleteItem/{id}")

@@ -7,7 +7,6 @@ import com.laconic.cb.service.IDepositService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,12 +33,12 @@ public class DepositService implements IDepositService {
     @Override
     public Page<Deposit> getAllDeposit(int pageNo, Long caseId) {
         Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
-        return depositRepository.findAllByIsDeletedFalseAndCaseDto_CaseId(pageable, caseId);
+        return depositRepository.findAllByCaseDto_CaseId(pageable, caseId);
     }
 
     @Override
     public List<Deposit> getAllDeposit(Long caseId) {
-        return depositRepository.findAllByIsDeletedFalseAndCaseDto_CaseId(caseId);
+        return depositRepository.findAllByCaseDto_CaseId(caseId);
     }
 
     @Override

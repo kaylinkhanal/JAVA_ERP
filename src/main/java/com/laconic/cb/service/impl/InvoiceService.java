@@ -82,7 +82,7 @@ public class InvoiceService implements IInvoiceService {
     @Override
     public Page<Invoice> getAllInvoices(int pageNo, Long caseId) {
         Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
-        return invoiceRepository.findAllByIsDeletedFalseAndCaseDto_CaseId(pageable, caseId);
+        return invoiceRepository.findAllByCaseDto_CaseId(pageable, caseId);
     }
 
     @Override
