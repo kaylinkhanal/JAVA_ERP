@@ -23,13 +23,13 @@ $('#select').click(function () {
         url: "${pageContext.request.contextPath}/customers",
         type: "GET",
         success: function (response) {
+            let tbody = $('#customerTable').children('tbody');
+            let table = tbody.length ? tbody : $('#customerTable');
+            tbody.empty();
             response.forEach(function (element) {
                 let customerName = element.companyName != null ? element.companyName : element.fullName;
                 $('#customerName').val(customerName);
                 $('#code').val(element.code);
-                let tbody = $('#customerTable').children('tbody');
-                let table = tbody.length ? tbody : $('#customerTable');
-                tbody.empty();
                 tbody.append('<tr value=' + element.customerId +'><td><input type="checkbox" id="selectedCustomer" value=' + element.customerId + '></td>' +
                     '<td>' + customerName + '</td><td>' + element.code + '</td><td>' + element.type + '</td></tr>');
             });
