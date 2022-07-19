@@ -108,6 +108,12 @@ public class CaseController {
         return "redirect:/case/list";
     }
 
+    @GetMapping("/endCase/{id}")
+    public String endCase(@PathVariable("id") Long id) {
+        caseService.endCase(id);
+        return "redirect:/case/list";
+    }
+
     @PostMapping("/attachDocument")
     public String attachDocument(CaseDocumentRequest request, Model model) throws Exception {
         Case caseDto = caseDocumentService.uploadCaseDocument(request);
