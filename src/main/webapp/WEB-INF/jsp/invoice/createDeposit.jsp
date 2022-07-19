@@ -41,8 +41,8 @@
                         <td>${deposit.caseDto.customer.contactNo}</td>
                         <td><fmt:formatDate pattern="dd-MM-yyyy" value = "${deposit.caseDto.operatingDate}"/></td>
                         <td>
-                            <i class="far fa-edit icon-button" onclick="openPage('/deposit/editDeposit/${deposit.depositId}')"></i>
-                            <i class="far fa-trash-alt icon-button" onclick="openPage('/deposit/deleteDeposit/${deposit.depositId}')"></i>
+                            <i class="far fa-edit icon-button" onclick="openPage('/invoice/editDeposit/${deposit.depositId}')"></i>
+                            <i class="far fa-trash-alt icon-button" onclick="openPage('/invoice/deleteDeposit/${deposit.depositId}')"></i>
                         </td>
                     </tr>
                     </tbody>
@@ -173,6 +173,9 @@
                     <label id="itemName" name="itemName" class="col-md-3"></label>
                     <label class="col-md-2">Amount</label>
                     <input class="col-md-5" type="text" name="itemAmount" id="itemAmount"  placeholder="0.00">
+                    <button type="button" class="itemClose" id="itemClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                     <hr/>
                 </div>
             </div>
@@ -238,7 +241,6 @@
         deposit.sequence = sequence;
         deposit.caseRemark = caseRemark;
         deposit.rejectRemark = rejectRemark;
-        deposit.depositTitle = depositNumber;
         deposit.vat = vat;
         deposit.currency = currency;
         deposit.exchangeRate = exchangeRate;
@@ -260,7 +262,7 @@
             url: "${pageContext.request.contextPath}/invoice/addDeposit/",
             data: dataJson, // serializes form input
             success: function(data){
-                console.log(data);
+                openPage("${pageContext.request.contextPath}/case/list");
             }
         });
     });

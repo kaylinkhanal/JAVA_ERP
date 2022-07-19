@@ -2,6 +2,8 @@ package com.laconic.cb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.laconic.cb.model.dto.DepositDto;
+import com.laconic.cb.model.dto.InstallmentDto;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -72,4 +74,21 @@ public class Installment extends BaseEntity {
     private String disableBy;
     @Column(name = "DISABLE_DATE")
     private Date disableDate;
+
+    public Installment(InstallmentDto dto) {
+        this.setInstallmentId(dto.getInstallmentId());
+        this.setInstallmentNumber(dto.getInstallmentNumber());
+        this.setInstallmentDate(dto.getInstallmentDate());
+        this.setSequence(dto.getSequence());
+        this.setCaseRemark(dto.getCaseRemark());
+        this.setRejectRemark(dto.getRejectRemark());
+        this.setInstallmentTitle(dto.getInstallmentTitle());
+        this.setVat(dto.getVat());
+        this.setExchangeRate(dto.getExchangeRate());
+        this.setPaymentTerm(dto.getPaymentTerm());
+        this.setBankAccount(dto.getBankAccount());
+        this.setNonVat(dto.getNonVat());
+        this.setSubtotalAmount(dto.getSubtotalAmount());
+
+    }
 }

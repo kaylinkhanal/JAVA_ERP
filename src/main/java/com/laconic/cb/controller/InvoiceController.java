@@ -2,6 +2,9 @@ package com.laconic.cb.controller;
 
 import com.laconic.cb.model.*;
 import com.laconic.cb.model.dto.DepositDto;
+import com.laconic.cb.model.dto.InstallmentDetailDto;
+import com.laconic.cb.model.dto.InstallmentDto;
+import com.laconic.cb.model.dto.InvoiceDto;
 import com.laconic.cb.service.*;
 import com.laconic.cb.utils.Pagination;
 import org.springframework.data.domain.Page;
@@ -28,8 +31,9 @@ public class InvoiceController {
     private final ICaseService caseService;
     private final IDepositService depositService;
     private final ICustomerService customerService;
+    private final IDepositDetailService depositDetailService;
 
-    public InvoiceController(IInvoiceService invoiceService, IItemService itemService, ICurrencyService currencyService, IInstallmentService installmentService, ICaseService caseService, IDepositService depositService, ICustomerService customerService) {
+    public InvoiceController(IInvoiceService invoiceService, IItemService itemService, ICurrencyService currencyService, IInstallmentService installmentService, ICaseService caseService, IDepositService depositService, ICustomerService customerService, IDepositDetailService depositDetailService) {
         this.invoiceService = invoiceService;
         this.itemService = itemService;
         this.currencyService = currencyService;
@@ -37,16 +41,20 @@ public class InvoiceController {
         this.caseService = caseService;
         this.depositService = depositService;
         this.customerService = customerService;
+        this.depositDetailService = depositDetailService;
     }
 
     @GetMapping("/create")
     public String createInvoice(@RequestParam(value = "caseId", defaultValue = "0", required = false) Long caseId,
                                 @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
                                 ModelMap modelMap, Model model) {
+        Optional<Case> caseDto = caseService.findById(caseId);
         Long invoiceNumber = invoiceService.getInvoiceNumber();
         String number = "INS-"+ String.valueOf(invoiceNumber);
         model.addAttribute("invoiceNumber", number);
-        model.addAttribute("caseId", caseId);
+        if (caseDto.isPresent()) {
+            model.addAttribute("caseDto", caseDto.get());
+        }
         model.addAttribute("currencies", currencyService.getAllCurrencies());
         Page<Invoice> invoicePage = invoiceService.getAllInvoices(pageNo, caseId);
         List<Invoice> invoiceList = invoicePage.getContent().stream().collect(Collectors.toList());
@@ -85,13 +93,15 @@ public class InvoiceController {
     }
 
     @PostMapping("/addInvoice")
-    public String addInvoice(Invoice invoice, RedirectAttributes redirectAttributes) {
+    @ResponseBody
+    public String addInvoice(@RequestBody InvoiceDto dto, RedirectAttributes redirectAttributes) {
         Invoice savedInvoice;
-        if (invoice.getInvoiceId() != null) {
-            savedInvoice = invoiceService.updateInvoice(invoice);
-        } else savedInvoice = invoiceService.saveInvoice(invoice);
+        if (dto.getInvoiceId() != null) {
+            savedInvoice = invoiceService.updateInvoice(dto);
+        } else savedInvoice = invoiceService.saveInvoice(dto);
         redirectAttributes.addFlashAttribute("invoice", savedInvoice);
-        return "redirect:/invoice/create";
+//        return "redirect:/invoice/create";
+        return "Success";
     }
     @GetMapping("/createItem")
     public String createItem(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
@@ -122,19 +132,26 @@ public class InvoiceController {
     }
 
     @PostMapping("addInstallment")
-    public String addInstallment(Installment installment, RedirectAttributes redirectAttributes) {
+    @ResponseBody
+    public String addInstallment(@RequestBody InstallmentDto dto, RedirectAttributes redirectAttributes) {
         Installment savedInstallment;
-        if (installment.getInstallmentId() != null) {
-            savedInstallment = installmentService.updateInstallment(installment);
-        } else savedInstallment = installmentService.saveInstallment(installment);
+        if (dto.getInstallmentId() != null) {
+            savedInstallment = installmentService.updateInstallment(dto);
+        } else savedInstallment = installmentService.saveInstallment(dto);
         redirectAttributes.addFlashAttribute("invoice", savedInstallment);
-        return "invoice/createInstallment";
+        return "success";
     }
 
     @GetMapping("/deleteInstallment/{id}")
     public String deleteInstallment(@PathVariable("id") Long id) {
         installmentService.softDeleteInstallment(id);
-        return "redirect:/invoice/createInstallment";
+        return "redirect:/case/list";
+    }
+
+    @GetMapping("/deleteDeposit/{id}")
+    public String deleteDeposit(@PathVariable("id") Long id) {
+        depositService.softDeleteDeposit(id);
+        return "redirect:/case/list";
     }
 
     @GetMapping("/deleteItem/{id}")
@@ -214,8 +231,9 @@ public class InvoiceController {
         return "invoice/createDeposit";
     }
 
-    // need to shift logic to service
+    // need to shift logic part to service
     @PostMapping("addDeposit")
+    @ResponseBody
     public String addDeposit(@RequestBody DepositDto deposit, RedirectAttributes redirectAttributes) {
         Deposit savedDeposit;
         Deposit dbDeposit = new Deposit(deposit);
@@ -225,11 +243,23 @@ public class InvoiceController {
         dbDeposit.setCustomer(customer);
         dbDeposit.setCaseDto(caseDto);
         dbDeposit.setCurrency(currency);
+        // save deposit
         if (deposit.getDepositId() != null) {
             savedDeposit = depositService.updateDeposit(dbDeposit);
         } else savedDeposit = depositService.saveDeposit(dbDeposit);
+        // save deposit detail
+        deposit.getDtoList().forEach(x -> {
+            DepositDetail depositDetail = new DepositDetail(x);
+            Optional<Item> item = itemService.findById(x.getItem());
+            Deposit deposit1 = depositService.findById(savedDeposit.getDepositId()).get();
+            if (item.isPresent()) depositDetail.setItem(item.get());
+            depositDetail.setDeposit(deposit1);
+            if (x.getDepositDetailId() != null) {
+                depositDetailService.updateDepositDetail(depositDetail);
+            } else depositDetailService.saveDepositDetail(depositDetail);
+        });
         redirectAttributes.addFlashAttribute("invoice", savedDeposit);
-        return "invoice/createDeposit";
+        return "success";
     }
 
     @GetMapping("/depositList")

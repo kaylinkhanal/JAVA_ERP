@@ -1,6 +1,8 @@
 package com.laconic.cb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.laconic.cb.model.dto.InstallmentDto;
+import com.laconic.cb.model.dto.InvoiceDto;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -53,6 +55,14 @@ public class Invoice extends BaseEntity {
     private String bankAccount;
     @Column(name = "DESCRIPTION", columnDefinition = "TEXT")
     private String description;
+    @Column(name = "NON_VAT")
+    private Double nonVat;
+    @Column(name = "SUBTOTAL_VAT")
+    private Double subtotalVat;
+    @Column(name = "SUBTOTAL_AMOUNT")
+    private Double subtotalAmount;
+    @Column(name = "AMOUNT")
+    private Double amount;
     @Column(name = "STATUS")
     private String status;
     @Column(name = "IS_DELETED")
@@ -61,4 +71,22 @@ public class Invoice extends BaseEntity {
     private String disableBy;
     @Column(name = "DISABLE_DATE")
     private Date disableDate;
+
+    public Invoice(InvoiceDto dto) {
+        this.setInvoiceId(dto.getInvoiceId());
+        this.setInvoiceNumber(dto.getInvoiceNumber());
+        this.setInvoiceDate(dto.getInvoiceDate());
+        this.setRe(dto.getRe());
+        this.setCaseRemark(dto.getCaseRemark());
+        this.setRejectRemark(dto.getRejectRemark());
+        this.setInvoiceTitle(dto.getInvoiceTitle());
+        this.setVat(dto.getVat());
+        this.setExchangeRate(dto.getExchangeRate());
+        this.setPaymentTerm(dto.getPaymentTerm());
+        this.setBankAccount(dto.getBankAccount());
+        this.setNonVat(dto.getNonVat());
+        this.setSubtotalAmount(dto.getSubtotalAmount());
+        this.setDescription(dto.getDescription());
+        this.setAmount(dto.getAmount());
+    }
 }

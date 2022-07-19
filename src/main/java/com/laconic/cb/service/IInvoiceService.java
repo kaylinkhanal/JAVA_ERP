@@ -1,14 +1,15 @@
 package com.laconic.cb.service;
 
 import com.laconic.cb.model.Invoice;
+import com.laconic.cb.model.dto.InvoiceDto;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface IInvoiceService {
-    Invoice saveInvoice(Invoice invoice);
-    Invoice updateInvoice(Invoice invoice);
+    Invoice saveInvoice(InvoiceDto invoice);
+    Invoice updateInvoice(InvoiceDto invoice);
 
     Page<Invoice> getAllInvoices(int pageNo, Long caseId);
     List<Invoice> getAllInvoices(Long caseId);

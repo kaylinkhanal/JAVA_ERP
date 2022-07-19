@@ -1,0 +1,1 @@
+ALTER TABLE invoice ADD amount DECIMAL(9,2)

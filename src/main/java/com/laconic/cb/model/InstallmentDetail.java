@@ -1,5 +1,7 @@
 package com.laconic.cb.model;
 
+import com.laconic.cb.model.dto.DepositDetailDto;
+import com.laconic.cb.model.dto.InstallmentDetailDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,4 +28,10 @@ public class InstallmentDetail extends BaseEntity {
     private Item item;
     @Column(name = "ITEM_AMOUNT")
     private Double itemAmount;
+    @Column(name = "IS_DELETED")
+    private Boolean isDeleted = false;
+    public InstallmentDetail(InstallmentDetailDto dto) {
+        this.setInstallmentDetailId(dto.getInstallmentDetailId());
+        this.setItemAmount(dto.getItemAmount());
+    }
 }

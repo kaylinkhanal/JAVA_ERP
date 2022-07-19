@@ -1,5 +1,6 @@
 package com.laconic.cb.model;
 
+import com.laconic.cb.model.dto.InvoiceDetailDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,10 +28,24 @@ public class InvoiceDetail extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "INSTALLMENT_ID")
     private Installment installment;
+    @OneToOne
+    @JoinColumn(name = "DEPOSIT_ID")
+    private Deposit deposit;
     @Column(name = "ITEM_AMOUNT")
     private Double itemAmount;
     @Column(name = "INSTALLMENT_AMOUNT")
     private Double installmentAmount;
+    @Column(name = "DEPOSIT_AMOUNT")
+    private Double depositAmount;
     @Column(name = "AMOUNT")
     private Double amount;
+    @Column(name = "IS_DELETED")
+    private Boolean isDeleted = false;
+
+    public InvoiceDetail(InvoiceDetailDto dto) {
+        this.setInvoiceDetailId(dto.getInvoiceDetailId());
+        this.setItemAmount(dto.getItemAmount());
+        this.setInstallmentAmount(dto.getInstallmentAmount());
+        this.setDepositAmount(dto.getDepositAmount());
+    }
 }
