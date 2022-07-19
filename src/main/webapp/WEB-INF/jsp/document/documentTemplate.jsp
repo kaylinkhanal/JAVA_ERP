@@ -41,8 +41,8 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                             <option selected value="${document.branch}">${document.branch}</option>
                         </c:otherwise>
                     </c:choose>
-                  <option value="Branch 1">Branch 1</option>
-                  <option value="Branch 2">Branch 2</option>
+                  <option value="Bangrak">Bangrak</option>
+                  <option value="Asok">Asok</option>
                 </select>
               </div>
              </div>
