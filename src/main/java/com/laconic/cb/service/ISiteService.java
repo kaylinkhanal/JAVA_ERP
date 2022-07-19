@@ -11,6 +11,7 @@ public interface ISiteService {
     Site updateCompanySite(Site site);
 
     Page<Site> getAllSites(int pageNo);
+    Page<Site> getAllSites(int pageNo, Long customerId);
 
     List<Site> getSites();
 

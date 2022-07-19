@@ -19,6 +19,7 @@ public interface ICompanyFinanceRepository extends JpaRepository<CompanyFinance,
     void softDeleteCompanyFinance(Long financeId);
 
     Page<CompanyFinance> findAllByIsDeletedFalse(Pageable pageable);
+    Page<CompanyFinance> findAllByIsDeletedFalseAndCustomer_CustomerId(Pageable pageable, Long customerId);
 
     long countByIsDeletedFalse();
 

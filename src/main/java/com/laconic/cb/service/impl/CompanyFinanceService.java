@@ -32,6 +32,12 @@ public class CompanyFinanceService implements ICompanyFinanceService {
     }
 
     @Override
+    public Page<CompanyFinance> getAllCompanyFinance(int pageNo, Long customerId) {
+        Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
+        return companyFinanceRepository.findAllByIsDeletedFalseAndCustomer_CustomerId(pageable, customerId);
+    }
+
+    @Override
     public CompanyFinance updateCompanyFinance(CompanyFinance companyFinance) {
         return companyFinanceRepository.saveAndFlush(companyFinance);
     }

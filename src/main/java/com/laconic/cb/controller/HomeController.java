@@ -64,12 +64,13 @@ public class HomeController {
     public String personalContact(Model model, HttpSession session,
                                   @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
                                   ModelMap modelMap) {
-        Page<ContactPerson> contactList = contactService.getAllContactPerson(pageNo);
+        Customer customer = getCustomer(model, session);
+        Page<ContactPerson> contactList = contactService.getAllContactPerson(pageNo, customer.getCustomerId());
         model.addAttribute("contacts", contactList.getContent().stream().collect(Collectors.toList()));
         List<ContactPerson> contacts = contactList.getContent().stream().collect(Collectors.toList());
         long totalContact = contactService.getTotalContact();
         Pagination.getPagination(modelMap, contactList, totalContact, contacts, "/personalContact");
-        getCustomer(model, session);
+
         return "personal/personalContact";
     }
 
@@ -78,15 +79,17 @@ public class HomeController {
                                   HttpSession session,
                                   @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo) {
         getCustomer(model, session);
-        addressPageInformation(pageNo, model, modelMap);
+        addressPageInformation(pageNo, model, modelMap, session);
         return "personal/personalAddress";
     }
 
-    private void getCustomer(Model model, HttpSession session) {
+    private Customer getCustomer(Model model, HttpSession session) {
         Customer customer = (Customer) SessionStorage.getStorage(session, "customer");
         if (customer != null) {
             model.addAttribute("customer", customer);
+            return customer;
         }
+        return null;
     }
 
     @PostMapping("/addCustomer")
@@ -178,12 +181,13 @@ public class HomeController {
             model.addAttribute("address", address.get());
             getCustomer(model, session);
         }
-        addressPageInformation(AppConstants.DEFAULT_PAGE, model, modelMap);
+        addressPageInformation(AppConstants.DEFAULT_PAGE, model, modelMap, session);
         return "personal/personalAddress";
     }
 
-    private void addressPageInformation(int defaultPage, Model model, ModelMap modelMap) {
-        Page<Address> addresses = addressService.getAllAddress(defaultPage);
+    private void addressPageInformation(int defaultPage, Model model, ModelMap modelMap, HttpSession session) {
+        Customer customer = getCustomer(model, session);
+        Page<Address> addresses = addressService.getAllAddress(defaultPage, customer.getCustomerId());
         List<Address> addressList = addresses.getContent().stream().collect(Collectors.toList());
         long totalAddress = addressService.getTotalAddress();
         Pagination.getPagination(modelMap, addresses, totalAddress, addressList, "/personalAddress");

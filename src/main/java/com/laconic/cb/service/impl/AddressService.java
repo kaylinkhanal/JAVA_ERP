@@ -33,6 +33,12 @@ public class AddressService implements IAddressService {
     }
 
     @Override
+    public Page<Address> getAllAddress(int pageNo, Long customerId) {
+        Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
+        return addressRepository.findAllByIsDeletedFalseAndCustomer_CustomerId(pageable, customerId);
+    }
+
+    @Override
     public Address updateAddress(Address address) {
         Optional<Address> dbAddress = addressRepository.findByAddressIdAndIsDeletedFalse(address.getAddressId());
 

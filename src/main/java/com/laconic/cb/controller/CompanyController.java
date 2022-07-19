@@ -43,13 +43,14 @@ public class CompanyController {
 
     @GetMapping("/site")
     public String companySite(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int page,
-                              ModelMap modelMap, Model model, HttpSession request) {
-        Page<Site> sites = siteService.getAllSites(page);
+                              ModelMap modelMap, Model model, HttpSession session) {
+        Customer customer = (Customer) SessionStorage.getStorage(session, "customer");
+        Page<Site> sites = siteService.getAllSites(page, customer.getCustomerId());
         long totalSites = siteService.getTotalSites();
         Pagination.getPagination(modelMap, sites, totalSites,
                 sites.getContent().stream().collect(Collectors.toList()), "/company/site");
         model.addAttribute("countries", countryService.getAllCountries());
-        model.addAttribute("customer", SessionStorage.getStorage(request, "customer"));
+        model.addAttribute("customer", customer);
         return "company/companySite";
     }
 
@@ -67,14 +68,15 @@ public class CompanyController {
     @GetMapping("/finance")
     public String companyFinance(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int page,
                                  ModelMap model, HttpSession session) {
-        Page<CompanyFinance> financePage = companyFinanceService.getAllCompanyFinance(page);
+        Customer customer = (Customer) SessionStorage.getStorage(session,"customer");
+        Page<CompanyFinance> financePage = companyFinanceService.getAllCompanyFinance(page, customer.getCustomerId());
         long totalCompanyFinance = companyFinanceService.getTotalCompanyFinance();
         Pagination.getPagination(model, financePage, totalCompanyFinance,
                 financePage.getContent().stream().collect(Collectors.toList()), "/company/finance");
         model.addAttribute("countries", countryService.getAllCountries());
         model.addAttribute("currencies", currencyService.getAllCurrencies());
         model.addAttribute("sites", siteService.getAllSites());
-        model.addAttribute("company", SessionStorage.getStorage(session,"customer"));
+        model.addAttribute("company", customer);
         return "company/companyFinance";
     }
 

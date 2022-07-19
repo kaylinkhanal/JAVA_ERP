@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface IAddressService {
     Address saveAddress(Address address);
     Page<Address> getAllAddress(int pageNo);
+    Page<Address> getAllAddress(int pageNo, Long customerId);
 
     Address updateAddress(Address address);
 
