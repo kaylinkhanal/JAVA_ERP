@@ -100,7 +100,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                 </div>
                 <div class="col-md-9 d-flex justify-content-end row">
                   <div class="col-md-12 row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                       <label class="col-form-label" for="status">Status</label>
                       <select id="status" name="status" class="form-control" value="${caseDto.status }" required>
                         <c:choose>
@@ -116,43 +116,47 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                         <option value="Suspended">Suspended</option>
                       </select>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                       <label for="operatingDate" class="col-form-label">Operating Date</label>
                       <input type="date" class="form-control" id="operatingDate" required name="operatingDate" pattern="mm/dd/yyyy" value = "${caseDto.operatingDate}"/>
                     </div>
-                    <div class="col-md-4"></div>
+<%--                    <div class="col-md-4"></div>--%>
                   </div>
+<%--                  <div class="col-md-12 row">--%>
+<%--                    <div class="col-md-4">--%>
+<%--                      <label for="proposalDate" class="col-form-label">Proposal Date</label>--%>
+<%--                      <input type="date" class="form-control" id="proposalDate" name="proposalDate" value="${caseDto.proposalDate }" required />--%>
+<%--                    </div>--%>
+<%--                    <div class="col-md-4">--%>
+<%--                      <label for="acceptanceDate" class="col-form-label">Acceptance Date</label>--%>
+<%--                      <input type="date" class="form-control" id="acceptanceDate" name="acceptanceDate" value="${caseDto.acceptanceDate }" required/>--%>
+<%--                    </div>--%>
+<%--                    <div class="col-md-4">--%>
+<%--                      <label for="validationDate" class="col-form-label">Validation Date</label>--%>
+<%--                      <input type="date" class="form-control" id="validationDate" name="validationDate" value="${caseDto.validationDate }" />--%>
+<%--                    </div>--%>
+<%--                  </div>--%>
+<%--                  <div class="col-md-12 row">--%>
+<%--                    <div class="col-md-4">--%>
+<%--                      <label for="discardDate" class="col-form-label">Discard Date</label>--%>
+<%--                      <input type="date" class="form-control" id="discardDate" name="discardDate" value="${caseDto.discardDate }" />--%>
+<%--                    </div>--%>
+<%--                    <div class="col-md-4">--%>
+<%--                      <label for="closingDate" class="col-form-label">Closing Date</label>--%>
+<%--                      <input type="date" class="form-control" id="closingDate" name="closingDate" value="${caseDto.closingDate }" />--%>
+<%--                    </div>--%>
+<%--                    <div class="col-md-4"></div>--%>
+<%--                  </div>--%>
                   <div class="col-md-12 row">
-                    <div class="col-md-4">
-                      <label for="proposalDate" class="col-form-label">Proposal Date</label>
-                      <input type="date" class="form-control" id="proposalDate" name="proposalDate" value="${caseDto.proposalDate }" required />
-                    </div>
-                    <div class="col-md-4">
-                      <label for="acceptanceDate" class="col-form-label">Acceptance Date</label>
-                      <input type="date" class="form-control" id="acceptanceDate" name="acceptanceDate" value="${caseDto.acceptanceDate }" required/>
-                    </div>
-                    <div class="col-md-4">
-                      <label for="validationDate" class="col-form-label">Validation Date</label>
-                      <input type="date" class="form-control" id="validationDate" name="validationDate" value="${caseDto.validationDate }" />
-                    </div>
-                  </div>
-                  <div class="col-md-12 row">
-                    <div class="col-md-4">
-                      <label for="discardDate" class="col-form-label">Discard Date</label>
-                      <input type="date" class="form-control" id="discardDate" name="discardDate" value="${caseDto.discardDate }" />
-                    </div>
-                    <div class="col-md-4">
+<%--                    <div class="col-md-4">--%>
+<%--                      <label for="suspenseDate" class="col-form-label">Suspense Date</label>--%>
+<%--                      <input type="date" class="form-control" id="suspenseDate"  name="suspenseDate" value="${caseDto.suspenseDate }"  />--%>
+<%--                    </div>--%>
+                    <div class="col-md-6">
                       <label for="closingDate" class="col-form-label">Closing Date</label>
                       <input type="date" class="form-control" id="closingDate" name="closingDate" value="${caseDto.closingDate }" />
                     </div>
-                    <div class="col-md-4"></div>
-                  </div>
-                  <div class="col-md-12 row">
-                    <div class="col-md-4">
-                      <label for="suspenseDate" class="col-form-label">Suspense Date</label>
-                      <input type="date" class="form-control" id="suspenseDate"  name="suspenseDate" value="${caseDto.suspenseDate }"  />
-                    </div>
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                       <label class="col-form-label" for="contactPerson">Contact Person</label>
                       <select id="contactPerson" name="contactPerson" class="form-control" required>
                         <c:choose>
