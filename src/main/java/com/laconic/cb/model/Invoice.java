@@ -42,7 +42,7 @@ public class Invoice extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "CURRENCY_ID")
     private Currency currency;
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "CASE_ID", nullable = false)
     private Case caseDto;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")

@@ -5,7 +5,7 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-  <title>Create Invoice</title>
+  <title>Invoice List</title>
   <style>
     .taxable {
       display: flex;

@@ -24,6 +24,7 @@ public interface ISiteRepository extends JpaRepository<Site, Long> {
     Optional<Site> findBySiteIdAndIsDeletedFalse(Long siteId);
 
     Page<Site> findAllByIsDeletedFalse(Pageable pageable);
+    Page<Site> findAllByIsDeletedFalseAndCustomer_CustomerId(Pageable pageable, Long customerId);
     List<Site> findAllByIsDeletedFalse();
 
     long countByIsDeletedFalse();

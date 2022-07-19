@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface IContactPersonService {
     ContactPerson saveContactPerson(ContactPerson contact);
 
-    Page<ContactPerson> getAllContactPerson(int pageNo);
+    Page<ContactPerson> getAllContactPerson(int pageNo, Long customerId);
     List<ContactPerson> getAllContactPerson();
     void softDeleteContact(Long contactId);
     ContactPerson updateContactPerson(ContactPerson contact);

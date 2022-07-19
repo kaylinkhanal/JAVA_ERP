@@ -20,6 +20,7 @@ public interface IContactPersonRepository extends JpaRepository<ContactPerson, L
     void softDeleteContact(Long contactId);
 
     Page<ContactPerson> findAllByIsDeletedFalse(Pageable pageable);
+    Page<ContactPerson> findAllByIsDeletedFalseAndCustomer_CustomerId(Pageable pageable, Long customerId);
     List<ContactPerson> findAllByIsDeletedFalse();
     Optional<ContactPerson> findByContactPersonIdAndIsDeletedFalse(Long addressId);
 

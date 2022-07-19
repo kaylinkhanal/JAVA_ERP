@@ -27,9 +27,10 @@ public class ContactPersonService implements IContactPersonService {
     }
 
     @Override
-    public Page<ContactPerson> getAllContactPerson(int pageNo) {
+    public Page<ContactPerson> getAllContactPerson(int pageNo, Long customerId) {
         Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
-        return contactRepository.findAllByIsDeletedFalse(pageable);
+//        return contactRepository.findAllByIsDeletedFalse(pageable);
+        return contactRepository.findAllByIsDeletedFalseAndCustomer_CustomerId(pageable, customerId);
     }
 
     @Override

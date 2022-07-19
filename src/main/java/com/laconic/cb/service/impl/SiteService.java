@@ -35,6 +35,11 @@ public class SiteService implements ISiteService {
         Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
         return siteRepository.findAllByIsDeletedFalse(pageable);
     }
+    @Override
+    public Page<Site> getAllSites(int pageNo, Long customerId) {
+        Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
+        return siteRepository.findAllByIsDeletedFalseAndCustomer_CustomerId(pageable, customerId);
+    }
 
     @Override
     public List<Site> getSites() {
