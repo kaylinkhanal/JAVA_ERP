@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface IBookingRepository extends JpaRepository<Booking, Long> {
-    Optional<Booking> findByCaseDto_CaseId(Long caseId);
-    List<Booking> findAllByCaseDto_CaseId(Long caseId);
+    Optional<Booking> findByCaseId(Long caseId);
+    List<Booking> findAllByCaseId(Long caseId);
+    Optional<Booking> findByBookingId(Long bookingId);
 }

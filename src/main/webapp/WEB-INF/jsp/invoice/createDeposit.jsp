@@ -195,7 +195,7 @@
 <jsp:include page="/WEB-INF/jsp/templates/searchModal.jsp">
     <jsp:param name="modalId" value="itemSearchModal" />
     <jsp:param name="title" value="Search Item" />
-    <jsp:param name="placeholder" value="Search an item" />
+    <jsp:param name="placeholder" value="Search an item" />F
     <jsp:param name="id" value="Item Id" />
     <jsp:param name="name" value="Item Name" />
     <jsp:param name="other" value="Item Part Name" />

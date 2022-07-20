@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "BOOKING")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Booking extends BaseEntity{
+public class Booking extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "BOOKING_ID")
@@ -25,26 +25,21 @@ public class Booking extends BaseEntity{
     private String branch;
     @Column(name = "LOCATION")
     private String location;
-    @Column(name = "STATUS")
-    private String status;
-    @Column(name = "SIZE")
-    private String size;
-    @Column(name = "TYPE")
-    private String type;
-    @Column(name = "NUMBER")
-    private Integer number;
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "CASE_ID", nullable = false)
-    private Case caseDto;
-    @Transient
-    private MultipartFile multipartFile;
     @Column(name = "DOCUMENT_NAME")
     private String documentName;
-//    @OneToMany
-//    @NotFound(action = NotFoundAction.EXCEPTION)
-//    @JoinColumn(name = "BOOKING_ID",
-//            referencedColumnName = "BOOKING_ID",
-//            insertable = false, updatable = false,
-//            foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
-//    private List<BookingDocument> bookingDocuments = new ArrayList<>();
+    @Transient
+    private MultipartFile document;
+//    @ManyToOne(optional = false)
+//    @JoinColumn(name = "CASE_ID", nullable = false)
+    @Column(name = "CASE_ID")
+    private Long caseId;
+    @OneToMany
+    @NotFound(action = NotFoundAction.EXCEPTION)
+    @JoinColumn(name = "BOOKING_ID",
+            referencedColumnName = "BOOKING_ID",
+            insertable = false, updatable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    private List<BookingDetail> bookingDetails = new ArrayList<>();
+    @Column(name = "IS_DELETED")
+    private Boolean isDeleted = false;
 }

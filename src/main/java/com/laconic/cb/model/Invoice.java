@@ -1,7 +1,5 @@
 package com.laconic.cb.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.laconic.cb.model.dto.InstallmentDto;
 import com.laconic.cb.model.dto.InvoiceDto;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;

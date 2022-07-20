@@ -15,12 +15,14 @@ public class SecurityBox {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "SECURITY_BOX_ID")
     private Long securityBoxId;
-    @Column(name = "BRANCH_NAME")
-    private String branchName;
-    @Column(name = "LOCKER_TYPE")
-    private String lockerType;
-    @Column(name = "SIZE")
-    private String size;
     @Column(name = "SECURITY_DEPOSIT")
     private Double securityDeposit;
+    @Column(name = "BRANCH_NAME")
+    private String branchName;
+    @Column(name = "LOCKER_SIZE")
+    private String lockerSize;
+    @Column(name = "LOCKER_TYPE")
+    private String lockerType;
+    @Column(name = "SECURITY_BOX_NUMBER")
+    private Integer securityBoxNumber;
 }

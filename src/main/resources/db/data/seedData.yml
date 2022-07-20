@@ -74,3 +74,35 @@ databaseChangeLog:
               - column:
                   name: PRICE
                   type: STRING
+  - changeSet:
+      author: mandip.dhakal
+      context: dev
+      runOnChange: true
+      id: inserting_lockerTypes
+      changes:
+        - loadUpdateData:
+            catalogName: LACONIC
+            file: /db/data/04-lockerType.csv
+            tableName: SECURITY_BOX
+            quotchar: "\""
+            separator: ","
+            primaryKey: SECURITY_BOX_ID
+            columns:
+              - column:
+                  name: SECURITY_BOX_ID
+                  type: NUMBER
+              - column:
+                  name: BRANCH_NAME
+                  type: STRING
+              - column:
+                  name: LOCKER_SIZE
+                  type: STRING
+              - column:
+                  name: LOCKER_TYPE
+                  type: STRING
+              - column:
+                  name: SECURITY_BOX_NUMBER
+                  type: NUMBER
+              - column:
+                  name: SECURITY_DEPOSIT
+                  type: DECIMAL(9,2)

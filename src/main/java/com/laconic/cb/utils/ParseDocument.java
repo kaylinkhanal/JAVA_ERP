@@ -9,6 +9,9 @@ public class ParseDocument {
             if (content.contains("@ExecutorName")) {
                 content = content.replace("@ExecutorName", documentAttributes.getExecutorName());
             }
+            if (content.contains("@PassportNumber")) {
+                content = content.replace("@PassportNumber", documentAttributes.getPassportNumber());
+            }
             if (content.contains("@Nationality")) {
                 content = content.replace("@Nationality", documentAttributes.getNationality());
             }
@@ -35,6 +38,9 @@ public class ParseDocument {
         if (content != null) {
             if (content.contains("@ExecutorName")) {
                 content = content.replace("@ExecutorName", ".............................");
+            }
+            if (content.contains("@PassportNumber")) {
+                content = content.replace("@PassportNumber", ".............................");
             }
             if (content.contains("@Nationality")) {
                 content = content.replace("@Nationality", ".............................");
