@@ -17,7 +17,7 @@ public class SecurityBoxService implements ISecurityBoxService {
     }
 
     @Override
-    public List<SecurityBox> securityBoxList() {
+    public List<SecurityBox> getSecurityBoxList() {
         return securityBoxRepository.findAll();
     }
 }

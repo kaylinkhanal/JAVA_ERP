@@ -64,6 +64,7 @@
 <%--                    <a class="dropdown-item" href="/invoice/create">Create Invoice</a>--%>
 <%--                    <div class="dropdown-divider"></div>--%>
                     <a class="dropdown-item" href="/invoice/createItem">Create Item</a>
+                    <a class="dropdown-item" href="/title/create">Create Title</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

@@ -5,5 +5,5 @@ import com.laconic.cb.model.SecurityBox;
 import java.util.List;
 
 public interface ISecurityBoxService {
-    List<SecurityBox> securityBoxList();
+    List<SecurityBox> getSecurityBoxList();
 }
