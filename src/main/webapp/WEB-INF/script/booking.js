@@ -16,8 +16,8 @@ $("#boxTable").on("click", "#selectButton", function() {
         '            <button class="btn btn-info" id="removeButton">Remove</button>\n' +
         '        </td>\n' +
         '    </tr>';
-    tbody.append(data);
     $(this).closest("tr").remove();
+    tbody.append(data);
 });
 
 $("#bookingTable").on("click", "#removeButton", function() {
@@ -69,6 +69,7 @@ $("#bookingForm").submit(async function(e) {
                    dto.size = currentRow.find("td:eq(2)").text();
                    dto.type = currentRow.find("td:eq(3)").text();
                    dto.bookingId = response
+                   dto.caseId = caseId
                    bookingDetails.push(dto)
                    console.log(dto)
                });

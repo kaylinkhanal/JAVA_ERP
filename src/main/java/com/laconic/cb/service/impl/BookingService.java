@@ -65,7 +65,7 @@ public class BookingService implements IBookingService {
 
     @Override
     public List<BookingDetail> getBookingDetailList(Long bookingId) {
-        return bookingDetailRepository.findAllByBookingId(bookingId);
+        return bookingDetailRepository.findAllByCaseId(bookingId);
     }
 
     @Override

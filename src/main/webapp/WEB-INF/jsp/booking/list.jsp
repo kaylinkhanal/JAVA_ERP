@@ -34,7 +34,6 @@
           <td>Contact Name</td>
           <td>Pre Billing</td>
           <td>Status</td>
-          <td></td>
         </tr>
         </thead>
           <tbody align="center">
@@ -44,8 +43,8 @@
             <td>${caseDto.title}</td>
             <td>${caseDto.customer.companyName != null ? caseDto.customer.companyName : caseDto.customer.fullName}</td>
             <td>${caseDto.contactPerson.contactName}</td>
-            <td></td>
-            <td>${caseDto.status}</td>
+            <td>Active</td>
+            <td>Active</td>
           </tr>
       </table>
     </div>
@@ -69,7 +68,7 @@
         <c:forEach var="booking" items="${bookings}">
           <tbody align="center">
           <tr>
-            <td>${booking.bookingId}</td>
+            <td>${booking.bookingDetailId}</td>
             <td>${booking.bookingNumber}</td>
             <td>${booking.size}</td>
             <td>${booking.type}</td>

@@ -19,7 +19,7 @@
                 <div class="form-group col-md-6">
                     <label for="branch">Branch </label>
                     <select id="branch" name="branch" class="form-control" required>
-                        <option selected>Choose</option>
+                        <option selected value="">Choose</option>
                         <option value="Bangrak">Bangrak</option>
                         <option value="Asok">Asok</option>
                     </select>
@@ -27,7 +27,7 @@
                 <div class="form-group col-md-6">
                     <label for="location">Location </label>
                     <select id="location" name="location" class="form-control" required>
-                        <option selected>Choose</option>
+                        <option selected value="">Choose</option>
                         <option value="Location 1">Location 1</option>
                         <option value="Location 2">Location 2</option>
                     </select>

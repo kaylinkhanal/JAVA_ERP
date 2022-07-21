@@ -86,9 +86,9 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                   </div>
                   <div class="col-md-12 row"><hr /></div>
                 </div>
-                <div class="col-md-2 d-flex align-items-center justify-content-end">
-                  <button type="button" class="btn btn-primary float-right">Booking</button>
-                </div>
+<%--                <div class="col-md-2 d-flex align-items-center justify-content-end">--%>
+<%--                  <button type="button" class="btn btn-primary float-right">Booking</button>--%>
+<%--                </div>--%>
               </div>
             </div>
 

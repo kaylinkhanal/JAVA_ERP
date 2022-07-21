@@ -152,42 +152,42 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                   </div>
                 </div>
               </div>
-              <div class="col-md-12">
-                <div class="row">
-                  <div class="form-group col-md-4">
-                    <label for="proposalDate" class="col-form-label"
-                      >Proposal Date</label
-                    >
-                  </div>
-                  <div class="col-md-8 d-flex align-items-center">
-                    <label for="proposalDate"><fmt:formatDate pattern="dd-MM-yyyy" value = "${caseDto.proposalDate}"/></label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="row">
-                  <div class="form-group col-md-4">
-                    <label for="acceptanceDate" class="col-form-label"
-                      >Acceptance Date</label
-                    >
-                  </div>
-                  <div class="col-md-8 d-flex align-items-center">
-                    <label for="acceptanceDate"><fmt:formatDate pattern="dd-MM-yyyy" value = "${caseDto.acceptanceDate}"/></label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="row">
-                  <div class="form-group col-md-4">
-                    <label for="discardDate" class="col-form-label"
-                      >Discard Date</label
-                    >
-                  </div>
-                  <div class="col-md-8 d-flex align-items-center">
-                    <label for="discardDate"><fmt:formatDate pattern="dd-MM-yyyy" value = "${caseDto.discardDate}"/></label>
-                  </div>
-                </div>
-              </div>
+<%--              <div class="col-md-12">--%>
+<%--                <div class="row">--%>
+<%--                  <div class="form-group col-md-4">--%>
+<%--                    <label for="proposalDate" class="col-form-label"--%>
+<%--                      >Proposal Date</label--%>
+<%--                    >--%>
+<%--                  </div>--%>
+<%--                  <div class="col-md-8 d-flex align-items-center">--%>
+<%--                    <label for="proposalDate"><fmt:formatDate pattern="dd-MM-yyyy" value = "${caseDto.proposalDate}"/></label>--%>
+<%--                  </div>--%>
+<%--                </div>--%>
+<%--              </div>--%>
+<%--              <div class="col-md-12">--%>
+<%--                <div class="row">--%>
+<%--                  <div class="form-group col-md-4">--%>
+<%--                    <label for="acceptanceDate" class="col-form-label"--%>
+<%--                      >Acceptance Date</label--%>
+<%--                    >--%>
+<%--                  </div>--%>
+<%--                  <div class="col-md-8 d-flex align-items-center">--%>
+<%--                    <label for="acceptanceDate"><fmt:formatDate pattern="dd-MM-yyyy" value = "${caseDto.acceptanceDate}"/></label>--%>
+<%--                  </div>--%>
+<%--                </div>--%>
+<%--              </div>--%>
+<%--              <div class="col-md-12">--%>
+<%--                <div class="row">--%>
+<%--                  <div class="form-group col-md-4">--%>
+<%--                    <label for="discardDate" class="col-form-label"--%>
+<%--                      >Discard Date</label--%>
+<%--                    >--%>
+<%--                  </div>--%>
+<%--                  <div class="col-md-8 d-flex align-items-center">--%>
+<%--                    <label for="discardDate"><fmt:formatDate pattern="dd-MM-yyyy" value = "${caseDto.discardDate}"/></label>--%>
+<%--                  </div>--%>
+<%--                </div>--%>
+<%--              </div>--%>
               <div class="col-md-12">
                 <div class="row">
                   <div class="form-group col-md-4">
@@ -200,30 +200,30 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                   </div>
                 </div>
               </div>
-              <div class="col-md-12">
-                <div class="row">
-                  <div class="form-group col-md-4">
-                    <label for="validationDate" class="col-form-label"
-                      >Validation Date</label
-                    >
-                  </div>
-                  <div class="col-md-8 d-flex align-items-center">
-                    <label for="validationDate"><fmt:formatDate pattern="dd-MM-yyyy" value = "${caseDto.validationDate}"/></label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="row">
-                  <div class="form-group col-md-4">
-                    <label for="suspenseDate" class="col-form-label"
-                      >Suspense Date</label
-                    >
-                  </div>
-                  <div class="col-md-8 d-flex align-items-center">
-                    <label for="suspenseDate"><fmt:formatDate pattern="dd-MM-yyyy" value = "${caseDto.suspenseDate}"/></label>
-                  </div>
-                </div>
-              </div>
+<%--              <div class="col-md-12">--%>
+<%--                <div class="row">--%>
+<%--                  <div class="form-group col-md-4">--%>
+<%--                    <label for="validationDate" class="col-form-label"--%>
+<%--                      >Validation Date</label--%>
+<%--                    >--%>
+<%--                  </div>--%>
+<%--                  <div class="col-md-8 d-flex align-items-center">--%>
+<%--                    <label for="validationDate"><fmt:formatDate pattern="dd-MM-yyyy" value = "${caseDto.validationDate}"/></label>--%>
+<%--                  </div>--%>
+<%--                </div>--%>
+<%--              </div>--%>
+<%--              <div class="col-md-12">--%>
+<%--                <div class="row">--%>
+<%--                  <div class="form-group col-md-4">--%>
+<%--                    <label for="suspenseDate" class="col-form-label"--%>
+<%--                      >Suspense Date</label--%>
+<%--                    >--%>
+<%--                  </div>--%>
+<%--                  <div class="col-md-8 d-flex align-items-center">--%>
+<%--                    <label for="suspenseDate"><fmt:formatDate pattern="dd-MM-yyyy" value = "${caseDto.suspenseDate}"/></label>--%>
+<%--                  </div>--%>
+<%--                </div>--%>
+<%--              </div>--%>
               <div class="col-md-12">
                 <div class="row">
                   <div class="col-md-2 form-group">
