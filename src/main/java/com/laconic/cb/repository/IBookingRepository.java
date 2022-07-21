@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface IBookingRepository extends JpaRepository<Booking, Long> {
     Optional<Booking> findByCaseId(Long caseId);
-    List<Booking> findAllByCaseId(Long caseId);
+    List<Booking> findAllByCaseIdAndIsDeletedFalse(Long caseId);
     Optional<Booking> findByBookingId(Long bookingId);
 }

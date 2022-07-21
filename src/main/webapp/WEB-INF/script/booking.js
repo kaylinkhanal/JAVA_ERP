@@ -32,7 +32,11 @@ $("#bookingForm").submit(async function(e) {
     let formData = new FormData();
     let caseId = getParameterByName('caseId');
     let document = fileupload.files[0];
-    let documentName = fileupload.files[0].name;
+    if (document) {
+        let documentName = fileupload.files[0].name;
+        formData.append("document", document);
+        formData.append("documentName", documentName);
+    }
 
     // console.log(bookingDetails)
     // booking.document = document;
@@ -42,8 +46,6 @@ $("#bookingForm").submit(async function(e) {
     // booking.location = $("#location").val();
     // booking.bookingDetails = bookingDetails;
     console.log(booking)
-    formData.append("document", document);
-    formData.append("documentName", documentName);
     formData.append("caseId", caseId);
     formData.append("branch", $("#branch").val())
     formData.append("location", $("#location").val())
@@ -63,7 +65,7 @@ $("#bookingForm").submit(async function(e) {
                    let currentRow=$(this).closest("tr");
                    let dto = new Object();
                    dto.status = currentRow.find("td:eq(0)").text();
-                   dto.boxNumber = currentRow.find("td:eq(1)").text();
+                   dto.bookingNumber = currentRow.find("td:eq(1)").text();
                    dto.size = currentRow.find("td:eq(2)").text();
                    dto.type = currentRow.find("td:eq(3)").text();
                    dto.bookingId = response

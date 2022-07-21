@@ -76,12 +76,12 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
             </div>
             <div class="form-group col-md-4">
               <label for="phone2">Phone2: </label>
-              <input type="text" class="form-control" id="phone2" name="phone2" value="${site.phone2}" required />
+              <input type="text" class="form-control" id="phone2" name="phone2" value="${site.phone2}" />
             </div>
 
             <div class="form-group col-md-4">
               <label for="fax">Fax: </label>
-              <input type="text" class="form-control" id="fax" name="fax" value="${site.fax}" required/>
+              <input type="text" class="form-control" id="fax" name="fax" value="${site.fax}"/>
             </div>
           </div>
           <button type="submit" class="btn btn-primary">Save</button

@@ -1,11 +1,5 @@
 CURRENCY_ID,CURRENCY_CODE,CURRENCY_NAME
-1,001,Nepal
-2,002,Thailand
-3,003,India
-4,004,Dubai
-5,005,Malaysia
-6,006,Singapore
-7,007,Japan
-8,008,China
-9,009,Korea
-10,010,Pakistan
+1,001,Rupee
+2,002,USD
+3,003,Thai
+4,004,AED

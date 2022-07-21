@@ -21,7 +21,7 @@
       <hr />
     </div>
     <div style="display: flex">
-      <button onclick="openPage('/booking/create?caseId=${caseId}')" class="btn btn-primary">Create Booking</button>
+      <button onclick="openPage('/booking/create?caseId=${caseDto.caseId}')" class="btn btn-primary">Create Booking</button>
     </div>
     <div align="center" class="col-md-12">
       <table border="1" width="100%" class="table table-striped" id="caseTable">
@@ -70,7 +70,7 @@
           <tbody align="center">
           <tr>
             <td>${booking.bookingId}</td>
-            <td>${booking.number}</td>
+            <td>${booking.bookingNumber}</td>
             <td>${booking.size}</td>
             <td>${booking.type}</td>
             <td>

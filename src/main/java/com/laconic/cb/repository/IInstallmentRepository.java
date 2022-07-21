@@ -25,8 +25,8 @@ public interface IInstallmentRepository extends JpaRepository<Installment, Long>
 //    Optional<Installment> findByInstallmentIdAndIsDeletedFalse(Long installmentId);
 
     Page<Installment> findAllByIsDeletedFalse(Pageable pageable);
-    List<Installment> findAllByCaseDto_CaseId(Long caseId);
-    Page<Installment> findAllByCaseDto_CaseId(Pageable pageable, Long caseId);
+    List<Installment> findAllByCaseDto_CaseIdAndIsDeletedFalse(Long caseId);
+    Page<Installment> findAllByCaseDto_CaseIdAndIsDeletedFalse(Pageable pageable, Long caseId);
 
     long countByIsDeletedFalse();
 }

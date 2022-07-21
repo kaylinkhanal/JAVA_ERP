@@ -21,5 +21,5 @@ public interface ICaseService {
 
     List<Case> searchCase(String keyword);
 
-    void endCase(Long id);
+//    void endCase(Long id);
 }

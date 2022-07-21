@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -67,6 +68,11 @@ public class CaseDocumentService implements ICaseDocumentService {
     @Override
     public CaseDocument saveDocument(CaseDocument caseDocument) {
         return caseDocumentRepository.save(caseDocument);
+    }
+
+    @Override
+    public List<CaseDocument> getAllCaseDocuments(Long caseId) {
+        return caseDocumentRepository.findAllByCaseId(caseId);
     }
 
     private void createFile(String path, String fileName, MultipartFile multipartFile) throws Exception {

@@ -32,9 +32,11 @@ public class BookingService implements IBookingService {
 
     @Override
     public Booking saveBooking(Booking booking) throws Exception {
-        UUID uuid = UUID.randomUUID();
-        String fileName = uuid.toString()+"."+ FilenameUtils.getExtension(booking.getDocument().getOriginalFilename());
-        createFile(filePath+"/temp/booking/"+booking.getBookingId()+"/", fileName, booking.getDocument());
+        if (booking.getDocument() != null) {
+            UUID uuid = UUID.randomUUID();
+            String fileName = uuid.toString()+"."+ FilenameUtils.getExtension(booking.getDocument().getOriginalFilename());
+            createFile(filePath+"/temp/booking/"+booking.getBookingId()+"/", fileName, booking.getDocument());
+        }
         return bookingRepository.save(booking);
     }
     private void createFile(String path, String fileName, MultipartFile multipartFile) throws Exception {
@@ -58,7 +60,7 @@ public class BookingService implements IBookingService {
 
     @Override
     public List<Booking> getBookingList(Long caseId) {
-        return bookingRepository.findAllByCaseId(caseId);
+        return bookingRepository.findAllByCaseIdAndIsDeletedFalse(caseId);
     }
 
     @Override

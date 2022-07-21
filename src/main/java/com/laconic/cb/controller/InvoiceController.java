@@ -252,14 +252,16 @@ public class InvoiceController {
         } else savedDeposit = depositService.saveDeposit(dbDeposit);
         // save deposit detail
         deposit.getDtoList().forEach(x -> {
-            DepositDetail depositDetail = new DepositDetail(x);
-            Optional<Item> item = itemService.findById(x.getItem());
-            Deposit deposit1 = depositService.findById(savedDeposit.getDepositId()).get();
-            if (item.isPresent()) depositDetail.setItem(item.get());
-            depositDetail.setDeposit(deposit1);
-            if (x.getDepositDetailId() != null) {
-                depositDetailService.updateDepositDetail(depositDetail);
-            } else depositDetailService.saveDepositDetail(depositDetail);
+            if (x.getItem() != null) {
+                DepositDetail depositDetail = new DepositDetail(x);
+                Optional<Item> item = itemService.findById(x.getItem());
+                Deposit deposit1 = depositService.findById(savedDeposit.getDepositId()).get();
+                depositDetail.setItem(item.get());
+                depositDetail.setDeposit(deposit1);
+                if (x.getDepositDetailId() != null) {
+                    depositDetailService.updateDepositDetail(depositDetail);
+                } else depositDetailService.saveDepositDetail(depositDetail);
+            }
         });
         redirectAttributes.addFlashAttribute("invoice", savedDeposit);
         return "success";

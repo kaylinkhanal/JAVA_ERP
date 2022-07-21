@@ -106,3 +106,6 @@ databaseChangeLog:
               - column:
                   name: SECURITY_DEPOSIT
                   type: DECIMAL(9,2)
+              - column:
+                  name: IS_DELETED
+                  type: STRING

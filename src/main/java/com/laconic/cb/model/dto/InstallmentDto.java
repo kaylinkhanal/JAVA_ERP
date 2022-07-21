@@ -22,6 +22,7 @@ public class InstallmentDto {
     private Double nonVat;
     private Double subtotalVat;
     private Double subtotalAmount;
+    private Double amount;
     private Long customer;
     private Long caseDto;
     private List<InstallmentDetailDto> dtoList;

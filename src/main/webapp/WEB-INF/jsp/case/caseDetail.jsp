@@ -238,6 +238,9 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                   <div class="col-md-2 form-group">
                     <button type="button" id="booking" class="btn btn-primary" onclick="openPage('/booking/create?caseId=${caseDto.caseId}')">Create Booking</button>
                   </div>
+                  <div class="col-md-2 form-group">
+                    <button type="button" id="bookingList" class="btn btn-primary" onclick="openPage('/booking/list?caseId=${caseDto.caseId}')">Booking List</button>
+                  </div>
                 </div>
               </div>
             </div>

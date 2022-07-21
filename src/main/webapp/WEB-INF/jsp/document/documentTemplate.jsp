@@ -49,7 +49,7 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
              <div class="form-row col-md-12">
               <div class="form-group col-md-6">
                 <label for="documentName">Document Name:</label>
-                <input type="text" class="form-control" id="documentName" name="documentName" value="${document.documentName}" />
+                <input type="text" class="form-control" id="documentName" name="documentName" value="${document.documentName}" required />
               </div>
               <div class="form-group col-md-6">
                 <label for="format">Doc Printing Format: </label>

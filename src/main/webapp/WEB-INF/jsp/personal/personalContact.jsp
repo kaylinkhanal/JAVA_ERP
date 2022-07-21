@@ -122,7 +122,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
 
     <jsp:include page="/WEB-INF/jsp/templates/basicModal.jsp">
       <jsp:param name="message" value="Thank you for your registration. Your Personal ID is ${customer.customerId}." />
-      <jsp:param name="url" value="/case/create"/>
+      <jsp:param name="url" value="${customer.fullName != null ? '/case/create' : '/company/finance'}"/>
     </jsp:include>
   </body>
 </html>
