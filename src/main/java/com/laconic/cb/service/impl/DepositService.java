@@ -33,12 +33,12 @@ public class DepositService implements IDepositService {
     @Override
     public Page<Deposit> getAllDeposit(int pageNo, Long caseId) {
         Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
-        return depositRepository.findAllByCaseDto_CaseId(pageable, caseId);
+        return depositRepository.findAllByCaseDto_CaseIdAndIsDeletedFalse(pageable, caseId);
     }
 
     @Override
     public List<Deposit> getAllDeposit(Long caseId) {
-        return depositRepository.findAllByCaseDto_CaseId(caseId);
+        return depositRepository.findAllByCaseDto_CaseIdAndIsDeletedFalse(caseId);
     }
 
     @Override

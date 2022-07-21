@@ -31,7 +31,7 @@ public class TitleController {
         Page<Title> titlePage = titleService.getAllTitles(pageNo);
         List<Title> titleList = titlePage.getContent().stream().collect(Collectors.toList());
         long totalTitles = titleService.getTotalTitles();
-        Pagination.getPagination(modelMap, titlePage, totalTitles, titleList, "/title/createTitle");
+        Pagination.getPagination(modelMap, titlePage, totalTitles, titleList, "/title/create");
         return "title/createTitle";
     }
 

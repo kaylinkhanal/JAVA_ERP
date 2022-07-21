@@ -55,8 +55,8 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                   </div>
                   <div class="col-md-4 d-flex align-items-center">
                     <select id="document" name="document" class="form-control" required>
+                      <option selected value="">Choose...</option>
                       <c:forEach var="template" items="${templates }" >
-                        <option selected value="">Choose...</option>
                         <option value="${template.documentId }">${template.documentName}</option>
                       </c:forEach>
                     </select>
@@ -235,9 +235,12 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                   <div class="col-md-2 form-group">
                     <button type="button" id="invoiceList" class="btn btn-primary" onclick="openPage('/invoice/list?caseId=${caseDto.caseId}')">Invoice List</button>
                   </div>
-<%--                  <div class="col-md-2 form-group">--%>
-<%--                    <button type="button" id="attachDocument" class="btn btn-primary" onclick="openPage('/document/attachDocument?caseId=${caseDto.caseId}')">Attach Document</button>--%>
-<%--                  </div>--%>
+                  <div class="col-md-2 form-group">
+                    <button type="button" id="booking" class="btn btn-primary" onclick="openPage('/booking/create?caseId=${caseDto.caseId}')">Create Booking</button>
+                  </div>
+                  <div class="col-md-2 form-group">
+                    <button type="button" id="bookingList" class="btn btn-primary" onclick="openPage('/booking/list?caseId=${caseDto.caseId}')">Booking List</button>
+                  </div>
                 </div>
               </div>
             </div>

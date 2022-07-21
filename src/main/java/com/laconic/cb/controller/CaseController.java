@@ -1,8 +1,6 @@
 package com.laconic.cb.controller;
 
-import com.laconic.cb.model.Case;
-import com.laconic.cb.model.Customer;
-import com.laconic.cb.model.Title;
+import com.laconic.cb.model.*;
 import com.laconic.cb.model.dto.CaseDocumentRequest;
 import com.laconic.cb.service.*;
 import com.laconic.cb.utils.Pagination;
@@ -30,13 +28,21 @@ public class CaseController {
     private final ITitleService titleService;
     private final IDocumentService documentService;
     private final ICaseDocumentService caseDocumentService;
+    private final IInvoiceService invoiceService;
+    private final IInstallmentService installmentService;
+    private final IDepositService depositService;
+    private final IBookingService bookingService;
 
-    public CaseController(ICaseService caseService, IContactPersonService contactPersonService, ITitleService titleService, IDocumentService documentService, ICaseDocumentService caseDocumentService) {
+    public CaseController(ICaseService caseService, IContactPersonService contactPersonService, ITitleService titleService, IDocumentService documentService, ICaseDocumentService caseDocumentService, IInvoiceService invoiceService, IInstallmentService installmentService, IDepositService depositService, IBookingService bookingService) {
         this.caseService = caseService;
         this.contactPersonService = contactPersonService;
         this.titleService = titleService;
         this.documentService = documentService;
         this.caseDocumentService = caseDocumentService;
+        this.invoiceService = invoiceService;
+        this.installmentService = installmentService;
+        this.depositService = depositService;
+        this.bookingService = bookingService;
     }
 
     @GetMapping("/list")
@@ -109,9 +115,22 @@ public class CaseController {
     }
 
     @GetMapping("/endCase/{id}")
-    public String endCase(@PathVariable("id") Long id) {
-        caseService.endCase(id);
-        return "redirect:/case/list";
+    public String endCase(@PathVariable("id") Long id, Model model) {
+        Optional<Case> caseOptional = caseService.findById(id);
+        if (caseOptional.isPresent()) {
+            Case caseDto = caseOptional.get();
+//            List<Invoice> caseInvoices = invoiceRepository.findAllByCaseDto_CaseId(caseDto.getCaseId());
+//            List<Installment> caseInstallments = installmentRepository.findAllByCaseDto_CaseId(caseDto.getCaseId());
+//            List<Deposit> caseDeposits = depositRepository.findAllByCaseDto_CaseId(caseDto.getCaseId());
+//            List<CaseDocument> caseDocuments = caseDocumentRepository.findAllByCaseId(caseDto.getCaseId());
+            List<Booking> bookingList = bookingService.getBookingList(caseDto.getCaseId());
+            model.addAttribute("invoices", invoiceService.getAllInvoices(caseDto.getCaseId()));
+            model.addAttribute("installments", installmentService.getAllInstallment(caseDto.getCaseId()));
+            model.addAttribute("deposits", depositService.getAllDeposit(caseDto.getCaseId()));
+            model.addAttribute("documents", caseDocumentService.getAllCaseDocuments(caseDto.getCaseId()));
+            model.addAttribute("bookings", bookingList);
+        }
+        return "case/endCase";
     }
 
     @PostMapping("/attachDocument")

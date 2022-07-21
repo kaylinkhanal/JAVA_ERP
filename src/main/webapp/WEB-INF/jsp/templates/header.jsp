@@ -31,7 +31,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/document/create">Create Document Template</a>
                     <a class="dropdown-item" href="/document/list">Document Template List</a>
-                    <a class="dropdown-item" href="/document/preview">Document Preview</a>
+<%--                    <a class="dropdown-item" href="/document/preview">Document Preview</a>--%>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/document/typeList">Document Type List</a>
                 </div>
@@ -64,6 +64,7 @@
 <%--                    <a class="dropdown-item" href="/invoice/create">Create Invoice</a>--%>
 <%--                    <div class="dropdown-divider"></div>--%>
                     <a class="dropdown-item" href="/invoice/createItem">Create Item</a>
+                    <a class="dropdown-item" href="/title/create">Create Title</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

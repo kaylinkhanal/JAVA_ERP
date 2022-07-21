@@ -164,7 +164,12 @@
                     <label for="exchangeRate">Amount </label>
                     <input type="text" class="form-control" id="subtotalAmount" name="subtotalAmount" value="" />
                 </div>
-
+                <div class="form-group col-md-6">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="exchangeRate">Actual Amount </label>
+                    <input type="text" class="form-control" id="amount" name="amount" value="" />
+                </div>
             </div><br/>
             <div class="form-row" id="itemDiv" style="display: none; background: darkgray">
                 <div class="form-group col-md-12">
@@ -229,6 +234,7 @@
         let nonVat = $('#nonVat').val()
         let subtotalVat = $('#subtotalVat').val()
         let subtotalAmount = $('#subtotalAmount').val()
+        let amount = $('#amount').val()
         let customer = ${caseDto.customer.customerId};
         let caseDto = ${caseDto.caseId};
 
@@ -249,6 +255,7 @@
         deposit.nonVat = nonVat;
         deposit.subtotalVat = subtotalVat;
         deposit.subtotalAmount = subtotalAmount;
+        deposit.amount = amount;
         deposit.customer = customer;
         deposit.caseDto = caseDto;
         const dtoList = [];

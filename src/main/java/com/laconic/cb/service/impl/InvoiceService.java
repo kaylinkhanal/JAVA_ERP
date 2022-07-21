@@ -63,26 +63,32 @@ public class InvoiceService implements IInvoiceService {
     }
 
     private Invoice getInvoiceDetails(InvoiceDto dto, Invoice savedInvoice) {
-        dto.getDtoList().forEach(x -> {
-            InvoiceDetail invoiceDetail = new InvoiceDetail(x);
-            Optional<Item> item = itemRepository.findByItemIdAndIsDeletedFalse(x.getItem());
-            Optional<Installment> installment = installmentRepository.findByInstallmentIdAndIsDeletedFalse(x.getInstallment());
-            Optional<Deposit> deposit = depositRepository.findByDepositIdAndIsDeletedFalse(x.getDeposit());
-            if (item.isPresent()) invoiceDetail.setItem(item.get());
-            if (installment.isPresent()) invoiceDetail.setInstallment(installment.get());
-            if (deposit.isPresent()) invoiceDetail.setDeposit(deposit.get());
-            invoiceDetail.setInvoice(savedInvoice);
-            if (x.getInvoiceDetailId() != null) {
-                invoiceDetailRepository.saveAndFlush(invoiceDetail);
-            } else invoiceDetailRepository.save(invoiceDetail);
-        });
+       dto.getDtoList().forEach(x -> {
+           InvoiceDetail invoiceDetail = new InvoiceDetail(x);
+           if (x.getItem() != null) {
+               Optional<Item> item = itemRepository.findByItemIdAndIsDeletedFalse(x.getItem());
+               invoiceDetail.setItem(item.get());
+           }
+           if (x.getInstallment() != null) {
+               Optional<Installment> installment = installmentRepository.findByInstallmentIdAndIsDeletedFalse(x.getInstallment());
+               invoiceDetail.setInstallment(installment.get());
+           }
+           if (x.getDeposit() != null) {
+               Optional<Deposit> deposit = depositRepository.findByDepositIdAndIsDeletedFalse(x.getDeposit());
+               invoiceDetail.setDeposit(deposit.get());
+           }
+           invoiceDetail.setInvoice(savedInvoice);
+           if (x.getInvoiceDetailId() != null) {
+               invoiceDetailRepository.saveAndFlush(invoiceDetail);
+           } else invoiceDetailRepository.save(invoiceDetail);
+       });
         return savedInvoice;
     }
 
     @Override
     public Page<Invoice> getAllInvoices(int pageNo, Long caseId) {
         Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
-        return invoiceRepository.findAllByCaseDto_CaseId(pageable, caseId);
+        return invoiceRepository.findAllByCaseDto_CaseIdAndIsDeletedFalse(pageable, caseId);
     }
 
     @Override

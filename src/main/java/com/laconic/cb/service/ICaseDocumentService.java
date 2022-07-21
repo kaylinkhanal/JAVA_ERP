@@ -4,6 +4,8 @@ import com.laconic.cb.model.Case;
 import com.laconic.cb.model.CaseDocument;
 import com.laconic.cb.model.dto.CaseDocumentRequest;
 
+import java.util.List;
+
 public interface ICaseDocumentService {
     Case uploadCaseDocument(CaseDocumentRequest request) throws Exception;
 
@@ -11,4 +13,5 @@ public interface ICaseDocumentService {
 
     CaseDocument saveDocument(CaseDocument caseDocument);
 
+    List<CaseDocument> getAllCaseDocuments(Long caseId);
 }

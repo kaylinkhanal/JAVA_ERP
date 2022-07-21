@@ -21,6 +21,7 @@ public class DepositDto {
     private String bankAccount;
     private Double nonVat;
     private Double subtotalVat;
+    private Double amount;
     private Double subtotalAmount;
     private Long customer;
     private Long caseDto;

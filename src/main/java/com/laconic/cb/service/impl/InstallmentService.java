@@ -60,14 +60,16 @@ public class InstallmentService implements IInstallmentService {
     }
 
     private Installment getInstallment(InstallmentDto dto, Installment savedInstallment) {
-        dto.getDtoList().forEach(x-> {
-            InstallmentDetail installmentDetail = new InstallmentDetail(x);
-            Optional<Item> item = iItemRepository.findByItemIdAndIsDeletedFalse(x.getItem());
-            installmentDetail.setInstallment(savedInstallment);
-            if (item.isPresent()) installmentDetail.setItem(item.get());
-            if (x.getInstallmentDetailId() != null) {
-                installmentDetailRepository.saveAndFlush(installmentDetail);
-            } else installmentDetailRepository.saveAndFlush(installmentDetail);
+        dto.getDtoList().forEach(x -> {
+            if (x.getItem() != null) {
+                InstallmentDetail installmentDetail = new InstallmentDetail(x);
+                Optional<Item> item = iItemRepository.findByItemIdAndIsDeletedFalse(x.getItem());
+                installmentDetail.setInstallment(savedInstallment);
+                if (item.isPresent()) installmentDetail.setItem(item.get());
+                if (x.getInstallmentDetailId() != null) {
+                    installmentDetailRepository.saveAndFlush(installmentDetail);
+                } else installmentDetailRepository.saveAndFlush(installmentDetail);
+            }
         });
         return savedInstallment;
     }
@@ -75,12 +77,12 @@ public class InstallmentService implements IInstallmentService {
     @Override
     public Page<Installment> getAllInstallment(int pageNo, Long caseId) {
         Pageable pageable = PageRequest.of(pageNo, AppConstants.DEFAULT_PAGE_SIZE);
-        return installmentRepository.findAllByCaseDto_CaseId(pageable, caseId);
+        return installmentRepository.findAllByCaseDto_CaseIdAndIsDeletedFalse(pageable, caseId);
     }
 
     @Override
     public List<Installment> getAllInstallment(Long caseId) {
-        return installmentRepository.findAllByCaseDto_CaseId(caseId);
+        return installmentRepository.findAllByCaseDto_CaseIdAndIsDeletedFalse(caseId);
     }
 
     @Override
