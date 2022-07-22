@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -63,17 +64,21 @@ public class Customer extends BaseEntity {
     @Column(name = "DISABLE_DATE")
     private Date disableDate;
 
-    @OneToOne(mappedBy = "customer", fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    private Address address;
+    private List<Address> address;
 
-    @OneToOne(mappedBy = "customer", fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    private ContactPerson contactPerson;
+    private List<ContactPerson> contactPerson;
 
-    @OneToOne(mappedBy = "customer", fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    private Site site;
+    private List<Site> site;
+
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<CompanyFinance> companyFinance;
 
 //    @Column(name = "ACCOUNTING_DONATION_ID")
 //    private Long accountingDonationId;

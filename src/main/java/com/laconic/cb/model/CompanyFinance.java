@@ -1,5 +1,6 @@
 package com.laconic.cb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -35,8 +36,9 @@ public class CompanyFinance extends  BaseEntity {
     @OneToOne
     @JoinColumn(name = "COUNTRY_ID")
     private Country country;
-    @OneToOne
-    @JoinColumn(name = "CUSTOMER_ID")
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID", nullable = false)
     private Customer customer;
     @Column(name = "IS_DELETED")
     private Boolean isDeleted = false;

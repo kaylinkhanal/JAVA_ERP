@@ -192,9 +192,9 @@ public class DocumentController {
             if (document.get().getContent() != null) {
                 String content;
                 DocumentAttributes documentAttributes = DocumentAttributes.builder().documentId(dbDocument.getDocumentId())
-                        .address(dbCase.getCustomer().getAddress().getAddressNo())
+                        .address(dbCase.getCustomer().getAddress().get(0).getAddressNo())
                         .executorName(dbCase.getCustomer().getFullName())
-                        .nationality(dbCase.getCustomer().getAddress().getCountry().getCountryName())
+                        .nationality(dbCase.getCustomer().getAddress().get(0).getCountry().getCountryName())
                         .contactNumber(dbCase.getCustomer().getContactNo())
                         .dateOfBirth(dbCase.getCustomer().getDateOfBirth().toString())
                         .passportNumber(dbCase.getCustomer().getIdPassportNo())
