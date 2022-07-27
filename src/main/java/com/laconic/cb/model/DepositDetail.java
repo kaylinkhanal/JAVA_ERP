@@ -18,7 +18,7 @@ public class DepositDetail extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DepositDetail_SEQ_GEN")
     @Column(name = "DEPOSIT_DETAIL_ID")
     private Long depositDetailId;
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "DEPOSIT_ID", nullable = false)
     private Deposit deposit;
     @OneToOne

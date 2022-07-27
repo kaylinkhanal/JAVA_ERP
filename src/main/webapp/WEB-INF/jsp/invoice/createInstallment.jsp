@@ -59,46 +59,46 @@
       <div class="form-row">
         <div class="form-group col-md-8">
           <label for="installmentNumber">Installment Number: </label>
-          <input type="text" disabled class="form-control" id="installmentNumber" name="installmentNumber" value="${installmentNumber}" />
-          <input type="hidden" name="installmentNumber" value="${installmentNumber}" />
+          <input type="text" disabled class="form-control" id="installmentNumber" name="installmentNumber" value="${installment.installmentNumber != null ? installment.installmentNumber : installmentNumber}" />
+          <input type="hidden" name="installmentNumber" value="${installment.installmentNumber != null ? installment.installmentNumber : installmentNumber}" />
         </div>
         <div class="form-group col-md-4">
           <label for="installmentDate">Installment Date: </label>
-          <input type="date" class="form-control" id="installmentDate" required name="installmentDate" value="" />
+          <input type="date" class="form-control" id="installmentDate" required name="installmentDate" value="${installment.installmentDate}" />
           <input type="hidden" name="installmentDate" value="" />
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-12">
           <label for="sequence">Sequence </label>
-          <input type="text" class="form-control" id="sequence" name="sequence" value="" required />
+          <input type="text" class="form-control" id="sequence" name="sequence" value="${installment.sequence}" required />
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-12">
           <label for="caseRemark">Case Remark: </label>
-          <input type="text" class="form-control" id="caseRemark" name="caseRemark" value="" required />
+          <input type="text" class="form-control" id="caseRemark" name="caseRemark" value="${installment.caseRemark}" required />
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-12">
           <label for="rejectRemark">Reject Remark: </label>
-          <input type="text" class="form-control" id="rejectRemark" name="rejectRemark" value="" required />
+          <input type="text" class="form-control" id="rejectRemark" name="rejectRemark" value="${installment.rejectRemark}" required />
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-12">
           <label for="installmentTitle">Installment Title: </label>
-          <input type="text" class="form-control" id="installmentTitle" name="installmentTitle" value="" required />
+          <input type="text" class="form-control" id="installmentTitle" name="installmentTitle" value="${installment.installmentTitle}" required />
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="vat">Vat: </label>
-          <input type="text" class="form-control" id="vat" name="vat" value="" required />
+          <input type="text" class="form-control" id="vat" name="vat" value="${installment.vat}" required />
         </div>
         <div class="form-group col-md-4">
           <label for="currency">Currency: </label>
@@ -119,19 +119,19 @@
         </div>
         <div class="form-group col-md-4">
           <label for="exchangeRate">Exchange Rate: </label>
-          <input type="text" class="form-control" id="exchangeRate" name="exchangeRate" value="" required />
+          <input type="text" class="form-control" id="exchangeRate" name="exchangeRate" value="${installment.exchangeRate}" required />
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-12">
           <label for="paymentTerm">Payment Term: </label>
-          <input type="text" class="form-control" id="paymentTerm" name="paymentTerm" value="" required />
+          <input type="text" class="form-control" id="paymentTerm" name="paymentTerm" value="${installment.paymentTerm}" required />
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-12">
           <label for="bankAccount">Bank Account: </label>
-          <input type="text" class="form-control" id="bankAccount" name="bankAccount" value="" required />
+          <input type="text" class="form-control" id="bankAccount" name="bankAccount" value="${installment.bankAccount}" required />
         </div>
       </div>
       <div class="form-row">
@@ -153,22 +153,22 @@
         <div class="form-group col-md-3">
           <label for="vat">Non-Vat </label>
           <div class="col-md-10">
-            <input type="text" class="form-control" id="nonVat" name="nonVat" value="" />
+            <input type="text" class="form-control" id="nonVat" name="nonVat" value="${installment.nonVat}" />
           </div>
         </div>
         <div class="form-group col-md-3">
           <label for="currency">Vat </label>
-          <input type="text" class="form-control" id="subtotalVat" name="subtotalVat" value="" />
+          <input type="text" class="form-control" id="subtotalVat" name="subtotalVat" value="${installment.subtotalVat}" />
         </div>
         <div class="form-group col-md-3">
           <label for="exchangeRate">Amount </label>
-          <input type="text" class="form-control" id="subtotalAmount" name="subtotalAmount" value="" />
+          <input type="text" class="form-control" id="subtotalAmount" name="subtotalAmount" value="${installment.subtotalAmount}" />
         </div>
         <div class="form-group col-md-6">
         </div>
         <div class="form-group col-md-6">
           <label for="exchangeRate">Actual Amount </label>
-          <input type="text" class="form-control" id="amount" name="amount" value="" />
+          <input type="text" class="form-control" id="amount" name="amount" value="${installment.amount}" />
         </div>
       </div><br/>
 <%--      <div class="form-row" id="item" style="display: none; background: darkgray">--%>
@@ -179,19 +179,40 @@
 <%--          <input class="col-md-5" type="text" placeholder="0.00">--%>
 <%--          <hr/>--%>
 <%--        </div>--%>
-      <div class="form-row" id="itemDiv" style="display: none; background: darkgray">
-        <div class="form-group col-md-12">
-          <br/>
-          <label id="item" name="item" class="col-md-1"></label>
-          <label id="itemName" name="itemName" class="col-md-3"></label>
-          <label class="col-md-2">Amount</label>
-          <input class="col-md-5" type="text" name="itemAmount" id="itemAmount"  placeholder="0.00">
-          <button type="button" class="itemClose" id="itemClose">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <hr/>
-        </div>
-      </div><br>
+<%--      <div class="form-row" id="itemDiv" style="display: none; background: darkgray">--%>
+<%--        <div class="form-group col-md-12">--%>
+<%--          <br/>--%>
+<%--          <label id="item" name="item" class="col-md-1">${installment.paymentTerm}</label>--%>
+<%--          <label id="itemName" name="itemName" class="col-md-3"></label>--%>
+<%--          <label class="col-md-2">Amount</label>--%>
+<%--          <input class="col-md-5" type="text" name="itemAmount" id="itemAmount"  value="${installment.paymentTerm}">--%>
+<%--          <button type="button" class="itemClose" id="itemClose">--%>
+<%--            <span aria-hidden="true">&times;</span>--%>
+<%--          </button>--%>
+<%--          <hr/>--%>
+<%--        </div>--%>
+<%--      </div>--%>
+      <c:if test="${installmentDetail.size() > 0}">
+        <c:forEach var="installmentItem" items="${installmentDetail}">
+          <jsp:include page="/WEB-INF/jsp/templates/addItem.jsp">
+            <jsp:param name="detailId" value="${installmentItem.installmentDetailId}" />
+            <jsp:param name="masterId" value="${installmentItem.installment.installmentId}" />
+            <jsp:param name="itemName" value="${installmentItem.item.itemName}" />
+            <jsp:param name="itemAmount" value="${installmentItem.itemAmount}" />
+            <jsp:param name="itemId" value="${installmentItem.item.itemId}" />
+            <jsp:param name="display" value="block" />
+          </jsp:include>
+        </c:forEach>
+      </c:if>
+      <jsp:include page="/WEB-INF/jsp/templates/addItem.jsp">
+        <jsp:param name="detailId" value="" />
+        <jsp:param name="masterId" value="" />
+        <jsp:param name="itemName" value="" />
+        <jsp:param name="itemAmount" value="" />
+        <jsp:param name="itemId" value="" />
+        <jsp:param name="display" value="none" />
+      </jsp:include>
+      <br>
       <div class="form-row col-md-6">
         <div class="form-group col-md-2">
           <input type="submit" value="Save">
@@ -217,12 +238,19 @@
 </body>
 </html>
 <script>
+  $(document).ready(function () {
+    setDate('${installment.installmentDate}', 'installmentDate');
+  })
+</script>
+<script>
   $("#addInstallmentForm").submit(function(e) {
     e.preventDefault(); // prevent actual form submit
     // var form = $(this);
     // var url = form.attr('action'); //get submit url [replace url here if desired]
     let installment = new Object();
     let dto = new Object();
+    let installmentId = $('#masterId').val();
+    let installmentDetailId = $('#detailId').val();
     let itemName = $('#itemName').html();
     let item = $('#item').html();
     let itemAmount = $('#itemAmount').val()
@@ -247,6 +275,7 @@
     dto.itemName = itemName;
     dto.item = item;
     dto.itemAmount = itemAmount;
+    dto.installmentDetailId = installmentDetailId;
     installment.installmentNumber = installmentNumber;
     installment.installmentTitle = installmentTitle;
     installment.installmentDate = installmentDate;
@@ -264,6 +293,7 @@
     installment.amount = amount;
     installment.customer = customer;
     installment.caseDto = caseDto;
+    installment.installmentId = installmentId;
     const dtoList = [];
     dtoList[0] = dto;
     installment.dtoList = dtoList

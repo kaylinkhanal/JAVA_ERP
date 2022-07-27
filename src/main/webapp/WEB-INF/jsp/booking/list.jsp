@@ -68,13 +68,12 @@
         <c:forEach var="booking" items="${bookings}">
           <tbody align="center">
           <tr>
-            <td>${booking.bookingDetailId}</td>
-            <td>${booking.bookingNumber}</td>
-            <td>${booking.size}</td>
-            <td>${booking.type}</td>
+            <td>${booking.bookingId}</td>
+            <td>${booking.bookingDetails.get(0).bookingNumber}</td>
+            <td>${booking.bookingDetails.get(0).size}</td>
+            <td>${booking.bookingDetails.get(0).type}</td>
             <td>
-<%--              <i class="far fa-edit icon-button" onclick="openPage('/booking/edit/${booking.bookingId}')"></i>--%>
-              <i class="far fa-edit icon-button"></i>
+              <i class="far fa-edit icon-button" onclick="openPage('/booking/edit/${booking.bookingId}')"></i>
             </td>
           </tr>
           </tbody>

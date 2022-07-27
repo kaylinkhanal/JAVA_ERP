@@ -40,11 +40,23 @@ public class BookingController {
         return "booking/create";
     }
 
+    @GetMapping("/edit/{id}")
+    private String editBooking(@PathVariable("id") Long bookingId, Model model) {
+        Optional<Booking> booking = bookingService.findByBookingId(bookingId);
+        List<SecurityBox> securityBoxList = securityBoxService.getSecurityBoxList();
+        if (booking.isPresent()) {
+            model.addAttribute("booking", booking.get());
+            model.addAttribute("bookingDetails", booking.get().getBookingDetails());
+        }
+        model.addAttribute("boxes", securityBoxList);
+        return "booking/create";
+    }
+
     @GetMapping("/list")
     private String bookingListPage(Model model,
                                    @RequestParam(value = "caseId", required = true) Long caseId) {
         Optional<Case> caseDto = caseService.findById(caseId);
-        List<BookingDetail> bookingList = bookingService.getBookingDetailList(caseId);
+        List<Booking> bookingList = bookingService.getBookingList(caseId);
         model.addAttribute("bookings", bookingList);
         model.addAttribute("caseDto", caseDto.get());
         return "booking/list";
