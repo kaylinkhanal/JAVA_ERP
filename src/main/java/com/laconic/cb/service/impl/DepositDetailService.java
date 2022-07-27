@@ -5,6 +5,8 @@ import com.laconic.cb.repository.IDepositDetailRepository;
 import com.laconic.cb.service.IDepositDetailService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class DepositDetailService implements IDepositDetailService {
     private final IDepositDetailRepository depositDetailRepository;
@@ -21,5 +23,11 @@ public class DepositDetailService implements IDepositDetailService {
     @Override
     public DepositDetail updateDepositDetail(DepositDetail depositDetail) {
         return depositDetailRepository.saveAndFlush(depositDetail);
+    }
+
+    @Override
+    public void deleteDepositDetail(Long id) {
+        Optional<DepositDetail> depositDetail = depositDetailRepository.findById(id);
+        depositDetailRepository.delete(depositDetail.get());
     }
 }

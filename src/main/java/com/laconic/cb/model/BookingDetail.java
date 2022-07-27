@@ -27,6 +27,8 @@ public class BookingDetail extends BaseEntity {
     private Integer bookingNumber;
     @Column(name = "BOOKING_ID")
     private Long bookingId;
+    @Column(name = "CASE_ID")
+    private Long caseId;
     @Column(name = "IS_DELETED")
     private Boolean isDeleted = false;
 }

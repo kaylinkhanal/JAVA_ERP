@@ -17,7 +17,7 @@
 <div class="container-wrapper">
   <div class="container">
     <div class="page-header">
-      <h1>Create Invoice</h1>
+      <h1>Invoice List</h1>
       <hr />
     </div>
     <div style="display: flex">

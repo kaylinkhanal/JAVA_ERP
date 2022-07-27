@@ -143,6 +143,22 @@ public class InvoiceController {
         return "success";
     }
 
+    @GetMapping("/editInstallment/{id}")
+    public String editInstallment(@PathVariable("id") Long id, Model model) {
+        Optional<Installment> installment = installmentService.findById(id);
+        if (installment.isPresent()) {
+            Long caseId = installment.get().getCaseDto().getCaseId();
+            if (caseId != null) {
+                Case caseDto = caseService.findById(caseId).get();
+                model.addAttribute("caseDto", caseDto);
+            }
+            model.addAttribute("installment", installment.get());
+            List<InstallmentDetail> installmentDetail = installment.get().getInstallmentDetails();
+            model.addAttribute("installmentDetail", installmentDetail);
+        }
+        return "invoice/createInstallment";
+    }
+
     @GetMapping("/deleteInstallment/{id}")
     public String deleteInstallment(@PathVariable("id") Long id) {
         Installment installment = installmentService.findById(id).get();
@@ -155,6 +171,13 @@ public class InvoiceController {
         Deposit deposit = depositService.findById(id).get();
         depositService.softDeleteDeposit(id);
         return "redirect:/case/list?caseId=" + deposit.getCaseDto().getCaseId();
+    }
+
+    @GetMapping("/deleteDepositDetail/{depositId}/{id}")
+    public String deleteDepositDetail(@PathVariable("depositId") Long depositId, @PathVariable("id") Long id) {
+        Deposit deposit = depositService.findById(depositId).get();
+        depositDetailService.deleteDepositDetail(id);
+        return "redirect:/invoice/editDeposit/" + deposit.getDepositId();
     }
 
     @GetMapping("/deleteItem/{id}")
@@ -237,32 +260,11 @@ public class InvoiceController {
     // need to shift logic part to service
     @PostMapping("addDeposit")
     @ResponseBody
-    public String addDeposit(@RequestBody DepositDto deposit, RedirectAttributes redirectAttributes) {
+    public String addDeposit(@RequestBody DepositDto dto, RedirectAttributes redirectAttributes) {
         Deposit savedDeposit;
-        Deposit dbDeposit = new Deposit(deposit);
-        Customer customer = customerService.findById(deposit.getCustomer()).get();
-        Case caseDto = caseService.findById(deposit.getCaseDto()).get();
-        Currency currency = currencyService.findById(deposit.getCurrency());
-        dbDeposit.setCustomer(customer);
-        dbDeposit.setCaseDto(caseDto);
-        dbDeposit.setCurrency(currency);
-        // save deposit
-        if (deposit.getDepositId() != null) {
-            savedDeposit = depositService.updateDeposit(dbDeposit);
-        } else savedDeposit = depositService.saveDeposit(dbDeposit);
-        // save deposit detail
-        deposit.getDtoList().forEach(x -> {
-            if (x.getItem() != null) {
-                DepositDetail depositDetail = new DepositDetail(x);
-                Optional<Item> item = itemService.findById(x.getItem());
-                Deposit deposit1 = depositService.findById(savedDeposit.getDepositId()).get();
-                depositDetail.setItem(item.get());
-                depositDetail.setDeposit(deposit1);
-                if (x.getDepositDetailId() != null) {
-                    depositDetailService.updateDepositDetail(depositDetail);
-                } else depositDetailService.saveDepositDetail(depositDetail);
-            }
-        });
+        if (dto.getDepositId() != null) {
+            savedDeposit = depositService.updateDeposit(dto);
+        } else savedDeposit = depositService.saveDeposit(dto);
         redirectAttributes.addFlashAttribute("invoice", savedDeposit);
         return "success";
     }
@@ -287,7 +289,14 @@ public class InvoiceController {
     public String editDeposit(@PathVariable("id") Long id, Model model) {
         Optional<Deposit> deposit = depositService.findById(id);
         if (deposit.isPresent()) {
+            Long caseId = deposit.get().getCaseDto().getCaseId();
+            if (caseId != null) {
+                Case caseDto = caseService.findById(caseId).get();
+                model.addAttribute("caseDto", caseDto);
+            }
             model.addAttribute("deposit", deposit.get());
+            List<DepositDetail> depositDetails = deposit.get().getDepositDetails();
+            model.addAttribute("depositDetail", depositDetails);
         }
         return "invoice/createDeposit";
     }

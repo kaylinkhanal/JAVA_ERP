@@ -18,30 +18,53 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="branch">Branch </label>
-                    <select id="branch" name="branch" class="form-control" required>
-                        <option selected>Choose</option>
+                    <select id="branch" name="branch" class="form-control" required value="${booking.branch}">
+                        <option selected value="">Choose</option>
                         <option value="Bangrak">Bangrak</option>
                         <option value="Asok">Asok</option>
                     </select>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="location">Location </label>
-                    <select id="location" name="location" class="form-control" required>
-                        <option selected>Choose</option>
+                    <select id="location" name="location" class="form-control" required value="${booking.location}">
+                        <option selected value="">Choose</option>
                         <option value="Location 1">Location 1</option>
                         <option value="Location 2">Location 2</option>
                     </select>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-4">
+            <c:if test="${booking.document == null}">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input type="file" class="form-control-file" id="fileupload" name="fileupload" value="${booking.bookingId}">
+                    </div>
+                    <div class="form-group col-md-4">
+                    </div>
                 </div>
-                <div class="form-group col-md-4">
-                    <input type="file" class="form-control-file" id="fileupload" name="fileupload">
+            </c:if>
+            <c:if test="${booking.document != null}">
+                <%--              show document--%>
+                <div align="center" class="col-md-12">
+                    <table border="1" width="100%" class="table table-striped" >
+                        <thead align="center" class="bg-primary">
+                        <tr>
+                            <td>Document Name</td>
+                            <td>Action</td>
+                        </tr>
+                        </thead>
+                        <tbody align="center">
+                        <tr>
+                            <td>${booking.documentName}</td>
+                            <td>
+                                <i class="far fa-trash-alt icon-button" onclick="openPage('/booking/deleteBookingDocument/${booking.bookingId}/${document.booking.document.documentId}')"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="form-group col-md-4">
-                </div>
-            </div>
+            </c:if>
             <div align="center">
                 <table border="1" width="60%" class="table table-striped" id="bookingTable">
                     <thead align="center" class="bg-primary">
@@ -86,11 +109,35 @@
                 </tr>
                 </tbody>
             </c:forEach>
+            <c:if test="${booking.bookingDetails.size() > 0}">
+                <c:forEach var="bookingDetail" items="${bookingDetails}">
+                    <tbody align="center">
+                    <tr>
+                        <td>Active</td>
+                        <td>${bookingDetail.securityBoxNumber}</td>
+                        <td>${bookingDetail.lockerSize}</td>
+                        <td>${bookingDetail.lockerType}</td>
+                        <td>
+                            <button class="btn btn-info" id="deleteButton">Select</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </c:forEach>
+            </c:if>
         </table>
     </div>
     </div>
 </div>
 </body>
 </html>
+<script>
+    $(document).ready(function() {
+        $('input[type="file"]').change(function(e) {
+            var file = e.target.files[0].name;
+            $("#documentName").val(file)
+            console.log(file)
+        });
+    });
+</script>
 <script><%@include file="/WEB-INF/script/booking.js" %></script>
 

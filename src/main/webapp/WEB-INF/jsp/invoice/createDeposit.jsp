@@ -59,46 +59,46 @@
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label for="depositNumber">Deposit Number: </label>
-                    <input type="text" disabled class="form-control" id="depositNumber" name="depositNumber" value="${depositNumber}" />
-                    <input type="hidden" name="depositNumber" value="${depositNumber}" />
+                    <input type="text" disabled class="form-control" id="depositNumber" name="depositNumber" value="${deposit.depositNumber != null ? deposit.depositNumber : depositNumber}" />
+                    <input type="hidden" name="depositNumber" value="${deposit.depositNumber != null ? deposit.depositNumber : depositNumber}" />
                 </div>
                 <div class="form-group col-md-4">
                     <label for="depositDate">Deposit Date: </label>
-                    <input type="date" class="form-control" id="depositDate" name="depositDate" value="" />
+                    <input type="date" class="form-control" id="depositDate" name="depositDate" value="${deposit.depositDate}" />
                     <input type="hidden" name="depositDate" value="" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="sequence">Sequence </label>
-                    <input type="text" class="form-control" id="sequence" name="sequence" value="" required />
+                    <input type="text" class="form-control" id="sequence" name="sequence" value="${deposit.sequence}" required />
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="caseRemark">Case Remark: </label>
-                    <input type="text" class="form-control" id="caseRemark" name="caseRemark" value="" required />
+                    <input type="text" class="form-control" id="caseRemark" name="caseRemark" value="${deposit.caseRemark}" required />
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="rejectRemark">Reject Remark: </label>
-                    <input type="text" class="form-control" id="rejectRemark" name="rejectRemark" value="" required />
+                    <input type="text" class="form-control" id="rejectRemark" name="rejectRemark" value="${deposit.rejectRemark}" required />
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="depositTitle">Deposit Title: </label>
-                    <input type="text" class="form-control" id="depositTitle" name="depositTitle" value="" required />
+                    <input type="text" class="form-control" id="depositTitle" name="depositTitle" value="${deposit.depositTitle}" required />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="vat">Vat: </label>
-                    <input type="text" class="form-control" id="vat" name="vat" value="" required />
+                    <input type="text" class="form-control" id="vat" name="vat" value="${deposit.vat}" required />
                 </div>
                 <div class="form-group col-md-4">
                     <label for="currency">Currency: </label>
@@ -119,26 +119,28 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="exchangeRate">Exchange Rate: </label>
-                    <input type="text" class="form-control" id="exchangeRate" name="exchangeRate" value="" required />
+                    <input type="text" class="form-control" id="exchangeRate" name="exchangeRate" value="${deposit.exchangeRate}" required />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="paymentTerm">Payment Term: </label>
-                    <input type="text" class="form-control" id="paymentTerm" name="paymentTerm" value="" required />
+                    <input type="text" class="form-control" id="paymentTerm" name="paymentTerm" value="${deposit.paymentTerm}" required />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="bankAccount">Bank Account: </label>
-                    <input type="text" class="form-control" id="bankAccount" name="bankAccount" value="" required />
+                    <input type="text" class="form-control" id="bankAccount" name="bankAccount" value="${deposit.bankAccount}" required />
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <input type="button" id="addItem" value="Add Item"/>
+            <c:if test="${deposit.depositId == null}">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <input type="button" id="addItem" value="Add Item"/>
+                    </div>
                 </div>
-            </div>
+            </c:if>
             <div class="form-row">
                 <label class="col-md-2">Merge</label>
                 <label class="col-md-2">Item</label>
@@ -153,37 +155,45 @@
                 <div class="form-group col-md-3">
                     <label for="vat">Non-Vat </label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" id="nonVat" name="nonVat" value="" />
+                        <input type="text" class="form-control" id="nonVat" name="nonVat" value="${deposit.nonVat}" />
                     </div>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="currency">Vat </label>
-                    <input type="text" class="form-control" id="subtotalVat" name="subtotalVat" value="" />
+                    <input type="text" class="form-control" id="subtotalVat" name="subtotalVat" value="${deposit.subtotalVat}" />
                 </div>
                 <div class="form-group col-md-3">
                     <label for="exchangeRate">Amount </label>
-                    <input type="text" class="form-control" id="subtotalAmount" name="subtotalAmount" value="" />
+                    <input type="text" class="form-control" id="subtotalAmount" name="subtotalAmount" value="${deposit.subtotalAmount}" />
                 </div>
                 <div class="form-group col-md-6">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="exchangeRate">Actual Amount </label>
-                    <input type="text" class="form-control" id="amount" name="amount" value="" />
+                    <input type="text" class="form-control" id="amount" name="amount" value="${deposit.amount}" />
                 </div>
             </div><br/>
-            <div class="form-row" id="itemDiv" style="display: none; background: darkgray">
-                <div class="form-group col-md-12">
-                    <br/>
-                    <label id="item" name="item" class="col-md-1"></label>
-                    <label id="itemName" name="itemName" class="col-md-3"></label>
-                    <label class="col-md-2">Amount</label>
-                    <input class="col-md-5" type="text" name="itemAmount" id="itemAmount"  placeholder="0.00">
-                    <button type="button" class="itemClose" id="itemClose">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <hr/>
-                </div>
-            </div>
+
+            <c:if test="${depositDetail.size() > 0}">
+                <c:forEach var="installmentItem" items="${depositDetail}">
+                    <jsp:include page="/WEB-INF/jsp/templates/addItem.jsp">
+                        <jsp:param name="detailId" value="${installmentItem.depositDetailId}" />
+                        <jsp:param name="masterId" value="${installmentItem.deposit.depositId}" />
+                        <jsp:param name="itemName" value="${installmentItem.item.itemName}" />
+                        <jsp:param name="itemAmount" value="${installmentItem.itemAmount}" />
+                        <jsp:param name="itemId" value="${installmentItem.item.itemId}" />
+                        <jsp:param name="display" value="block" />
+                    </jsp:include>
+                </c:forEach>
+            </c:if>
+            <jsp:include page="/WEB-INF/jsp/templates/addItem.jsp">
+                <jsp:param name="detailId" value="" />
+                <jsp:param name="masterId" value="" />
+                <jsp:param name="itemName" value="" />
+                <jsp:param name="itemAmount" value="" />
+                <jsp:param name="itemId" value="" />
+                <jsp:param name="display" value="none" />
+            </jsp:include>
             <br>
             <div class="form-row col-md-6">
                 <div class="form-group col-md-2">
@@ -193,7 +203,6 @@
                     <input type="button" value="Cancel">
                 </div>
             </div>
-
         </form>
     </div>
 </div>
@@ -211,16 +220,19 @@
 </html>
 <script><%@include file="/WEB-INF/script/invoice.js" %></script>
 <script>
+    $(document).ready(function () {
+        setDate('${deposit.depositDate}', 'depositDate');
+    })
     $("#addDepositForm").submit(function(e) {
         e.preventDefault(); // prevent actual form submit
-        // var form = $(this);
-        // var url = form.attr('action'); //get submit url [replace url here if desired]
         let deposit = new Object();
         let dto = new Object();
+        let depositDetailId = $('#detailId').val();
         let itemName = $('#itemName').html();
         let item = $('#item').html();
         let itemAmount = $('#itemAmount').val()
         let depositNumber = $('#depositNumber').val()
+        let depositId = $('#masterId').val()
         let depositDate = $('#depositDate').val()
         let sequence = $('#sequence').val()
         let caseRemark = $('#caseRemark').val()
@@ -241,6 +253,7 @@
         dto.itemName = itemName;
         dto.item = item;
         dto.itemAmount = itemAmount;
+        dto.depositDetailId = depositDetailId
         deposit.depositNumber = depositNumber;
         deposit.depositTitle = depositTitle;
         deposit.depositDate = depositDate;
@@ -256,6 +269,7 @@
         deposit.subtotalVat = subtotalVat;
         deposit.subtotalAmount = subtotalAmount;
         deposit.amount = amount;
+        deposit.depositId = depositId
         deposit.customer = customer;
         deposit.caseDto = caseDto;
         const dtoList = [];

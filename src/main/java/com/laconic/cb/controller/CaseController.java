@@ -66,7 +66,7 @@ public class CaseController {
     public String createCase(HttpSession session, Model model) {
         Customer customer = (Customer) SessionStorage.getStorage(session, "customer");
         model.addAttribute("customer", customer);
-        model.addAttribute("contactPersons", contactPersonService.getAllContactPerson());
+//        model.addAttribute("contactPersons", contactPersonService.getAllContactPerson());
         List<Title> titleList = titleService.getAllTitles();
         model.addAttribute("titles", titleList);
         return "case/createCase";

@@ -91,6 +91,7 @@ public class Installment extends BaseEntity {
         this.setBankAccount(dto.getBankAccount());
         this.setNonVat(dto.getNonVat());
         this.setSubtotalAmount(dto.getSubtotalAmount());
+        this.setSubtotalVat(dto.getSubtotalVat());
         this.setAmount(dto.getAmount());
     }
 }

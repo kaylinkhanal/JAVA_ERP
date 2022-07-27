@@ -76,6 +76,7 @@ $('#keyword').on("input", function () {
 });
 
 $(".table").on('click', 'tr', function (e) {
+    $('#contactPerson').empty().append('<option selected="selected" value="">Choose...</option>');
     e.preventDefault();
     let id = $(this).attr('value');
     if (id) {
@@ -90,6 +91,15 @@ $(".table").on('click', 'tr', function (e) {
                 $('input[name="customer"]').val(response.customerId);
                 $('#customerName').html(customerName);
                 $('#customerInput').val(customerName);
+                let select = document.getElementById("contactPerson");
+                let contactPerson = response.contactPerson
+                contactPerson.forEach(function (element) {
+                    let opt = element.contactName
+                    let el = document.createElement("option");
+                    el.textContent = opt;
+                    el.value = element.contactPersonId;
+                    select.appendChild(el);
+                });
             },
             error: function (XMLHttpRequest) {
                 console.error("Something went wrong");

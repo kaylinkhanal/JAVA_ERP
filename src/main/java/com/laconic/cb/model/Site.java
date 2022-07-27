@@ -33,7 +33,7 @@ public class Site extends BaseEntity {
     @Column(name = "CUSTOMER_CODE")
     private String customerCode;
     @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID", nullable = false)
     private Customer customer;
     @Column(name = "DISTRICT")

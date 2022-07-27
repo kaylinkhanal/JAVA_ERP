@@ -12,5 +12,5 @@ public interface IBookingService {
     List<Booking> getBookingList(Long caseId);
     List<BookingDetail> getBookingDetailList(Long bookingId);
     Optional<Booking> findByCaseId(Long caseId);
-    Optional<Booking> findByBookingId(Long caseId);
+    Optional<Booking> findByBookingId(Long bookingId);
 }

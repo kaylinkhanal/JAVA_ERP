@@ -34,7 +34,7 @@ public class Address extends BaseEntity {
     @Column(name = "FAX")
     private String fax;
     @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID", nullable = false)
     private Customer customer;
     @OneToOne

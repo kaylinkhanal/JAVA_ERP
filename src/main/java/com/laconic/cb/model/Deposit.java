@@ -49,7 +49,7 @@ public class Deposit extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deposit")
+    @OneToMany(mappedBy = "deposit")
     @JsonIgnore
     private List<DepositDetail> depositDetails;
     @Column(name = "EXCHANGE_RATE")
@@ -90,6 +90,7 @@ public class Deposit extends BaseEntity {
         this.setNonVat(dto.getNonVat());
         this.setSubtotalAmount(dto.getSubtotalAmount());
         this.setAmount(dto.getAmount());
+        this.setSubtotalVat(dto.getSubtotalVat());
 
     }
 }
