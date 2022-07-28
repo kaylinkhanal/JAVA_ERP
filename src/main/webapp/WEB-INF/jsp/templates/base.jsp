@@ -53,4 +53,3 @@
 <script><%@include file="/WEB-INF/script/bootstrap.min.js" %></script>
 <script><%@include file="/WEB-INF/script/common.js" %></script>
 <script><%@include file="/WEB-INF/richText/jquery.richtext.min.js" %></script>
-<script type="text/javascript" src="//js.nicedit.com/nicEdit-latest.js"></script>

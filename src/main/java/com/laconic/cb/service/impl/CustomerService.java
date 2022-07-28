@@ -64,7 +64,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public List<Customer> findCustomer(String keyword) {
-        return customerRepository.findByFullNameContainingIgnoreCaseOrCompanyNameContainingIgnoreCase(keyword, keyword);
+        return customerRepository.findByFullNameContainingIgnoreCaseOrCompanyNameContainingIgnoreCaseOrEmailContainingIgnoreCase(keyword, keyword, keyword);
     }
 
     @Override
