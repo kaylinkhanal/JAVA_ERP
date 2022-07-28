@@ -12,7 +12,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
     <div class="container-wrapper">
       <div class="container mt-5">
         <div class="row">
-         
+
           <div class="col-md-12">
             <h5 class="float-right">
               <span>Customer ID: </span>
@@ -107,7 +107,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <label for="contact" class="col-form-label">Contact</label>
                   </div>
                   <div class="col-md-8 d-flex align-items-center">
-                    <label for="contact">${caseDto.customer.fullName}</label>
+                    <label for="contact">${caseDto.customer.fullName != null ? caseDto.customer.fullName : caseDto.customer.companyName}</label>
                   </div>
                 </div>
               </div>
@@ -290,5 +290,10 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
       console.log(file)
     });
   });
+  function caseDocumentPreview(caseId) {
+    debugger
+    let documentTemplateId = $('#document').val();
+    openPage("${pageContext.request.contextPath}/document/caseDocumentPreview?caseId="+caseId+"&templateId="+documentTemplateId);
+  }
 </script>
 <script><%@include file="/WEB-INF/script/documentPreview.js" %></script>

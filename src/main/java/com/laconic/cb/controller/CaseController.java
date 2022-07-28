@@ -73,7 +73,7 @@ public class CaseController {
     }
 
     @GetMapping("/detail/{id}")
-    public String caseDetail(@PathVariable("id") Long id, Model model, HttpSession session) {
+    public String caseDetail(@PathVariable("id") Long id, Model model) {
         Optional<Case> getCase = caseService.findById(id);
         if (getCase.isPresent()) {
             model.addAttribute("caseDto", getCase.get());

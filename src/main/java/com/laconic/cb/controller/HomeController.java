@@ -148,7 +148,7 @@ public class HomeController {
     }
 
     @GetMapping("/editCustomer/{id}")
-    public String editCustomer(Model model, @PathVariable("id") Long id, ModelMap modelMap, HttpSession session) {
+    public String editCustomer(Model model, @PathVariable("id") Long id) {
         Optional<Customer> customer = customerService.findById(id);
         if (customer.isPresent()) {
             model.addAttribute("customer", customer.get());

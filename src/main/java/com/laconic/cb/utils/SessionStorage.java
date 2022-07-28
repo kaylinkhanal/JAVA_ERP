@@ -8,8 +8,10 @@ public class SessionStorage {
         var storage = session.getAttribute(key);
         if (storage != null) {
             session.invalidate();
+            session.setAttribute(key, object);
+        } else {
+            session.setAttribute(key, object);
         }
-        session.setAttribute(key, object);
     }
 
     public static Object getStorage(HttpSession session, String key) {

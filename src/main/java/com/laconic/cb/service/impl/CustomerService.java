@@ -44,7 +44,7 @@ public class CustomerService implements ICustomerService {
         Optional<Customer> dbCustomer = customerRepository.findById(customer.getCustomerId());
         if (dbCustomer.isPresent()) {
             if (customer.getFirstName() != null && customer.getLastName() != null) {
-                dbCustomer.get().setFullName(customer.getFirstName()+" "+ customer.getLastName());
+                customer.setFullName(customer.getFirstName()+" "+ customer.getLastName());
             }
             return customerRepository.saveAndFlush(customer);
         }
