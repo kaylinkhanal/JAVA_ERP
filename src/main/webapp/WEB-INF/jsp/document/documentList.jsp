@@ -41,9 +41,15 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                           <td>${address.language}</td>
                           <td>Enable</td>
                           <td>
-                              <i class="fa fa-print icon-button" onclick="printBlankDocument(${address.documentId})"></i>
-                              <i class="far fa-edit icon-button" onclick="openPage('/document/editDocument/${address.documentId}')"></i>
-                              <i class="far fa-trash-alt icon-button" onclick="openPage('/document/deleteDocument/${address.documentId}')"></i>
+                              <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Print Document" data-placement="right">
+                                <i class="fa fa-print icon-button" onclick="printBlankDocument(${address.documentId})"></i>
+                              </span>
+                              <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Edit Document" data-placement="right">
+                                <i class="far fa-edit icon-button" onclick="openPage('/document/editDocument/${address.documentId}')"></i>
+                              </span>
+                              <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Delete Document" data-placement="right">
+                                <i class="far fa-trash-alt icon-button" onclick="openPage('/document/deleteDocument/${address.documentId}')"></i>
+                              </span>
                           </td>
                       </tr>
                       </tbody>

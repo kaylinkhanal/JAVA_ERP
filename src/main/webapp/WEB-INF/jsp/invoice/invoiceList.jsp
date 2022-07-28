@@ -45,8 +45,12 @@
             <td>${invoice.re}</td>
             <td><fmt:formatDate pattern="dd-MM-yyyy" value = "${invoice.caseDto.operatingDate}"/></td>
             <td>
-              <i class="far fa-edit icon-button" onclick="openPage('/invoice/edit/${invoice.invoiceId}')"></i>
-              <i class="far fa-trash-alt icon-button" onclick="openPage('/invoice/delete/${invoice.invoiceId}')"></i>
+              <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Edit Invoice" data-placement="right">
+                <i class="far fa-edit icon-button" onclick="openPage('/invoice/edit/${invoice.invoiceId}')"></i>
+              </span>
+              <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Delete Invoice" data-placement="right">
+                <i class="far fa-trash-alt icon-button" onclick="openPage('/invoice/delete/${invoice.invoiceId}')"></i>
+              </span>
             </td>
           </tr>
           </tbody>

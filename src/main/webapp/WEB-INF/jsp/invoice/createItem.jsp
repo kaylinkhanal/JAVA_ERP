@@ -72,8 +72,12 @@
                     <td>${item.itemPartName}</td>
                     <td>${item.status}</td>
                     <td>
-                        <i class="far fa-edit icon-button" onclick="openPage('/invoice/editItem/${item.itemId}')"></i>
-                        <i class="far fa-trash-alt icon-button" onclick="openPage('/invoice/deleteItem/${item.itemId}')"></i>
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Edit Item" data-placement="right">
+                             <i class="far fa-edit icon-button" onclick="openPage('/invoice/editItem/${item.itemId}')"></i>
+                         </span>
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Delete Item" data-placement="right">
+                             <i class="far fa-trash-alt icon-button" onclick="openPage('/invoice/deleteItem/${item.itemId}')"></i>
+                         </span>
                     </td>
                 </tr>
                 </tbody>

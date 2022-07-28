@@ -80,10 +80,15 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                     <td></td>
                     <td>${caseDto.status}</td>
                     <td>
-                      <i class="far fa-edit icon-button" onclick="openPage('/case/editCase/${caseDto.caseId}')"></i>
-                      <i class="far fa-file-alt icon-button" onclick="openPage('/case/detail/${caseDto.caseId}')"></i>
-                      <i class="far fa-trash-alt icon-button" onclick="openPage('/case/deleteCase/${caseDto.caseId}')"></i>
-
+                      <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Edit Case" data-placement="right">
+                        <i class="far fa-edit icon-button" onclick="openPage('/case/editCase/${caseDto.caseId}')"></i>
+                      </span>
+                      <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Case Detail" data-placement="right">
+                        <i class="far fa-file-alt icon-button" onclick="openPage('/case/detail/${caseDto.caseId}')"></i>
+                      </span>
+                      <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Delete Case" data-placement="right">
+                       <i class="far fa-trash-alt icon-button" onclick="openPage('/case/deleteCase/${caseDto.caseId}')"></i>
+                      </span>
 <%--                      <i class="far fa-trash-alt icon-button" onclick="openPage('/case/deleteCase/${caseDto.caseId}')"></i>--%>
                       <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="End Case" data-placement="right">
                         <i style="font-size:15px" class="fa icon-button" onclick="openPage('/case/endCase/${caseDto.caseId}')">&#xf142;</i>

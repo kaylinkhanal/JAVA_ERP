@@ -41,8 +41,12 @@
             <td>${installment.customer.contactNo}</td>
             <td><fmt:formatDate pattern="dd-MM-yyyy" value = "${installment.caseDto.operatingDate}"/></td>
             <td>
-              <i class="far fa-edit icon-button" onclick="openPage('/invoice/editInstallment/${installment.installmentId}')"></i>
-              <i class="far fa-trash-alt icon-button" onclick="openPage('/invoice/deleteInstallment/${installment.installmentId}')"></i>
+              <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Edit Installment" data-placement="right">
+                  <i class="far fa-edit icon-button" onclick="openPage('/invoice/editInstallment/${installment.installmentId}')"></i>
+              </span>
+              <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Delete Installment" data-placement="right">
+                 <i class="far fa-trash-alt icon-button" onclick="openPage('/invoice/deleteInstallment/${installment.installmentId}')"></i>
+              </span>
             </td>
           </tr>
           </tbody>
