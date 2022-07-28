@@ -15,4 +15,6 @@ public class DocumentAttributes {
     private String effectiveDateFrom;
     private String effectiveDateTo;
     private String address;
+    private String email;
+    private Long caseId;
 }

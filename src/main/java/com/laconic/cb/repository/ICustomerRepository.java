@@ -27,5 +27,5 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     Optional<Customer> findByCustomerIdAndIsDeletedFalse(Long customerId);
 
 //    @Query(value = "select * from CUSTOMER where FIRST_NAME like %:keyword% or CODE like %:keyword%", nativeQuery = true)
-    List<Customer> findByFullNameContainingIgnoreCaseOrCompanyNameContainingIgnoreCase(String keyword, String keyword1);
+    List<Customer> findByFullNameContainingIgnoreCaseOrCompanyNameContainingIgnoreCaseOrEmailContainingIgnoreCase(String keyword, String keyword1, String keyword2);
 }

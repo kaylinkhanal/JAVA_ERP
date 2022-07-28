@@ -51,8 +51,8 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
               <input type="text" class="form-control" id="address" name="address" value="${site.address}" required/>
             </div>
             <div class="form-group col-md-4">
-              <label for="countryId">Country</label>
-              <select id="countryId" name="countryId" class="form-control" value="${site.country.countryName}" required>
+              <label for="country">Country</label>
+              <select id="country" name="country" class="form-control" value="${site.country.countryName}" required>
                 <c:choose>
                   <c:when test="${site == null}">
                     <option selected value="">Choose...</option>

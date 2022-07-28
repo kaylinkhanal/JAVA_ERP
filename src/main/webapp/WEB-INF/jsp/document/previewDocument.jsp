@@ -30,13 +30,13 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="nationality">Nationality: </label>
-                                <select id="nationality" name="nationality" class="form-control" required value="${caseDto.customer.address.country}">
+                                <select id="nationality" name="nationality" class="form-control" required value="${caseDto.customer.address.get(0).country}">
                                     <c:choose>
                                         <c:when test="${caseDto == null}">
                                             <option selected value="">Choose...</option>
                                         </c:when>
                                         <c:otherwise>
-                                            <option selected value="${caseDto.customer.address.country.countryId}">${caseDto.customer.address.country.countryName}</option>
+                                            <option selected value="${caseDto.customer.address.get(0).country.countryId}">${caseDto.customer.address.get(0).country.countryName}</option>
                                         </c:otherwise>
                                     </c:choose>
 
@@ -49,7 +49,7 @@
                         <div class="form-row col-md-12">
                             <div class="form-group col-md-6">
                                 <label for="contactNumber">Contact Number:</label>
-                                <input type="text" class="form-control" id="contactNumber" name="contactNumber" required value="${caseDto.customer.address.phone1}"/>
+                                <input type="text" class="form-control" id="contactNumber" name="contactNumber" required value="${caseDto.customer.address.get(0).phone1}"/>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="dateOfBirth">DOB: </label>
@@ -82,7 +82,7 @@
                             <div class="form-group col-md-6">
                                 <label for="address">Address:</label>
                                 <input type="text" class="form-control" id="address" name="address" required
-                                       value="${caseDto.customer.address.addressNo}" />
+                                       value="${caseDto.customer.address.get(0).addressNo}" />
                             </div>
                         </div>
                         <div class="form-row col-md-12">

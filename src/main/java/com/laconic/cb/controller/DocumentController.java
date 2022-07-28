@@ -127,14 +127,16 @@ public class DocumentController {
     @ResponseBody
     public String printTemplate(DocumentAttributes documentAttributes) {
         Optional<Document> document = documentService.findById(documentAttributes.getDocumentId());
+        Optional<Case> caseDto = caseService.findById(documentAttributes.getCaseId());
         if (document.isPresent()) {
             if (document.get().getContent() != null) {
                 String content;
                 if (documentAttributes.getNationality() != null && documentAttributes.getAddress() != null &&
                         documentAttributes.getContactNumber() != null && documentAttributes.getDateOfBirth() != null &&
                         documentAttributes.getExecutorName() != null && documentAttributes.getPassportNumber() != null &&
-                        documentAttributes.getEffectiveDateTo() != null && documentAttributes.getEffectiveDateFrom() != null) {
-                    content = ParseDocument.getParsedDocument(document.get().getContent(), documentAttributes);
+                        documentAttributes.getEffectiveDateTo() != null && documentAttributes.getEffectiveDateFrom() != null
+                        && documentAttributes.getEmail() != null) {
+                    content = ParseDocument.getParsedDocument(document.get().getContent(), caseDto, document);
                 } else content = ParseDocument.getBlankDocument(document.get().getContent());
                 document.get().setContent(content);
             }
@@ -184,28 +186,12 @@ public class DocumentController {
                                       @RequestParam(value = "caseId", required = true) Long caseId,
                                       @RequestParam(value = "templateId", required = true) String templateId) {
         Optional<Case> caseDto = caseService.findById(caseId);
-        model.addAttribute("caseDto", caseDto);
         Optional<Document> document = documentService.findById(Long.parseLong(templateId));
         if (document.isPresent() && caseDto.isPresent()) {
-            Case dbCase = caseDto.get();
-            Document dbDocument = document.get();
-            if (document.get().getContent() != null) {
-                String content;
-                DocumentAttributes documentAttributes = DocumentAttributes.builder().documentId(dbDocument.getDocumentId())
-                        .address(dbCase.getCustomer().getAddress().get(0).getAddressNo())
-                        .executorName(dbCase.getCustomer().getFullName())
-                        .nationality(dbCase.getCustomer().getAddress().get(0).getCountry().getCountryName())
-                        .contactNumber(dbCase.getCustomer().getContactNo())
-                        .dateOfBirth(dbCase.getCustomer().getDateOfBirth().toString())
-                        .passportNumber(dbCase.getCustomer().getIdPassportNo())
-                        .effectiveDateTo((new Date()).toString())
-                        .effectiveDateFrom((new Date()).toString())
-                        .build();
-
-                content = ParseDocument.getParsedDocument(dbDocument.getContent(), documentAttributes);
+                String content = ParseDocument.getParsedDocument(document.get().getContent(), caseDto, document);
                 model.addAttribute("document", content);
+            model.addAttribute("caseDto", caseDto.get());
             }
-        }
         return "document/caseDocumentPreview";
     }
 

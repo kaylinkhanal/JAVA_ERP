@@ -83,27 +83,11 @@
 //     }
 // }
 
-function caseDocumentPreview(caseId) {
-    let documentTemplateId = $('#document').val();
-    // $.ajax({
-    //     url: "${pageContext.request.contextPath}/document/caseDocumentPreview",
-    //     type: "POST",
-    //     data: {
-    //         'caseId': caseId,
-    //         'documentId': documentTemplateId,
-    //     },
-    //     success: function (response) {
-    //         debugger;
-    //         console.log(response)
-    //     },
-    //     error:  function(XMLHttpRequest) {
-    //         debugger;
-    //         console.error("Something went wrong");
-    //     }
-    // });
-
-    openPage("${pageContext.request.contextPath}/document/caseDocumentPreview?caseId="+caseId+"&templateId="+documentTemplateId);
-}
+// function caseDocumentPreview(caseId) {
+//     debugger
+//     let documentTemplateId = $('#document').val();
+//     openPage("${pageContext.request.contextPath}/document/caseDocumentPreview?caseId="+caseId+"&templateId="+documentTemplateId);
+// }
 
 // function previewDocument() {
 //     let executorName = "${caseDto.customer.fullName != null ? caseDto.customer.fullName : caseDto.customer.companyName  }";
@@ -151,22 +135,26 @@ function caseDocumentPreview(caseId) {
 
 function previewDocument() {
     let executorName = "${caseDto.customer.fullName != null ? caseDto.customer.fullName : caseDto.customer.companyName  }";
-    let nationality = "${caseDto.customer.address.country.countryName}";
-    let contactNumber = "${caseDto.customer.address.phone1}";
-    let dateOfBirth = "${caseDto.customer.dateOfBirth}";
-    let passportNumber = "${caseDto.customer.idPassportNo}";
+    let nationality = "${caseDto.customer.address.get(0).country.countryName}";
+    let contactNumber = "${caseDto.customer.address != null ? caseDto.customer.address.get(0).phone1 : caseDto.customer.site.get(0).phone1}";
+    let dateOfBirth = "${caseDto.customer.dateOfBirth != null ? caseDto.customer.dateOfBirth : caseDto.customer.registerDate}";
+    let passportNumber = "${caseDto.customer.idPassportNo != null ? caseDto.customer.idPassportNo : caseDto.customer.taxId}";
+    let email = "${caseDto.customer.email != null ? caseDto.customer.email : caseDto.customer.website}";
+    let caseId = "${caseDto.caseId}";
     // let effectiveDateFrom = $("#effectiveDateFrom").val();
     // let effectiveDateTo = $("#effectiveDateTo").val();
-    let address = "${caseDto.customer.address.addressNo}";
+    let address = "${caseDto.customer.address != null ? caseDto.customer.address.get(0).addressNo : caseDto.customer.site.get(0).address}";
     $.ajax({
         url: "${pageContext.request.contextPath}/document/printTemplate",
         type: "POST",
         data: {
+            caseId: caseId,
             executorName: executorName,
             nationality: nationality,
             contactNumber: contactNumber,
             dateOfBirth: dateOfBirth,
             passportNumber: passportNumber,
+            email: email,
             // effectiveDateFrom: effectiveDateFrom,
             // effectiveDateTo: effectiveDateTo,
             address: address,

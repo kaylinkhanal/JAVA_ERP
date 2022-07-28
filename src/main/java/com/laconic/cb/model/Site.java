@@ -28,8 +28,9 @@ public class Site extends BaseEntity {
     private Long companyId;
     @Column(name = "COUNTRY_CODE")
     private String countryCode;
-    @Column(name = "COUNTRY_ID")
-    private Long CountryId;
+    @OneToOne
+    @JoinColumn(name = "COUNTRY_ID")
+    private Country country;
     @Column(name = "CUSTOMER_CODE")
     private String customerCode;
     @JsonIgnore
