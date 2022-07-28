@@ -49,9 +49,15 @@
                     <td>${template.lastUpdatedBy}</td>
                     <td>${template.manage}</td>
                     <td>
-                        <i class="far fa-file-alt icon-button" onclick="openPage('/email/viewTemplate/${template.templateId}')"></i>
-                        <i class="far fa-edit icon-button" onclick="openPage('/email/editTemplate/${template.templateId}')"></i>
-                        <i class="far fa-trash-alt icon-button" onclick="openPage('/email/deleteTemplate/${template.templateId}')"></i>
+                         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="View Template" data-placement="right">
+                            <i class="far fa-file-alt icon-button" onclick="openPage('/email/viewTemplate/${template.templateId}')"></i>
+                         </span>
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Edit Template" data-placement="right">
+                            <i class="far fa-edit icon-button" onclick="openPage('/email/editTemplate/${template.templateId}')"></i>
+                         </span>
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Delete Template" data-placement="right">
+                            <i class="far fa-trash-alt icon-button" onclick="deleteEmailTemplate('/email/deleteTemplate/${template.templateId}')"></i>
+                         </span>
                     </td>
                 </tr>
                 </tbody>
@@ -63,5 +69,16 @@
     </div>
 </div>
 </body>
+<jsp:include page="/WEB-INF/jsp/templates/deleteModal.jsp">
+    <jsp:param name="message" value="Delete this Email Template?"/>
+</jsp:include>
 </html>
+<script type="text/javascript">
+    function deleteEmailTemplate(url) {
+        $("#deleteModal").modal("show");
+        $("#deleteButton").on('click', function() {
+            openPage(url);
+        })
+    }
+</script>
 

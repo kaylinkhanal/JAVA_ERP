@@ -41,9 +41,15 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                           <td>${address.language}</td>
                           <td>Enable</td>
                           <td>
-                              <i class="fa fa-print icon-button" onclick="printBlankDocument(${address.documentId})"></i>
-                              <i class="far fa-edit icon-button" onclick="openPage('/document/editDocument/${address.documentId}')"></i>
-                              <i class="far fa-trash-alt icon-button" onclick="openPage('/document/deleteDocument/${address.documentId}')"></i>
+                              <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Print Document" data-placement="right">
+                                <i class="fa fa-print icon-button" onclick="printBlankDocument(${address.documentId})"></i>
+                              </span>
+                              <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Edit Document" data-placement="right">
+                                <i class="far fa-edit icon-button" onclick="openPage('/document/editDocument/${address.documentId}')"></i>
+                              </span>
+                              <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Delete Document" data-placement="right">
+                                <i class="far fa-trash-alt icon-button" onclick="deleteDocument('/document/deleteDocument/${address.documentId}')"></i>
+                              </span>
                           </td>
                       </tr>
                       </tbody>
@@ -54,9 +60,19 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
               </jsp:include>
           </div>
       </div>
-
       </div>
     </div>
   </body>
+  <jsp:include page="/WEB-INF/jsp/templates/deleteModal.jsp">
+      <jsp:param name="message" value="Delete this Document?"/>
+  </jsp:include>
 </html>
+<script type="text/javascript">
+    function deleteDocument(url) {
+        $("#deleteModal").modal("show");
+        $("#deleteButton").on('click', function() {
+            openPage(url);
+        })
+    }
+</script>
 <script><%@include file="/WEB-INF/script/documentPreview.js" %></script>

@@ -63,10 +63,21 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                     <td>${docType.documentTypeName}</td>
                     <td>${docType.description}</td>
                     <td>
-                        <i class="far fa-edit icon-button" onclick="openPage('/document/editDocumentType/${docType.documentTypeId}')"></i>
-                        <i class="far fa-trash-alt icon-button" onclick="openPage('/document/deleteDocumentType/${docType.documentTypeId}')"></i>
+
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Edit Document Type" data-placement="right">
+                            <i class="far fa-edit icon-button" onclick="openPage('/document/editDocumentType/${docType.documentTypeId}')"></i>
+                        </span>
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Delete Document Type" data-placement="right">
+                            <i class="far fa-trash-alt icon-button" onclick="deleteDocumentType('/document/deleteDocumentType/${docType.documentTypeId}')"></i>
+                        </span>
+
+
                     </td>
-                    <td><i class="far fa-file-alt icon-button" onclick="openPage('/document/detail/${docType.documentTypeId}')"></i></td>
+                    <td>
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Document Type Detail" data-placement="right">
+                            <i class="far fa-file-alt icon-button" onclick="openPage('/document/detail/${docType.documentTypeId}')"></i>
+                        </span>
+                    </td>
                 </tr>
                 </tbody>
             </c:forEach>
@@ -78,4 +89,15 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
       </div>
     </div>
   </body>
+  <jsp:include page="/WEB-INF/jsp/templates/deleteModal.jsp">
+      <jsp:param name="message" value="Delete this Document Type?"/>
+  </jsp:include>
 </html>
+<script type="text/javascript">
+    function deleteDocumentType(url) {
+        $("#deleteModal").modal("show");
+        $("#deleteButton").on('click', function() {
+            openPage(url);
+        })
+    }
+</script>

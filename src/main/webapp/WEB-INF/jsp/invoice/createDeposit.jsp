@@ -41,8 +41,12 @@
                         <td>${deposit.caseDto.customer.contactNo}</td>
                         <td><fmt:formatDate pattern="dd-MM-yyyy" value = "${deposit.caseDto.operatingDate}"/></td>
                         <td>
-                            <i class="far fa-edit icon-button" onclick="openPage('/invoice/editDeposit/${deposit.depositId}')"></i>
-                            <i class="far fa-trash-alt icon-button" onclick="openPage('/invoice/deleteDeposit/${deposit.depositId}')"></i>
+                            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Edit Deposit" data-placement="right">
+                                <i class="far fa-edit icon-button" onclick="openPage('/invoice/editDeposit/${deposit.depositId}')"></i>
+                            </span>
+                            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Delete Deposit" data-placement="right">
+                                <i class="far fa-trash-alt icon-button" onclick="deleteDeposit('/invoice/deleteDeposit/${deposit.depositId}')"></i>
+                            </span>
                         </td>
                     </tr>
                     </tbody>
@@ -217,7 +221,19 @@
 </jsp:include>
 </body>
 </body>
+<jsp:include page="/WEB-INF/jsp/templates/deleteModal.jsp">
+    <jsp:param name="message" value="Delete this Deposit?"/>
+</jsp:include>
 </html>
+<script type="text/javascript">
+    function deleteDeposit(url) {
+        $("#deleteModal").modal("show");
+        $("#deleteButton").on('click', function() {
+            openPage(url);
+        })
+    }
+</script>
+
 <script><%@include file="/WEB-INF/script/invoice.js" %></script>
 <script>
     $(document).ready(function () {

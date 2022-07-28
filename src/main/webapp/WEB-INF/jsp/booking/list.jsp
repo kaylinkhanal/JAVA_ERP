@@ -73,7 +73,9 @@
             <td>${booking.bookingDetails.get(0).size}</td>
             <td>${booking.bookingDetails.get(0).type}</td>
             <td>
-              <i class="far fa-edit icon-button" onclick="openPage('/booking/edit/${booking.bookingId}')"></i>
+              <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Edit Booking" data-placement="right">
+                 <i class="far fa-edit icon-button" onclick="openPage('/booking/edit/${booking.bookingId}')"></i>
+              </span>
             </td>
           </tr>
           </tbody>

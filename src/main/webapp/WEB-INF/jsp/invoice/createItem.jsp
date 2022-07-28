@@ -72,17 +72,29 @@
                     <td>${item.itemPartName}</td>
                     <td>${item.status}</td>
                     <td>
-                        <i class="far fa-edit icon-button" onclick="openPage('/invoice/editItem/${item.itemId}')"></i>
-                        <i class="far fa-trash-alt icon-button" onclick="openPage('/invoice/deleteItem/${item.itemId}')"></i>
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Edit Item" data-placement="right">
+                             <i class="far fa-edit icon-button" onclick="openPage('/invoice/editItem/${item.itemId}')"></i>
+                         </span>
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Delete Item" data-placement="right">
+                             <i class="far fa-trash-alt icon-button" onclick="deleteItem('/invoice/deleteItem/${item.itemId}')"></i>
+                         </span>
                     </td>
                 </tr>
                 </tbody>
             </c:forEach>
         </table>
-        <jsp:include page="/WEB-INF/jsp/templates/page.jsp">
-            <jsp:param name="page" value="${page}" />
-        </jsp:include>
     </div>
 </div>
 </body>
+<jsp:include page="/WEB-INF/jsp/templates/deleteModal.jsp">
+    <jsp:param name="message" value="Delete this Item?"/>
+</jsp:include>
 </html>
+<script type="text/javascript">
+   function deleteItem(url) {
+       $("#deleteModal").modal("show");
+       $("#deleteButton").on('click', function() {
+           openPage(url);
+       })
+   }
+</script>

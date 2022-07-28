@@ -61,7 +61,10 @@
                     <td>${title.duration}</td>
                     <td>${title.price}</td>
                     <td>
-                        <i class="far fa-edit icon-button" onclick="openPage('/title/editTitle/${title.titleId}')"></i>
+                         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Edit Title" data-placement="right">
+                             <i class="far fa-edit icon-button" onclick="openPage('/title/editTitle/${title.titleId}')"></i>
+                         </span>
+
 <%--                        <i class="far fa-trash-alt icon-button" onclick="openPage('/title/deleteTitle/${title.titleId}')"></i>--%>
                     </td>
                 </tr>

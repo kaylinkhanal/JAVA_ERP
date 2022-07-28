@@ -37,6 +37,10 @@
             color: blue;
         }
 
+        .delete-modal {
+            display: flex;
+        }
+
         .searchInput {
             margin: 10px;
         }
