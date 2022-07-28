@@ -49,7 +49,7 @@
                 <i class="far fa-edit icon-button" onclick="openPage('/invoice/edit/${invoice.invoiceId}')"></i>
               </span>
               <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Delete Invoice" data-placement="right">
-                <i class="far fa-trash-alt icon-button" onclick="openPage('/invoice/delete/${invoice.invoiceId}')"></i>
+                <i class="far fa-trash-alt icon-button" onclick="deleteInvoice('/invoice/delete/${invoice.invoiceId}')"></i>
               </span>
             </td>
           </tr>
@@ -63,3 +63,16 @@
   </div>
 
 </div>
+</body>
+<jsp:include page="/WEB-INF/jsp/templates/deleteModal.jsp">
+  <jsp:param name="message" value="Delete this Invoice?"/>
+</jsp:include>
+</html>
+<script type="text/javascript">
+  function deleteInvoice(url) {
+    $("#deleteModal").modal("show");
+    $("#deleteButton").on('click', function() {
+      openPage(url);
+    })
+  }
+</script>

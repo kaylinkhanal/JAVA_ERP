@@ -87,7 +87,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
                         <i class="far fa-file-alt icon-button" onclick="openPage('/case/detail/${caseDto.caseId}')"></i>
                       </span>
                       <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Delete Case" data-placement="right">
-                       <i class="far fa-trash-alt icon-button" onclick="openPage('/case/deleteCase/${caseDto.caseId}')"></i>
+                       <i class="far fa-trash-alt icon-button" onclick="deleteCase('/case/deleteCase/${caseDto.caseId}')"></i>
                       </span>
 <%--                      <i class="far fa-trash-alt icon-button" onclick="openPage('/case/deleteCase/${caseDto.caseId}')"></i>--%>
                       <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="End Case" data-placement="right">
@@ -108,5 +108,17 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
       </div>
     </div>
   </body>
+  <jsp:include page="/WEB-INF/jsp/templates/deleteModal.jsp">
+    <jsp:param name="message" value="Delete this Case?"/>
+  </jsp:include>
 </html>
+<script type="text/javascript">
+  function deleteCase(url) {
+    $("#deleteModal").modal("show");
+    $("#deleteButton").on('click', function() {
+      openPage(url);
+    })
+  }
+</script>
+
 <script><%@include file="/WEB-INF/script/case.js" %></script>

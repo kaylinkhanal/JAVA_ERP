@@ -45,7 +45,7 @@
                   <i class="far fa-edit icon-button" onclick="openPage('/invoice/editInstallment/${installment.installmentId}')"></i>
               </span>
               <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Delete Installment" data-placement="right">
-                 <i class="far fa-trash-alt icon-button" onclick="openPage('/invoice/deleteInstallment/${installment.installmentId}')"></i>
+                 <i class="far fa-trash-alt icon-button" onclick="deleteInstallment('/invoice/deleteInstallment/${installment.installmentId}')"></i>
               </span>
             </td>
           </tr>
@@ -240,7 +240,18 @@
 </jsp:include>
 </body>
 </body>
+<jsp:include page="/WEB-INF/jsp/templates/deleteModal.jsp">
+  <jsp:param name="message" value="Delete this Installment?"/>
+</jsp:include>
 </html>
+<script type="text/javascript">
+  function deleteInstallment(url) {
+    $("#deleteModal").modal("show");
+    $("#deleteButton").on('click', function() {
+      openPage(url);
+    })
+  }
+</script>
 <script>
   $(document).ready(function () {
     setDate('${installment.installmentDate}', 'installmentDate');
