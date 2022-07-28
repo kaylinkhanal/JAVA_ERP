@@ -227,4 +227,13 @@ public class HomeController {
         return "company/companyInformation";
     }
 
+    @GetMapping("/editCompanyRegister/{id}")
+    public String editCompanyRegister(@PathVariable("id") Long id, Model model) {
+        Optional<Customer> customer = customerService.findById(id);
+        if (customer.isPresent()) {
+            model.addAttribute("customer", customer.get());
+        }
+        return "company/companyInformation";
+    }
+
 }

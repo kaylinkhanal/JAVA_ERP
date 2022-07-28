@@ -48,7 +48,12 @@
                         <td>${customer.gender != null ? customer.gender : ''}</td>
 
                         <td>
-                            <i class="far fa-edit icon-button" onclick="openPage('/editCustomer/${customer.customerId}')"></i>
+                            <c:if test="${customer.fullName != null}">
+                                <i class="far fa-edit icon-button" onclick="openPage('/editCustomer/${customer.customerId}')"></i>
+                            </c:if>
+                            <c:if test="${customer.companyName != null}">
+                                <i class="far fa-edit icon-button" onclick="openPage('/editCompanyRegister/${customer.customerId}')"></i>
+                            </c:if>
 <%--                            <i class="far fa-trash-alt icon-button" onclick="openPage('/deleteCustomer/${customer.customerId}')"></i>--%>
                         </td>
                     </tr>
