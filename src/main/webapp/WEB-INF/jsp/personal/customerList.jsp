@@ -38,9 +38,13 @@
                         <td>${customer.customerId}</td>
                         <td>${customer.type}</td>
                         <td>${customer.firstName != null ? customer.firstName : customer.companyName}</td>
-                        <td>${customer.address != null ? customer.address.get(0).addressNo : customer.site.get(0).address}</td>
-                        <td>${customer.contactPerson != null ? customer.contactPerson.get(0).contactName : ''}</td>
-                        <td>${customer.idPassportNo != null ? customer.idPassportNo : ''}</td>
+                        <td>${(customer.getAddress().size() > 0 ?
+                                customer.getAddress().get(0).getAddressNo() :
+                                (customer.getSite().size() > 0 ?
+                                        customer.getSite().get(0).getAddress() : "" ))}</td>
+                        <td>${(customer.getContactPerson().size() > 0 ?
+                                customer.getContactPerson().get(0).getContactName() : "" )}</td>
+                        <td>${customer.idPassportNo != null ? customer.idPassportNo : customer.taxId}</td>
                         <td>${customer.gender != null ? customer.gender : ''}</td>
 
                         <td>
