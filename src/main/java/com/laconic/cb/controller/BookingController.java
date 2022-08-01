@@ -45,8 +45,12 @@ public class BookingController {
         Optional<Booking> booking = bookingService.findByBookingId(bookingId);
         List<SecurityBox> securityBoxList = securityBoxService.getSecurityBoxList();
         if (booking.isPresent()) {
+            Optional<Case> caseDto = caseService.findById(booking.get().getCaseId());
             model.addAttribute("booking", booking.get());
             model.addAttribute("bookingDetails", booking.get().getBookingDetails());
+            if (caseDto.isPresent()) {
+                model.addAttribute("caseDto", caseDto.get());
+            }
         }
         model.addAttribute("boxes", securityBoxList);
         return "booking/create";
@@ -76,5 +80,20 @@ public class BookingController {
             bookingService.saveBookingDetail(x);
         });
         return "success";
+    }
+
+    @GetMapping("/deleteBookingDetail/{bookingId}/{bookingDetailId}")
+    public String deleteBookingDetail(Model model,
+                                 @PathVariable("bookingId") Long bookingId, @PathVariable("bookingDetailId") Long bookingDetailId){
+        Booking booking = bookingService.deleteBookingDetail(bookingId, bookingDetailId);
+        model.addAttribute("booking", booking);
+        return "redirect:/booking/edit/"+bookingId;
+    }
+
+    @GetMapping("/deleteBookingDocument/{bookingId}")
+    public String deleteBookingDocument(Model model, @PathVariable("bookingId") Long bookingId) {
+        Booking booking = bookingService.deleteBookingDocument(bookingId);
+        model.addAttribute("booking", booking);
+        return "redirect:/booking/edit/"+bookingId;
     }
 }

@@ -291,7 +291,6 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
     });
   });
   function caseDocumentPreview(caseId) {
-    debugger
     let documentTemplateId = $('#document').val();
     openPage("${pageContext.request.contextPath}/document/caseDocumentPreview?caseId="+caseId+"&templateId="+documentTemplateId);
   }

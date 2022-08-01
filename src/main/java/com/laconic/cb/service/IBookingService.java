@@ -13,4 +13,8 @@ public interface IBookingService {
     List<BookingDetail> getBookingDetailList(Long bookingId);
     Optional<Booking> findByCaseId(Long caseId);
     Optional<Booking> findByBookingId(Long bookingId);
+
+    Booking deleteBookingDetail(Long bookingId, Long bookingDetailId);
+
+    Booking deleteBookingDocument(Long bookingId);
 }

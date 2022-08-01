@@ -1,5 +1,10 @@
-
-
+$(document).ready(function() {
+    $('input[type="file"]').change(function(e) {
+        var file = e.target.files[0].name;
+        $("#documentName").val(file)
+        console.log(file)
+    });
+});
 $("#boxTable").on("click", "#selectButton", function() {
     let tbody = $('#bookingTable').children('tbody');
     let currentRow=$(this).closest("tr");
@@ -17,7 +22,8 @@ $("#boxTable").on("click", "#selectButton", function() {
         '        </td>\n' +
         '    </tr>';
     $(this).closest("tr").remove();
-    tbody.append(data);
+    // tbody.append(data);
+    $('#bookingTable tr:last').after(data);
 });
 
 $("#bookingTable").on("click", "#removeButton", function() {
@@ -25,77 +31,76 @@ $("#bookingTable").on("click", "#removeButton", function() {
 });
 
 $("#bookingForm").submit(async function(e) {
-    let booking = new Object();
-    let bookingDetails = [];
+    if ($("#bookingTable tr.item").length == 0) {
+        alert("Booking details can not be empty")
+    } else {
+        let booking = new Object();
+        let bookingDetails = [];
 
-    e.preventDefault(); // prevent actual form submit
-    let formData = new FormData();
-    let caseId = getParameterByName('caseId');
-    let document = fileupload.files[0];
-    if (document) {
-        let documentName = fileupload.files[0].name;
-        formData.append("document", document);
-        formData.append("documentName", documentName);
+        e.preventDefault(); // prevent actual form submit
+        let formData = new FormData();
+        let caseId = getParameterByName('caseId');
+        let document = fileupload.files[0];
+        if (document) {
+            let documentName = fileupload.files[0].name;
+            formData.append("document", document);
+            formData.append("documentName", documentName);
+        }
+        console.log(booking)
+        formData.append("caseId", caseId);
+        formData.append("branch", $("#branch").val())
+        formData.append("location", $("#location").val())
+        // formData.append("bookingDetails", bookingDetails)
+        const jsonData = JSON.stringify(bookingDetails);
+        $.ajax({
+            url: "${pageContext.request.contextPath}/booking/save",
+            enctype: 'multipart/form-data',
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: async function (response) {
+                console.log(response)
+                $("#bookingTable tr.item").each(function() {
+                    debugger
+                    let currentRow=$(this).closest("tr");
+                    let dto = new Object();
+                    dto.status = currentRow.find("td:eq(0)").text();
+                    dto.bookingNumber = currentRow.find("td:eq(1)").text();
+                    dto.size = currentRow.find("td:eq(2)").text();
+                    dto.type = currentRow.find("td:eq(3)").text();
+                    dto.bookingId = response
+                    dto.caseId = caseId
+                    bookingDetails.push(dto)
+                    console.log(dto)
+                });
+                const jsonData = JSON.stringify(bookingDetails);
+                if (bookingDetails.length !== 0) {
+                    $.ajax({
+                        url: "${pageContext.request.contextPath}/booking/saveDetail",
+                        type: "POST",
+                        data: jsonData,
+                        contentType: "application/json",
+                        success: async function (response) {
+                            console.log(response)
+                            openPage("${pageContext.request.contextPath}/case/list");
+                        },
+                        error: function (XMLHttpRequest) {
+                            console.error("Something went wrong");
+                        }
+                    });
+                }
+
+            },
+            error: function (XMLHttpRequest) {
+                console.error("Something went wrong");
+            }
+        });
     }
 
-    // console.log(bookingDetails)
-    // booking.document = document;
-    // booking.documentName = documentName;
-    // booking.caseId = caseId;
-    // booking.branch = $("#branch").val();
-    // booking.location = $("#location").val();
-    // booking.bookingDetails = bookingDetails;
-    console.log(booking)
-    formData.append("caseId", caseId);
-    formData.append("branch", $("#branch").val())
-    formData.append("location", $("#location").val())
-    // formData.append("bookingDetails", bookingDetails)
-    const jsonData = JSON.stringify(bookingDetails);
-    $.ajax({
-        url: "${pageContext.request.contextPath}/booking/save",
-        enctype: 'multipart/form-data',
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        cache: false,
-        success: async function (response) {
-           console.log(response)
-               $("#bookingTable tr.item").each(function() {
-                   let currentRow=$(this).closest("tr");
-                   let dto = new Object();
-                   dto.status = currentRow.find("td:eq(0)").text();
-                   dto.bookingNumber = currentRow.find("td:eq(1)").text();
-                   dto.size = currentRow.find("td:eq(2)").text();
-                   dto.type = currentRow.find("td:eq(3)").text();
-                   dto.bookingId = response
-                   dto.caseId = caseId
-                   bookingDetails.push(dto)
-                   console.log(dto)
-               });
-               const jsonData = JSON.stringify(bookingDetails);
-            if (bookingDetails.length !== 0) {
-               $.ajax({
-                   url: "${pageContext.request.contextPath}/booking/saveDetail",
-                   type: "POST",
-                   data: jsonData,
-                   contentType: "application/json",
-                   success: async function (response) {
-                       console.log(response)
-                       openPage("${pageContext.request.contextPath}/case/list");
-                   },
-                   error: function (XMLHttpRequest) {
-                       console.error("Something went wrong");
-                   }
-               });
-           }
-
-        },
-        error: function (XMLHttpRequest) {
-            console.error("Something went wrong");
-        }
-    });
 });
+
 function jsonToFormData(data) {
     const formData = new FormData();
 
