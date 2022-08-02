@@ -15,8 +15,8 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
           <hr />
         </div>
         <form method="post" action="/addCustomer">
-
-          <input type="hidden" class="form-control"  name="type" value="Personal"/>
+          <input type="hidden" class="form-control"  name="code" value="${customer.code}"/>
+          <input type="hidden" class="form-control"  name="type" value="Company"/>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="customerId">Customer Id</label>

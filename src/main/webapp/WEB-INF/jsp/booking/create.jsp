@@ -19,7 +19,14 @@
                 <div class="form-group col-md-6">
                     <label for="branch">Branch </label>
                     <select id="branch" name="branch" class="form-control" required value="${booking.branch}">
-                        <option selected value="">Choose</option>
+                        <c:choose>
+                            <c:when test="${booking == null}">
+                                <option selected value="">Choose...</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option selected value="${booking.branch}">${booking.branch}</option>
+                            </c:otherwise>
+                        </c:choose>
                         <option value="Bangrak">Bangrak</option>
                         <option value="Asok">Asok</option>
                     </select>
@@ -27,24 +34,31 @@
                 <div class="form-group col-md-6">
                     <label for="location">Location </label>
                     <select id="location" name="location" class="form-control" required value="${booking.location}">
-                        <option selected value="">Choose</option>
+                        <c:choose>
+                            <c:when test="${booking == null}">
+                                <option selected value="">Choose...</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option selected value="${booking.location}">${booking.location}</option>
+                            </c:otherwise>
+                        </c:choose>
                         <option value="Location 1">Location 1</option>
                         <option value="Location 2">Location 2</option>
                     </select>
                 </div>
             </div>
-            <c:if test="${booking.document == null}">
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <input type="file" class="form-control-file" id="fileupload" name="fileupload" value="${booking.bookingId}">
-                    </div>
-                    <div class="form-group col-md-4">
-                    </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
                 </div>
-            </c:if>
-            <c:if test="${booking.document != null}">
+                <div class="form-group col-md-4">
+                    <input type="file" class="form-control-file" id="fileupload" name="fileupload">
+<%--                    <input type="text" class="form-control" id="documentName" name="documentName">--%>
+<%--                    <input type="text" class="form-control" id="documentUrl" name="documentUrl">--%>
+                </div>
+                <div class="form-group col-md-4">
+                </div>
+            </div>
+            <c:if test="${booking.documentName != null}">
                 <%--              show document--%>
                 <div align="center" class="col-md-12">
                     <table border="1" width="100%" class="table table-striped" >
@@ -58,7 +72,7 @@
                         <tr>
                             <td>${booking.documentName}</td>
                             <td>
-                                <i class="far fa-trash-alt icon-button" onclick="openPage('/booking/deleteBookingDocument/${booking.bookingId}/${document.booking.document.documentId}')"></i>
+                                <i class="far fa-trash-alt icon-button" onclick="openPage('/booking/deleteBookingDocument/${booking.bookingId}')"></i>
                             </td>
                         </tr>
                         </tbody>
@@ -76,7 +90,23 @@
                         <td>Select</td>
                     </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                    <c:if test="${bookingDetails.size() > 0}">
+                    <c:forEach var="bookingDetail" items="${bookingDetails}">
+                    <tbody align="center">
+                    <tr>
+                        <td>Active</td>
+                        <td>${bookingDetail.bookingNumber}</td>
+                        <td>${bookingDetail.size}</td>
+                        <td>${bookingDetail.type}</td>
+                        <td>
+                            <button class="btn btn-danger" onclick="openPage('/booking/deleteBookingDetail/${bookingDetail.bookingId}/${bookingDetail.bookingDetailId}')">Delete</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                    </c:forEach>
+                    </c:if>
+                    </tbody>
                 </table>
             </div>
             <div style="display: flex; justify-content: center">
@@ -109,21 +139,7 @@
                 </tr>
                 </tbody>
             </c:forEach>
-            <c:if test="${booking.bookingDetails.size() > 0}">
-                <c:forEach var="bookingDetail" items="${bookingDetails}">
-                    <tbody align="center">
-                    <tr>
-                        <td>Active</td>
-                        <td>${bookingDetail.securityBoxNumber}</td>
-                        <td>${bookingDetail.lockerSize}</td>
-                        <td>${bookingDetail.lockerType}</td>
-                        <td>
-                            <button class="btn btn-info" id="deleteButton">Select</button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </c:forEach>
-            </c:if>
+
         </table>
     </div>
     </div>

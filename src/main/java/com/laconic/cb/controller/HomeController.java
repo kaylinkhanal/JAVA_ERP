@@ -103,7 +103,7 @@ public class HomeController {
         SessionStorage.setStorage(session, "customer", savedCustomer);
         model.addFlashAttribute("customer", savedCustomer);
         model.addFlashAttribute("success", true);
-        return "redirect:personalRegister";
+        return customer.getCompanyName() != null  ? "redirect:companyRegister" : "redirect:personalRegister";
     }
 
     @GetMapping("/deleteCustomer/{id}")
@@ -162,9 +162,8 @@ public class HomeController {
         if (address.getAddressId() != null) {
             savedAddress = addressService.updateAddress(address);
         } else savedAddress = addressService.saveAddress(address);
-        model.addFlashAttribute("address", savedAddress);
+//        model.addFlashAttribute("address", savedAddress);
         model.addFlashAttribute("success", true);
-//        model.addFlashAttribute("customer", savedAddress.getCustomer());
         return "redirect:/personalAddress";
     }
 
@@ -202,7 +201,7 @@ public class HomeController {
             savedContact = contactService.updateContactPerson(contact);
         } else savedContact = contactService.saveContactPerson(contact);
 //        model.addFlashAttribute("customer", savedContact.getCustomer());
-        model.addFlashAttribute("contact", savedContact);
+//        model.addFlashAttribute("contact", savedContact);
         model.addFlashAttribute("success", true);
         return "redirect:personalContact";
     }

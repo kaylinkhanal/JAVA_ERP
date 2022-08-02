@@ -90,7 +90,7 @@ public class CompanyController {
         } else {
             savedSite = siteService.addCompanySite(site);
         }
-        model.addAttribute("site", savedSite);
+//        model.addAttribute("site", savedSite);
         redirectAttributes.addFlashAttribute("success", true);
         return "redirect:/company/site";
     }
@@ -129,7 +129,7 @@ public class CompanyController {
         } else {
             savedCompanyFinance = companyFinanceService.saveCompanyFinance(companyFinance);
         }
-        redirectAttributes.addFlashAttribute("companyFinance", savedCompanyFinance);
+//        redirectAttributes.addFlashAttribute("companyFinance", savedCompanyFinance);
         redirectAttributes.addFlashAttribute("success", true);
         redirectAttributes.addFlashAttribute("customer", customer != null ? customer : savedCompanyFinance.getCustomer());
         return "redirect:/company/finance";

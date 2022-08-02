@@ -27,6 +27,8 @@ public class Booking extends BaseEntity {
     private String location;
     @Column(name = "DOCUMENT_NAME")
     private String documentName;
+    @Column(name = "DOCUMENT_URL")
+    private String documentUrl;
     @Transient
     private MultipartFile document;
 //    @ManyToOne(optional = false)

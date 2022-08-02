@@ -2,6 +2,8 @@ package com.laconic.cb.service.impl;
 
 import com.laconic.cb.model.Booking;
 import com.laconic.cb.model.BookingDetail;
+import com.laconic.cb.model.Case;
+import com.laconic.cb.model.CaseDocument;
 import com.laconic.cb.repository.IBookingDetailRepository;
 import com.laconic.cb.repository.IBookingRepository;
 import com.laconic.cb.service.IBookingService;
@@ -32,10 +34,12 @@ public class BookingService implements IBookingService {
 
     @Override
     public Booking saveBooking(Booking booking) throws Exception {
+        Booking savedBooking  = bookingRepository.save(booking);
         if (booking.getDocument() != null) {
             UUID uuid = UUID.randomUUID();
             String fileName = uuid.toString()+"."+ FilenameUtils.getExtension(booking.getDocument().getOriginalFilename());
-            createFile(filePath+"/temp/booking/"+booking.getBookingId()+"/", fileName, booking.getDocument());
+            createFile(filePath+"/temp/booking/"+savedBooking.getBookingId().toString()+"/", fileName, booking.getDocument());
+            booking.setDocumentUrl(filePath.concat("/temp/"+savedBooking.getBookingId().toString()+"/"+ fileName));
         }
         return bookingRepository.save(booking);
     }
@@ -77,5 +81,48 @@ public class BookingService implements IBookingService {
     public Optional<Booking> findByBookingId(Long bookingId) {
         return bookingRepository.findByBookingId(bookingId);
     }
+
+    @Override
+    public Booking deleteBookingDetail(Long bookingId, Long bookingDetailId) {
+        Optional<BookingDetail> detail = bookingDetailRepository.findByBookingIdAndBookingDetailId(bookingId, bookingDetailId);
+        if (detail.isPresent()) {
+            bookingDetailRepository.delete(detail.get());
+            return bookingRepository.findByBookingId(bookingId).get();
+        }
+        return null;
+    }
+
+    @Override
+    public Booking deleteBookingDocument(Long bookingId) {
+        Optional<Booking> optionalBooking = bookingRepository.findByBookingId(bookingId);
+        if (optionalBooking.isPresent()) {
+            Booking booking = optionalBooking.get();
+            if (booking.getDocumentName() != null && booking.getDocumentUrl() != null) {
+                deleteBookingDocument(booking.getDocumentUrl());
+                booking.setDocumentName(null);
+                booking.setDocumentUrl(null);
+                bookingRepository.saveAndFlush(booking);
+            }
+            return booking;
+        }
+        return null;
+    }
+
+    private void deleteBookingDocument(String filePath) {
+        File file = new File(filePath);
+        if(file.exists()) {
+            file.delete();
+        }
+    }
+//
+//    @Override
+//    public Case deleteCaseDocument(Long caseId, Long documentId) {
+//        CaseDocument caseDocument = caseDocumentRepository.findByCaseIdAndCaseDocumentId(caseId, documentId);
+//        if (caseDocument != null) {
+//            caseDocumentRepository.delete(caseDocument);
+//            deleteCaseDocument(caseDocument.getDocumentUrl());
+//        }
+//        return caseService.findById(caseId).get();
+//    }
 
 }
