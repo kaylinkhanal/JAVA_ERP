@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface IInvoiceNumberSequenceRepository extends JpaRepository<Customer, Long> {
-    @Query(value = "select invoice_number_seq.nextval from dual", nativeQuery = true)
+    @Query(value = "select invoice_number_sequence.nextval from dual", nativeQuery = true)
     Long getNextInvoiceNumberSequence();
 }

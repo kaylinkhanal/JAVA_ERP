@@ -33,6 +33,9 @@ public class InvoiceController {
     private final ICustomerService customerService;
     private final IDepositDetailService depositDetailService;
 
+    
+
+
     public InvoiceController(IInvoiceService invoiceService, IItemService itemService, ICurrencyService currencyService, IInstallmentService installmentService, ICaseService caseService, IDepositService depositService, ICustomerService customerService, IDepositDetailService depositDetailService) {
         this.invoiceService = invoiceService;
         this.itemService = itemService;
@@ -96,11 +99,13 @@ public class InvoiceController {
     @PostMapping("/addInvoice")
     @ResponseBody
     public String addInvoice(@RequestBody InvoiceDto dto, RedirectAttributes redirectAttributes) {
-        Invoice savedInvoice;
-        if (dto.getInvoiceId() != null) {
-            savedInvoice = invoiceService.updateInvoice(dto);
-        } else savedInvoice = invoiceService.saveInvoice(dto);
-        redirectAttributes.addFlashAttribute("invoice", savedInvoice);
+        Invoice savedInvoice = new Invoice();
+        System.out.println(dto);
+        // if (dto.getInvoiceId() != null) {
+        //     savedInvoice = invoiceService.updateInvoice(dto);
+        // } else 
+        // savedInvoice = invoiceService.saveInvoice(dto);
+        // redirectAttributes.addFlashAttribute("invoice", savedInvoice);
 //        return "redirect:/invoice/create";
         return "Success";
     }

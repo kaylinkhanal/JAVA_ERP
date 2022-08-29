@@ -71,11 +71,22 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
               <input type="text" class="form-control" id="passportNo" name="idPassportNo" required value="${customer.idPassportNo}"/>
             </div>
             <div class="form-group col-md-4">
+              <label for="expiryDate">Expired Date</label>
+              <input type="date" class="form-control" id="expiryDate" name="expiryDate" required />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="country">Country</label>
+              <input type="text" class="form-control" id="country" name="country" required />
+            </div>
+           
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
               <label for="email">Email:</label>
               <input type="text" class="form-control" id="email" name="email" required value="${customer.email}"/>
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
               <label for="contactNo">Contact No</label>
               <input type="text" class="form-control" id="contactNo" name="contactNo" required value="${customer.contactNo}" />
             </div>

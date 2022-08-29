@@ -37,7 +37,6 @@
                 <td>Created By</td>
                 <td>Last Update</td>
                 <td>Manage</td>
-                <td></td>
             </tr>
             </thead>
             <c:forEach var="template" items="${page.getObjects()}">
@@ -47,7 +46,6 @@
                     <td>${template.templateName}</td>
                     <td>${template.createdBy}</td>
                     <td>${template.lastUpdatedBy}</td>
-                    <td>${template.manage}</td>
                     <td>
                          <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="View Template" data-placement="right">
                             <i class="far fa-file-alt icon-button" onclick="openPage('/email/viewTemplate/${template.templateId}')"></i>

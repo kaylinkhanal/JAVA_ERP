@@ -334,7 +334,7 @@
         let subtotalVat = $('#subtotalVat').val()
         let subtotalAmount = $('#subtotalAmount').val()
         let description = $('#description').val()
-        let caseDto = ${caseDto.caseId};
+        let caseDto = 'abc'
         let amount = $("#amount").val()
 
         dto.itemName = itemName;
@@ -373,7 +373,7 @@
         $.ajax({
             type: "post",
             contentType: "application/json",
-            url: "${pageContext.request.contextPath}/invoice/addInvoice/",
+            url: "${pageContext.request.contextPath}/invoice/addInvoice",
             data: dataJson, // serializes form input
             success: function(data){
                 openPage("${pageContext.request.contextPath}/case/list");

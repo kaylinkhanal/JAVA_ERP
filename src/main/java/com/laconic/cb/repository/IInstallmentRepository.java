@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IInstallmentRepository extends JpaRepository<Installment, Long> {
-    @Query(value = "select installment_number_seq.nextval from dual", nativeQuery = true)
+    @Query(value = "select installment_number_sequence.nextval from dual", nativeQuery = true)
     Long getNextInstallmentNumberSequence();
 
     Optional<Installment> findByInstallmentIdAndIsDeletedFalse(Long installmentId);

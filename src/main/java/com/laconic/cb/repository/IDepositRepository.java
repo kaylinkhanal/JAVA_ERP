@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Repository
 public interface IDepositRepository extends JpaRepository<Deposit, Long> {
-    @Query(value = "select deposit_number_seq.nextval from dual", nativeQuery = true)
+    @Query(value = "select deposit_number_sequence.nextval from dual", nativeQuery = true)
     Long getNextDepositNumberSequence();
 
     @Query(value = "update DEPOSIT set IS_DELETED = 1 where DEPOSIT_ID=:depositId", nativeQuery = true)

@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface IDocumentSequenceRepository extends JpaRepository<Document, Long> {
-    @Query(value = "select document_number_seq.nextval from dual", nativeQuery = true)
+    @Query(value = "select document_number_sequence.nextval from dual", nativeQuery = true)
     Long getNextDocumentNoSequence();
 }

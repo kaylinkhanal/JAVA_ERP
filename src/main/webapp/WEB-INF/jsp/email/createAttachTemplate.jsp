@@ -49,7 +49,6 @@
                         <td>${template.templateName}</td>
                         <td>${template.createdBy}</td>
                         <td>${template.lastUpdatedBy}</td>
-                        <td>${template.manage}</td>
                         <td>
                             <i class="far fa-edit icon-button" onclick="openPage('/editTemplate/${template.templateId}')"></i>
                             <i class="far fa-trash-alt icon-button" onclick="openPage('/deleteTemplate/${template.templateId}')"></i>

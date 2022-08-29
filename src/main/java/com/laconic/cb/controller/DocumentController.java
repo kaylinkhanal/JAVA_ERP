@@ -186,6 +186,7 @@ public class DocumentController {
                                       @RequestParam(value = "caseId", required = true) Long caseId,
                                       @RequestParam(value = "templateId", required = true) String templateId) {
         Optional<Case> caseDto = caseService.findById(caseId);
+        System.out.println(templateId);
         Optional<Document> document = documentService.findById(Long.parseLong(templateId));
         if (document.isPresent() && caseDto.isPresent()) {
                 String content = ParseDocument.getParsedDocument(document.get().getContent(), caseDto, document);

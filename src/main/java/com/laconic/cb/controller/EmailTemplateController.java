@@ -4,6 +4,8 @@ import com.laconic.cb.model.EmailTemplate;
 import com.laconic.cb.service.IEmailTemplateService;
 import com.laconic.cb.utils.EmailSender;
 import com.laconic.cb.utils.Pagination;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamSource;
 import org.springframework.data.domain.Page;
 import org.springframework.mail.SimpleMailMessage;
@@ -29,10 +31,13 @@ import java.util.stream.Collectors;
 import static com.laconic.cb.constants.AppConstants.DEFAULT_PAGE_NUMBER;
 
 @Controller
-@RequestMapping("/email/")
+@CrossOrigin("*")
+@RequestMapping("/email")
 public class EmailTemplateController {
 
+    @Autowired
     private final IEmailTemplateService emailTemplateService;
+    @Autowired
     private final JavaMailSender javaMailSender;
 
     public EmailTemplateController(IEmailTemplateService emailTemplateService, JavaMailSender javaMailSender) {
@@ -45,7 +50,7 @@ public class EmailTemplateController {
         return "email/create";
     }
 
-    @GetMapping("/editTemplate/{id}")
+    @PutMapping("/editTemplate/{id}")
     public String editTemplate(@PathVariable("id") Long id, RedirectAttributes model) {
         Optional<EmailTemplate> emailTemplate = emailTemplateService.findById(id);
         if (emailTemplate.isPresent()) {
@@ -69,12 +74,12 @@ public class EmailTemplateController {
     }
 
     @PostMapping("/addTemplate")
-    public String addTemplate(RedirectAttributes model, EmailTemplate emailTemplate) {
-        EmailTemplate savedEmailTemplate;
-        if (emailTemplate.getTemplateId() != null) {
-            savedEmailTemplate = emailTemplateService.updateTemplate(emailTemplate);
-        } else savedEmailTemplate = emailTemplateService.saveTemplate(emailTemplate);
-        model.addFlashAttribute("template", savedEmailTemplate);
+    public String addTemplate(RedirectAttributes model,@RequestBody EmailTemplate emailTemplate) {
+        emailTemplateService.saveTemplate(emailTemplate);
+        // if (emailTemplate.getTemplateId() != null) {
+        //     savedEmailTemplate = emailTemplateService.updateTemplate(emailTemplate);
+        // } else savedEmailTemplate = emailTemplateService.saveTemplate(emailTemplate);
+        // model.addFlashAttribute("template", savedEmailTemplate);
         return "redirect:/email/list";
     }
 
@@ -104,13 +109,15 @@ public class EmailTemplateController {
     @PostMapping("/sendEmail")
     public String sendEmail(EmailTemplate emailTemplate) {
         try {
-            sendEmail("aryandhakal60@gmail.com", emailTemplate.getSubject(), emailTemplate.getContent(), emailTemplate.getAttachImage());
+            sendEmail("nirajankunwor84@gmail.com", emailTemplate.getSubject(), emailTemplate.getContent(), emailTemplate.getAttachImage());
         } catch (Exception e) {
             System.out.println(e);
         }
         return "redirect:/email/list";
     }
     public void sendEmail(String sendTo, String subject, String content, MultipartFile multipartFile) {
+        System.out.println(content);
+        System.out.println(subject);
 //        SimpleMailMessage message = new SimpleMailMessage();
 //        message.setTo(sendTo);
 //        message.setText(content);

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 import static com.laconic.cb.constants.AppConstants.DEFAULT_PAGE_NUMBER;
 
 @Controller
-@RequestMapping("/company/")
+@RequestMapping("/company")
 public class CompanyController {
 
     public static final int PAGE_SIZE = 2;
@@ -82,7 +82,7 @@ public class CompanyController {
 
 
 
-    @PostMapping("addSite")
+    @PostMapping("/addSite")
     public String addCompanySite(Model model, Site site, HttpSession session, RedirectAttributes redirectAttributes) {
         Site savedSite;
         if (site.getSiteId() != null) {
