@@ -4,6 +4,8 @@ import com.laconic.cb.model.EmailTemplate;
 import com.laconic.cb.service.IEmailTemplateService;
 import com.laconic.cb.utils.EmailSender;
 import com.laconic.cb.utils.Pagination;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamSource;
 import org.springframework.data.domain.Page;
 import org.springframework.mail.SimpleMailMessage;
@@ -31,7 +33,7 @@ import static com.laconic.cb.constants.AppConstants.DEFAULT_PAGE_NUMBER;
 @Controller
 @RequestMapping("/email/")
 public class EmailTemplateController {
-
+	@Autowired
     private final IEmailTemplateService emailTemplateService;
     private final JavaMailSender javaMailSender;
 
@@ -69,12 +71,13 @@ public class EmailTemplateController {
     }
 
     @PostMapping("/addTemplate")
-    public String addTemplate(RedirectAttributes model, EmailTemplate emailTemplate) {
+    public String addTemplate(RedirectAttributes model,@RequestBody EmailTemplate emailTemplate) {
         EmailTemplate savedEmailTemplate;
-        if (emailTemplate.getTemplateId() != null) {
-            savedEmailTemplate = emailTemplateService.updateTemplate(emailTemplate);
-        } else savedEmailTemplate = emailTemplateService.saveTemplate(emailTemplate);
-        model.addFlashAttribute("template", savedEmailTemplate);
+//        if (emailTemplate.getTemplateId() != null) {
+//            savedEmailTemplate = emailTemplateService.updateTemplate(emailTemplate);
+//        } else savedEmailTemplate = emailTemplateService.saveTemplate(emailTemplate);
+        emailTemplateService.saveTemplate(emailTemplate);
+//        model.addFlashAttribute("template", savedEmailTemplate);
         return "redirect:/email/list";
     }
 

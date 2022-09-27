@@ -61,8 +61,9 @@
                     Installment/Invoice/Deposit
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-<%--                    <a class="dropdown-item" href="/invoice/create">Create Invoice</a>--%>
-<%--                    <div class="dropdown-divider"></div>--%>
+                   <a class="dropdown-item" href="/invoice/create">Create Invoice</a>
+                   <a class="dropdown-item" href="/invoice/list">Invoice List</a>
+                   <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/invoice/createItem">Create Item</a>
                     <a class="dropdown-item" href="/title/create">Create Title</a>
                 </div>

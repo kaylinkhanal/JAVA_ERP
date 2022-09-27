@@ -1,0 +1,18 @@
+databaseChangeLog:
+- includeAll:
+    context: dev
+    path: /db/sequences
+    errorIfMissingOrEmpty: true
+- includeAll:
+    context: dev
+    path: /db/tables
+    errorIfMissingOrEmpty: true
+- includeAll:
+    context: dev
+    path: /db/updates
+    errorIfMissingOrEmpty: true
+- include:
+    context: dev
+    file: /db/data/seedData.yml
+    errorIfMissingOrEmpty: true
+

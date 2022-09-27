@@ -16,10 +16,12 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
           <hr />
         </div>
           <div class="container">
+              <input class="md-4" id="myInput" type="text" placeholder="Search..">
               <button type="button" class="btn btn-primary float-right" onclick="openPage('/document/create')">Create</button>
           </div><br/>
+          
           <div align="center" class="container">
-              <table border="1" width="60%" class="table table-striped">
+              <table border="1" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
                   <thead align="center" class="bg-primary">
                   <tr>
                       <td>Document No</td>
@@ -32,7 +34,7 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
                   </tr>
                   </thead>
                   <c:forEach var="address" items="${page.getObjects()}">
-                      <tbody align="center">
+                      <tbody align="center" id="myTable">
                       <tr>
                           <td>${address.documentId}</td>
                           <td>${address.documentName}</td>
@@ -68,11 +70,22 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   </jsp:include>
 </html>
 <script type="text/javascript">
+  $(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  $('#dtBasicExample').DataTable();
+  $('.dataTables_length').addClass('bs-select');
+
+  });
+});
     function deleteDocument(url) {
         $("#deleteModal").modal("show");
         $("#deleteButton").on('click', function() {
             openPage(url);
         })
     }
-</script>
+    </script>
 <script><%@include file="/WEB-INF/script/documentPreview.js" %></script>
