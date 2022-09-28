@@ -51,7 +51,7 @@
                 <jsp:param name="page" value="${page}" />
             </jsp:include>
         </div>
-        <form method="post" id="addInvoiceForm" action="/invoice/addInvoice">
+        <form method="post" id="addInvoiceForm" action="/invoice/create">
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label for="invoiceNumber">Invoice Number: </label>
@@ -373,10 +373,10 @@
         $.ajax({
             type: "post",
             contentType: "application/json",
-            url: "${pageContext.request.contextPath}/invoice/addInvoice/",
+            url: "${${pageContext.request.contextPath}/cb}/invoice/create",
             data: dataJson, // serializes form input
             success: function(data){
-                openPage("${pageContext.request.contextPath}/case/list");
+                openPage("${${pageContext.request.contextPath}/cb}/invoice/list");
             }
         });
     });

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 import static com.laconic.cb.constants.AppConstants.DEFAULT_PAGE_NUMBER;
 
 @Controller
-@RequestMapping("/company/")
+@RequestMapping("/company")
 public class CompanyController {
 
     public static final int PAGE_SIZE = 2;

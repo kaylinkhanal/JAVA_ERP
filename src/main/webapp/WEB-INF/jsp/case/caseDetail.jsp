@@ -292,7 +292,7 @@ pageEncoding="ISO-8859-1"%> <%@include file="/WEB-INF/jsp/templates/base.jsp" %>
   });
   function caseDocumentPreview(caseId) {
     let documentTemplateId = $('#document').val();
-    openPage("${pageContext.request.contextPath}/document/caseDocumentPreview?caseId="+caseId+"&templateId="+documentTemplateId);
+    openPage("${${pageContext.request.contextPath}/cb}/document/caseDocumentPreview?caseId="+caseId+"&templateId="+documentTemplateId);
   }
 </script>
 <script><%@include file="/WEB-INF/script/documentPreview.js" %></script>
